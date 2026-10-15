@@ -1,43 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F8F0DF">
-    <meta name="description" content="ZURIYAH Bakery — Autentik, Berkualitas, Hangat.">
+    <meta name="description" content="ZURIYAH Bakery — Autentik, Berkualitas, Hangat. Roti artisan, pastry, dan sajian bakery premium untuk momen istimewa Anda.">
+    <meta name="author" content="ZURIYAH Bakery">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ZURIYAH Bakery | Freshly Baked With Love">
+    <meta property="og:description" content="Autentik · Berkualitas · Hangat. Roti artisan dan pastry premium dari ZURIYAH Bakery.">
+    <meta property="og:image" content="assets/logo.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ZURIYAH Bakery | Freshly Baked With Love">
+    <meta name="twitter:description" content="Autentik · Berkualitas · Hangat.">
+    <meta name="twitter:image" content="assets/logo.png">
+
     <title>ZURIYAH Bakery | Freshly Baked With Love</title>
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="style.css" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="icon" type="image/png" href="assets/logo.png" sizes="32x32">
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
-
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+
+    <!-- JavaScript -->
     <script src="script.js" defer></script>
 </head>
+
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ==================== NAVBAR ==================== -->
     <header class="header">
-        <nav class="navbar container">
-            <a href="#home" class="brand">
+        <nav class="navbar container" aria-label="Menu utama">
+
+            <a href="#home" class="brand" aria-label="ZURIYAH Bakery — Beranda">
                 <img src="assets/logo.png" alt="ZURIYAH Bakery Logo">
+
                 <span>
                     ZURIYAH
                     <small>BAKERY</small>
                 </span>
             </a>
 
-            <button class="menu-toggle"
-                    aria-label="Buka menu"
-                    aria-expanded="false"
-                    aria-controls="nav-menu">
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false"
+                aria-controls="nav-menu"
+            >
                 <span></span>
                 <span></span>
                 <span></span>
@@ -48,22 +74,27 @@
                 <a href="#about">Tentang Kami</a>
                 <a href="#products">Produk</a>
                 <a href="#values">Keunggulan</a>
+
                 <a href="#contact" class="nav-button">
-                    Hubungi Kami 
+                    Hubungi Kami
                 </a>
             </div>
+
         </nav>
     </header>
 
+
     <main>
 
-        <!-- HERO SECTION -->
+        <!-- ==================== HERO ==================== -->
         <section class="hero" id="home">
+
             <div class="container hero-grid">
 
                 <div class="hero-content">
+
                     <p class="eyebrow">
-                        <span></span>
+                        <span aria-hidden="true"></span>
                         AUTENTIK · BERKUALITAS · HANGAT
                     </p>
 
@@ -80,6 +111,7 @@
                     </p>
 
                     <div class="hero-actions">
+
                         <a href="#products" class="btn btn-primary">
                             Jelajahi Produk ↗
                         </a>
@@ -87,44 +119,67 @@
                         <a href="#about" class="text-link">
                             Kenali ZURIYAH →
                         </a>
+
                     </div>
 
                     <div class="hero-note">
-                        <span class="note-icon">✦</span>
+
+                        <span class="note-icon" aria-hidden="true">✦</span>
+
                         <p>
                             <strong>Dibuat dengan sepenuh hati</strong>
                             <small>Untuk momen kecil yang berarti.</small>
                         </p>
+
                     </div>
+
                 </div>
 
+
                 <div class="hero-image">
+
                     <img
                         src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=85"
                         alt="Aneka roti artisan yang baru dipanggang"
+                        loading="eager"
                     >
 
                     <div class="image-badge">
-                        <span>✳</span>
-                        <p>Freshly baked<br><strong>with love</strong></p>
+                        <span aria-hidden="true">✳</span>
+
+                        <p>
+                            Freshly baked<br>
+                            <strong>with love</strong>
+                        </p>
                     </div>
 
-                    <div class="image-stamp">
+                    <div class="image-stamp" aria-hidden="true">
                         GOOD BREAD ✦ GOOD MOMENTS
                     </div>
+
                 </div>
 
             </div>
 
+
             <div class="hero-bottom container">
+
                 <span>RASA YANG MENGHANGATKAN</span>
-                <span class="bottom-line"></span>
-                <a href="#about">SCROLL TO DISCOVER ↓</a>
+
+                <span class="bottom-line" aria-hidden="true"></span>
+
+                <a href="#about">
+                    SCROLL TO DISCOVER ↓
+                </a>
+
             </div>
+
         </section>
 
-        <!-- ABOUT SECTION -->
+
+        <!-- ==================== ABOUT ==================== -->
         <section class="section about" id="about">
+
             <div class="container about-grid">
 
                 <div class="section-number">
@@ -132,15 +187,21 @@
                     <small>CERITA KAMI</small>
                 </div>
 
+
                 <div class="about-content">
-                    <p class="eyebrow">SELAMAT DATANG DI ZURIYAH</p>
+
+                    <p class="eyebrow">
+                        SELAMAT DATANG DI ZURIYAH
+                    </p>
 
                     <h2>
                         Lebih dari sekadar roti.<br>
                         <em>Sebuah rasa yang berarti.</em>
                     </h2>
 
+
                     <div class="about-bottom">
+
                         <p>
                             ZURIYAH Bakery percaya bahwa hal sederhana
                             dapat membawa kebahagiaan. Karena itu,
@@ -152,100 +213,174 @@
                         <a href="#values" class="text-link">
                             Kenali nilai kami →
                         </a>
+
                     </div>
+
                 </div>
 
             </div>
+
         </section>
 
-        <!-- PRODUCTS SECTION -->
+
+        <!-- ==================== PRODUCTS ==================== -->
         <section class="section products" id="products">
+
             <div class="container">
 
                 <div class="section-heading">
+
                     <div>
-                        <p class="eyebrow">DARI OVEN KAMI</p>
+
+                        <p class="eyebrow">
+                            DARI OVEN KAMI
+                        </p>
+
                         <h2>
                             Temukan favorit<br>
                             <em>di setiap gigitan.</em>
                         </h2>
+
                     </div>
+
 
                     <p>
                         Ragam sajian bakery untuk menemani pagi,
                         jeda sore, dan momen bersama orang tersayang.
                     </p>
+
                 </div>
+
 
                 <div class="product-grid">
 
+                    <!-- Product 01 -->
                     <article class="product-card">
+
                         <div class="product-image">
+
                             <img
                                 src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=900&q=80"
                                 alt="Roti artisan"
                                 loading="lazy"
                             >
-                            <span>01 / SIGNATURE</span>
+
+                            <span>
+                                01 / SIGNATURE
+                            </span>
+
                         </div>
 
+
                         <div class="product-info">
+
                             <div>
-                                <h3>Roti Artisan</h3>
+
+                                <h3>
+                                    Roti Artisan
+                                </h3>
+
                                 <p>
                                     Tekstur khas dengan aroma
                                     panggangan yang menggoda.
                                 </p>
+
                             </div>
-                            <span class="product-arrow">↗</span>
+
+                            <span class="product-arrow" aria-hidden="true">
+                                ↗
+                            </span>
+
                         </div>
+
                     </article>
 
+
+                    <!-- Product 02 -->
                     <article class="product-card">
+
                         <div class="product-image">
+
                             <img
                                 src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80"
                                 alt="Pastry dan croissant"
                                 loading="lazy"
                             >
-                            <span>02 / PASTRY</span>
+
+                            <span>
+                                02 / PASTRY
+                            </span>
+
                         </div>
 
+
                         <div class="product-info">
+
                             <div>
-                                <h3>Pastry & Croissant</h3>
+
+                                <h3>
+                                    Pastry &amp; Croissant
+                                </h3>
+
                                 <p>
                                     Lapisan renyah untuk teman
                                     minum kopi atau teh.
                                 </p>
+
                             </div>
-                            <span class="product-arrow">↗</span>
+
+                            <span class="product-arrow" aria-hidden="true">
+                                ↗
+                            </span>
+
                         </div>
+
                     </article>
 
+
+                    <!-- Product 03 -->
                     <article class="product-card">
+
                         <div class="product-image">
+
                             <img
                                 src="https://images.unsplash.com/photo-1608198093002-ad4e005484df?auto=format&fit=crop&w=900&q=80"
                                 alt="Aneka roti manis"
                                 loading="lazy"
                             >
-                            <span>03 / DAILY TREATS</span>
+
+                            <span>
+                                03 / DAILY TREATS
+                            </span>
+
                         </div>
 
+
                         <div class="product-info">
+
                             <div>
-                                <h3>Roti Manis</h3>
+
+                                <h3>
+                                    Roti Manis
+                                </h3>
+
                                 <p>
                                     Sajian lembut untuk menemani
                                     hari yang sibuk.
                                 </p>
+
                             </div>
-                            <span class="product-arrow">↗</span>
+
+                            <span class="product-arrow" aria-hidden="true">
+                                ↗
+                            </span>
+
                         </div>
+
                     </article>
 
                 </div>
+
 
                 <p class="disclaimer">
                     *Foto dan deskripsi produk merupakan ilustrasi.
@@ -253,15 +388,20 @@
                 </p>
 
             </div>
+
         </section>
 
-        <!-- VALUES SECTION -->
+
+        <!-- ==================== VALUES ==================== -->
         <section class="section values" id="values">
+
             <div class="container values-grid">
 
                 <div class="values-content">
+
                     <p class="eyebrow">
-                        <span></span> YANG KAMI JUNJUNG
+                        <span aria-hidden="true"></span>
+                        YANG KAMI JUNJUNG
                     </p>
 
                     <h2>
@@ -279,57 +419,111 @@
                     <a href="#contact" class="btn btn-light">
                         Mari Terhubung ↗
                     </a>
+
                 </div>
+
 
                 <div class="value-list">
 
+                    <!-- Value 01 -->
                     <article class="value-item">
-                        <span class="value-number">01</span>
+
+                        <span class="value-number">
+                            01
+                        </span>
+
                         <div>
-                            <h3>Autentik</h3>
+
+                            <h3>
+                                Autentik
+                            </h3>
+
                             <p>
                                 Mengutamakan karakter rasa dan
                                 pengalaman yang berkesan.
                             </p>
+
                         </div>
-                        <span class="value-symbol">✳</span>
+
+                        <span class="value-symbol" aria-hidden="true">
+                            ✳
+                        </span>
+
                     </article>
 
+
+                    <!-- Value 02 -->
                     <article class="value-item">
-                        <span class="value-number">02</span>
+
+                        <span class="value-number">
+                            02
+                        </span>
+
                         <div>
-                            <h3>Berkualitas</h3>
+
+                            <h3>
+                                Berkualitas
+                            </h3>
+
                             <p>
                                 Memperhatikan kualitas dalam setiap
                                 sajian yang dihadirkan.
                             </p>
+
                         </div>
-                        <span class="value-symbol">✳</span>
+
+                        <span class="value-symbol" aria-hidden="true">
+                            ✳
+                        </span>
+
                     </article>
 
+
+                    <!-- Value 03 -->
                     <article class="value-item">
-                        <span class="value-number">03</span>
+
+                        <span class="value-number">
+                            03
+                        </span>
+
                         <div>
-                            <h3>Hangat</h3>
+
+                            <h3>
+                                Hangat
+                            </h3>
+
                             <p>
                                 Membawa keramahan ke setiap
                                 pengalaman bersama pelanggan.
                             </p>
+
                         </div>
-                        <span class="value-symbol">✳</span>
+
+                        <span class="value-symbol" aria-hidden="true">
+                            ✳
+                        </span>
+
                     </article>
 
                 </div>
+
             </div>
+
         </section>
 
-        <!-- CONTACT SECTION -->
+
+        <!-- ==================== CONTACT ==================== -->
         <section class="section contact" id="contact">
+
             <div class="container contact-box">
 
-                <span class="contact-decoration">✳</span>
+                <span class="contact-decoration" aria-hidden="true">
+                    ✳
+                </span>
 
-                <p class="eyebrow">ADA YANG INGIN DITANYAKAN?</p>
+                <p class="eyebrow">
+                    ADA YANG INGIN DITANYAKAN?
+                </p>
 
                 <h2>
                     Mari ciptakan momen<br>
@@ -341,37 +535,135 @@
                     kerja sama, atau pertanyaan lainnya.
                 </p>
 
+
+                <!-- ==================== FORMSPREE FORM ==================== -->
+                <form
+                    class="contact-form"
+                    action="https://formspree.io/f/mrpeojjy"
+                    method="POST"
+                    novalidate
+                >
+
+                    <div class="form-row">
+
+                        <!-- Nama -->
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder=" "
+                                autocomplete="name"
+                                maxlength="80"
+                                required
+                            >
+                            <label for="name">Nama</label>
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder=" "
+                                autocomplete="email"
+                                inputmode="email"
+                                maxlength="120"
+                                required
+                            >
+                            <label for="email">Email</label>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Pesan -->
+                    <div class="form-group">
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            placeholder=" "
+                            maxlength="1000"
+                            required
+                        ></textarea>
+                        <label for="message">Pesan</label>
+                    </div>
+
+
+                    <!-- Subject email Formspree -->
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="Pesan Baru dari Website ZURIYAH Bakery"
+                    >
+
+
+                    <!-- Tombol Submit -->
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-submit"
+                    >
+                        Kirim Pesan ↗
+                    </button>
+
+                </form>
+
+
+                <!-- Divider -->
+                <div class="contact-divider">
+                    <span>atau</span>
+                </div>
+
+
+                <!-- WhatsApp -->
                 <a
                     href="https://wa.me/62XXXXXXXXXX"
-                    class="btn btn-primary"
+                    class="btn btn-secondary"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     Hubungi via WhatsApp ↗
                 </a>
 
+
                 <small>
                     Ganti nomor WhatsApp dengan nomor resmi bisnis.
                 </small>
 
             </div>
+
         </section>
 
     </main>
 
-    <!-- FOOTER -->
+
+    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
+
         <div class="container footer-main">
 
-            <a href="#home" class="brand footer-brand">
-                <img src="assets/logo.png" alt="Logo ZURIYAH Bakery">
+            <a href="#home" class="brand footer-brand" aria-label="ZURIYAH Bakery — Kembali ke atas">
+
+                <img
+                    src="assets/logo.png"
+                    alt="Logo ZURIYAH Bakery"
+                >
+
                 <span>
                     ZURIYAH
                     <small>BAKERY</small>
                 </span>
+
             </a>
 
-            <p>Autentik · Berkualitas · Hangat</p>
+
+            <p>
+                Autentik · Berkualitas · Hangat
+            </p>
+
 
             <a href="#home" class="back-top">
                 KEMBALI KE ATAS ↑
@@ -379,14 +671,22 @@
 
         </div>
 
+
         <div class="container footer-bottom">
+
             <p>
-                © <span id="year"></span> ZURIYAH Bakery.
+                © <span id="year"></span>
+                ZURIYAH Bakery.
                 Semua hak dilindungi.
             </p>
 
-            <p>Dibuat dengan sepenuh hati <span>♥</span></p>
+            <p>
+                Dibuat dengan sepenuh hati
+                <span aria-hidden="true">♥</span>
+            </p>
+
         </div>
+
     </footer>
 
 </body>
