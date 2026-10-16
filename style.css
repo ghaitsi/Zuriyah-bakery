@@ -2941,10 +2941,12 @@ html[data-theme="dark"] .qna-backdrop {
 }
 
 /* ===== TRIGGER BUTTON — mirip tombol Facebook ===== */
+/* ===== TRIGGER BUTTON — di KIRI, nempel di semua device ===== */
 .qna-trigger {
     position: fixed;
     top: 50%;
-    right: 0;
+    left: 0;
+    right: auto;
     transform: translateY(-50%);
     z-index: 999;
 
@@ -2955,20 +2957,93 @@ html[data-theme="dark"] .qna-backdrop {
 
     padding: 18px 12px;
     border: none;
-    border-radius: 12px 0 0 12px;
+    border-radius: 0 12px 12px 0;
     background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
     color: #FBF4E4;
     cursor: pointer;
 
     box-shadow:
-        -4px 4px 20px rgba(46, 27, 18, 0.35),
-        inset 1px 0 0 rgba(255, 255, 255, 0.1);
+        4px 4px 20px rgba(46, 27, 18, 0.35),
+        inset -1px 0 0 rgba(255, 255, 255, 0.1);
 
     transition:
         transform 0.4s var(--ease),
         padding 0.3s ease,
         background 0.3s ease,
         box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] .qna-trigger {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    box-shadow:
+        4px 4px 20px rgba(199, 154, 62, 0.4),
+        inset -1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.qna-trigger:hover {
+    padding: 20px 14px;
+    box-shadow:
+        6px 6px 28px rgba(46, 27, 18, 0.45),
+        inset -1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+html[data-theme="dark"] .qna-trigger:hover {
+    box-shadow:
+        6px 6px 28px rgba(199, 154, 62, 0.5),
+        inset -1px 0 0 rgba(255, 255, 255, 0.4);
+}
+
+.qna-trigger-icon {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+}
+
+.qna-trigger-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.qna-trigger-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    /* Karena di kiri, kita tidak perlu rotate 180 */
+}
+
+/* Animasi pulse */
+.qna-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.4;
+    z-index: -1;
+    animation: qnaPulse 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes qnaPulse {
+    0%   { transform: scale(1); opacity: 0.4; }
+    70%  { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1.15); opacity: 0; }
+}
+
+.qna-trigger.is-active {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    transform: translateY(-50%) translateX(-4px);
+}
+
+html[data-theme="dark"] .qna-trigger.is-active {
+    background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
+    color: #FBF4E4;
 }
 
 html[data-theme="dark"] .qna-trigger {
@@ -3039,27 +3114,37 @@ html[data-theme="dark"] .qna-trigger:hover {
     pointer-events: none;
 }
 
-/* ===== PANEL — slide dari kanan ===== */
+/* ===== PANEL — slide dari KIRI ===== */
 .qna-panel {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
+    right: auto;
     bottom: 0;
     z-index: 999;
     width: min(420px, 100vw);
     display: flex;
     flex-direction: column;
     background:
-        radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.08), transparent 50%),
+        radial-gradient(circle at 0% 0%, rgba(199, 154, 62, 0.08), transparent 50%),
         var(--bg-form);
-    border-left: 1px solid var(--border-form);
-    box-shadow: -20px 0 60px rgba(46, 27, 18, 0.25);
+    border-right: 1px solid var(--border-form);
+    box-shadow: 20px 0 60px rgba(46, 27, 18, 0.25);
 
-    transform: translateX(100%);
+    transform: translateX(-100%);
     visibility: hidden;
     transition:
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         visibility 0.45s ease;
+}
+
+html[data-theme="dark"] .qna-panel {
+    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6);
+}
+
+.qna-panel.is-open {
+    transform: translateX(0);
+    visibility: visible;
 }
 
 html[data-theme="dark"] .qna-panel {
@@ -3256,46 +3341,50 @@ html[data-theme="dark"] .qna-panel {
 
 /* ===== RESPONSIVE — Mobile ===== */
 @media (max-width: 640px) {
+    /* Tombol TETAP nempel di kiri tengah — sama seperti desktop */
     .qna-trigger {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-        transform: none;
+        top: 50%;
+        left: 0;
+        right: auto;
+        bottom: auto;
+        transform: translateY(-50%);
 
-        flex-direction: row;
-        gap: 10px;
-        padding: 12px 18px;
-        border-radius: 50px;
+        flex-direction: column;
+        gap: 6px;
+        padding: 14px 10px;
+        border-radius: 0 12px 12px 0;
 
         box-shadow:
-            0 8px 24px rgba(46, 27, 18, 0.35),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            4px 4px 16px rgba(46, 27, 18, 0.4),
+            inset -1px 0 0 rgba(255, 255, 255, 0.15);
     }
 
     html[data-theme="dark"] .qna-trigger {
         box-shadow:
-            0 8px 24px rgba(199, 154, 62, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            4px 4px 16px rgba(199, 154, 62, 0.45),
+            inset -1px 0 0 rgba(255, 255, 255, 0.3);
     }
 
     .qna-trigger:hover {
-        padding: 12px 18px;
+        padding: 14px 10px;
     }
 
     .qna-trigger.is-active {
-        transform: translateY(100px);
+        transform: translateY(-50%) translateX(-100%);
         opacity: 0;
-    }
-
-    .qna-trigger-label {
-        writing-mode: horizontal-tb;
-        transform: none;
-        font-size: 0.75rem;
+        pointer-events: none;
     }
 
     .qna-trigger-icon {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .qna-trigger-label {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-size: 0.6rem;
+        letter-spacing: 0.06em;
     }
 
     .qna-panel {
