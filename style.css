@@ -1,8 +1,11 @@
 /* ==========================
    ZURIYAH BAKERY
-   Main stylesheet — Upgraded Premium Warm Theme
+   Main stylesheet — Light + Dark Mode (Warm Bakery Theme)
    ========================== */
 
+/* ==========================
+   LIGHT MODE (Default)
+   ========================== */
 :root {
     --cream: #EFDDB9;
     --cream-dark: #D6BC8C;
@@ -17,17 +20,136 @@
     --gold-light: #E4BE6E;
     --gold-pale: #F3DDA9;
 
+    /* Surface & background */
+    --bg-body: var(--white);
+    --bg-header: rgba(251, 244, 228, 0.85);
+    --bg-header-scrolled: rgba(251, 244, 228, 0.95);
+    --bg-hero: linear-gradient(180deg, var(--cream-soft), var(--cream));
+    --bg-products: var(--cream);
+    --bg-values: linear-gradient(160deg, #3A2317, #2E1B12);
+    --bg-contact: var(--cream);
+    --bg-contact-box: var(--white);
+    --bg-form: var(--white);
+    --bg-input: var(--cream-soft);
+    --bg-input-focus: var(--white);
+    --bg-footer: linear-gradient(180deg, #2E1B12, #201209);
+    --bg-card-image: var(--cream-dark);
+    --bg-image-badge: var(--white);
+    --bg-image-stamp: var(--cream-soft);
+    --bg-product-tag: rgba(251, 244, 228, 0.95);
+    --bg-menu-toggle: rgba(251, 244, 228, 0.6);
+    --bg-menu-toggle-hover: rgba(199, 154, 62, 0.15);
+    --bg-nav-mobile: linear-gradient(180deg, var(--white), var(--cream-soft));
+
+    /* Text */
+    --text-main: var(--brown);
+    --text-soft: var(--brown-soft);
+    --text-on-dark: var(--cream);
+    --text-on-dark-soft: #D7C2AC;
+
+    /* Borders & lines */
+    --border-header: rgba(199, 154, 62, 0.18);
+    --border-input: rgba(46, 27, 18, 0.15);
+    --border-input-hover: rgba(199, 154, 62, 0.55);
+    --border-contact-box: rgba(199, 154, 62, 0.4);
+    --border-form: rgba(199, 154, 62, 0.3);
+    --border-value: rgba(248, 240, 223, 0.2);
+    --border-nav-mobile: rgba(46, 27, 18, 0.08);
+    --border-menu-toggle: rgba(46, 27, 18, 0.2);
+
+    /* Shadows */
+    --shadow-sm: 0 4px 14px rgba(46, 27, 18, 0.08);
+    --shadow-md: 0 10px 30px rgba(46, 27, 18, 0.14);
+    --shadow-lg: 0 20px 50px rgba(46, 27, 18, 0.22);
+    --shadow-header: 0 8px 28px rgba(46, 27, 18, 0.08);
+
     --serif: "Playfair Display", Georgia, serif;
     --sans: "DM Sans", Arial, sans-serif;
 
     --container: 1160px;
-
-    --shadow-sm: 0 4px 14px rgba(46, 27, 18, 0.08);
-    --shadow-md: 0 10px 30px rgba(46, 27, 18, 0.14);
-    --shadow-lg: 0 20px 50px rgba(46, 27, 18, 0.22);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Theme icon visibility */
+    --icon-sun-opacity: 1;
+    --icon-moon-opacity: 0.35;
+    --slider-translate: 0;
+    --slider-bg: var(--gold);
 }
 
+/* ==========================
+   DARK MODE — Warm Bakery Brown
+   ========================== */
+html[data-theme="dark"] {
+    /* Base warm dark palette */
+    --cream: #E8D5B0;
+    --cream-dark: #3A281C;
+    --cream-soft: #2A1D14;
+    --white: #221710;
+
+    --brown: #F2E4CE;          /* teks utama jadi cream terang */
+    --brown-soft: #C9AE8E;     /* teks sekunder jadi tan lembut */
+    --brown-mid: #E4BE6E;
+
+    --gold: #E4BE6E;
+    --gold-light: #F3DDA9;
+    --gold-pale: #F7E7C0;
+
+    /* Surface & background — semua nuansa cokelat gelap hangat */
+    --bg-body: #1C120B;
+    --bg-header: rgba(28, 18, 11, 0.85);
+    --bg-header-scrolled: rgba(28, 18, 11, 0.96);
+    --bg-hero: radial-gradient(circle at 15% 20%, rgba(199, 154, 62, 0.12), transparent 50%),
+               linear-gradient(180deg, #2A1D14, #221710);
+    --bg-products: radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.1), transparent 45%),
+                   #241811;
+    --bg-values: radial-gradient(circle at 0% 100%, rgba(199, 154, 62, 0.1), transparent 45%),
+                 linear-gradient(160deg, #1F140D, #170E08);
+    --bg-contact: #241811;
+    --bg-contact-box: #2A1D14;
+    --bg-form: #2E2016;
+    --bg-input: #221710;
+    --bg-input-focus: #2E2016;
+    --bg-footer: linear-gradient(180deg, #1F140D, #140C06);
+    --bg-card-image: #2A1D14;
+    --bg-image-badge: #2E2016;
+    --bg-image-stamp: #2A1D14;
+    --bg-product-tag: rgba(46, 32, 22, 0.95);
+    --bg-menu-toggle: rgba(46, 32, 22, 0.7);
+    --bg-menu-toggle-hover: rgba(199, 154, 62, 0.18);
+    --bg-nav-mobile: linear-gradient(180deg, #241811, #1C120B);
+
+    /* Text */
+    --text-main: #F2E4CE;
+    --text-soft: #C9AE8E;
+    --text-on-dark: #F2E4CE;
+    --text-on-dark-soft: #C9AE8E;
+
+    /* Borders & lines */
+    --border-header: rgba(199, 154, 62, 0.22);
+    --border-input: rgba(242, 228, 206, 0.15);
+    --border-input-hover: rgba(228, 190, 110, 0.6);
+    --border-contact-box: rgba(199, 154, 62, 0.28);
+    --border-form: rgba(199, 154, 62, 0.22);
+    --border-value: rgba(242, 228, 206, 0.15);
+    --border-nav-mobile: rgba(242, 228, 206, 0.1);
+    --border-menu-toggle: rgba(242, 228, 206, 0.2);
+
+    /* Shadows */
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.65);
+    --shadow-header: 0 8px 28px rgba(0, 0, 0, 0.4);
+
+    /* Theme icon visibility */
+    --icon-sun-opacity: 0.35;
+    --icon-moon-opacity: 1;
+    --slider-translate: 26px;
+    --slider-bg: #4A2E1F;
+}
+
+/* ==========================
+   RESET & BASE
+   ========================== */
 
 * {
     margin: 0;
@@ -44,12 +166,13 @@ body {
     background:
         radial-gradient(circle at 0% 0%, rgba(199, 154, 62, 0.08), transparent 45%),
         radial-gradient(circle at 100% 100%, rgba(110, 75, 52, 0.08), transparent 45%),
-        var(--white);
-    color: var(--brown);
+        var(--bg-body);
+    color: var(--text-main);
     font-family: var(--sans);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 body.menu-open {
@@ -86,7 +209,8 @@ h3 {
     font-weight: 600;
     line-height: 1.15;
     letter-spacing: -0.04em;
-    color: var(--brown);
+    color: var(--text-main);
+    transition: color 0.4s ease;
 }
 
 h1 {
@@ -108,7 +232,7 @@ h2 em {
     align-items: center;
     gap: 10px;
     margin-bottom: 22px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.15em;
@@ -159,9 +283,15 @@ h2 em {
 }
 
 .btn-primary {
-    color: var(--white);
-    background: linear-gradient(135deg, var(--brown-mid), var(--brown));
+    color: #FBF4E4;
+    background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
     box-shadow: 0 10px 26px rgba(46, 27, 18, 0.28);
+}
+
+html[data-theme="dark"] .btn-primary {
+    color: #1C120B;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    box-shadow: 0 10px 26px rgba(199, 154, 62, 0.3);
 }
 
 .btn-primary:hover {
@@ -169,8 +299,13 @@ h2 em {
     box-shadow: 0 14px 34px rgba(46, 27, 18, 0.4);
 }
 
+html[data-theme="dark"] .btn-primary:hover {
+    background: linear-gradient(135deg, var(--gold-pale), var(--gold-light));
+    box-shadow: 0 14px 34px rgba(199, 154, 62, 0.45);
+}
+
 .btn-light {
-    color: var(--brown);
+    color: #2E1B12;
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
     box-shadow: 0 10px 26px rgba(199, 154, 62, 0.35);
 }
@@ -211,23 +346,91 @@ h2 em {
 
 
 /* ==========================
-   NAVBAR — UPGRADED
+   THEME TOGGLE
+   ========================== */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 62px;
+    height: 32px;
+    padding: 0 6px;
+    border: 1px solid var(--border-header);
+    border-radius: 50px;
+    background: var(--bg-input);
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(199, 154, 62, 0.12);
+}
+
+.theme-icon {
+    position: relative;
+    z-index: 2;
+    font-size: 0.78rem;
+    line-height: 1;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+}
+
+.theme-icon-sun {
+    color: var(--gold);
+    opacity: var(--icon-sun-opacity);
+}
+
+.theme-icon-moon {
+    color: var(--gold);
+    opacity: var(--icon-moon-opacity);
+}
+
+.theme-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--slider-bg);
+    box-shadow: 0 2px 6px rgba(46, 27, 18, 0.3);
+    transition: transform 0.4s var(--ease), background 0.4s ease;
+    transform: translateX(var(--slider-translate));
+    z-index: 1;
+}
+
+
+/* ==========================
+   NAVBAR
    ========================== */
 
 .header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(251, 244, 228, 0.85);
+    background: var(--bg-header);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border-bottom: 1px solid rgba(199, 154, 62, 0.18);
-    transition: box-shadow 0.3s ease, background 0.3s ease;
+    border-bottom: 1px solid var(--border-header);
+    transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .header.is-scrolled {
-    background: rgba(251, 244, 228, 0.95);
-    box-shadow: 0 8px 28px rgba(46, 27, 18, 0.08);
+    background: var(--bg-header-scrolled);
+    box-shadow: var(--shadow-header);
 }
 
 .navbar {
@@ -266,6 +469,8 @@ h2 em {
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: 0.03em;
+    color: var(--text-main);
+    transition: color 0.4s ease;
 }
 
 .brand small {
@@ -283,7 +488,7 @@ h2 em {
 }
 
 .nav-menu > a:not(.nav-button) {
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.8rem;
     font-weight: 600;
     position: relative;
@@ -314,20 +519,27 @@ h2 em {
 
 .nav-button {
     padding: 11px 20px;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--text-main);
     border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 700;
+    color: var(--text-main);
     position: relative;
     overflow: hidden;
-    transition: color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease);
+    transition: color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease), border-color 0.3s ease;
 }
 
 .nav-button:hover {
-    color: var(--white);
-    background: linear-gradient(135deg, var(--brown-mid), var(--brown));
+    color: #FBF4E4;
+    background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
+    border-color: transparent;
     transform: translateY(-2px);
     box-shadow: 0 10px 22px rgba(46, 27, 18, 0.28);
+}
+
+html[data-theme="dark"] .nav-button:hover {
+    color: #1C120B;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
 }
 
 .menu-toggle {
@@ -344,8 +556,9 @@ h2 em {
     padding: 80px 0 25px;
     background:
         radial-gradient(circle at 15% 20%, rgba(199, 154, 62, 0.14), transparent 50%),
-        linear-gradient(180deg, var(--cream-soft), var(--cream));
+        var(--bg-hero);
     position: relative;
+    transition: background 0.4s ease;
 }
 
 .hero-grid {
@@ -366,9 +579,10 @@ h2 em {
 .hero-description {
     max-width: 500px;
     margin-bottom: 30px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.96rem;
     line-height: 1.9;
+    transition: color 0.4s ease;
 }
 
 .hero-actions {
@@ -404,8 +618,9 @@ h2 em {
 
 .hero-note small {
     display: block;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.75rem;
+    transition: color 0.4s ease;
 }
 
 .hero-image {
@@ -418,6 +633,7 @@ h2 em {
     border-radius: 48% 48% 3px 3px;
     object-fit: cover;
     box-shadow: var(--shadow-lg);
+    transition: box-shadow 0.4s ease;
 }
 
 .image-badge {
@@ -428,13 +644,14 @@ h2 em {
     align-items: center;
     gap: 13px;
     padding: 16px 20px;
-    background: var(--white);
+    background: var(--bg-image-badge);
     border-radius: 12px;
     box-shadow: var(--shadow-md);
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.75rem;
     line-height: 1.5;
     animation: floatSoft 4s ease-in-out infinite;
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 .image-badge > span {
@@ -443,9 +660,10 @@ h2 em {
 }
 
 .image-badge strong {
-    color: var(--brown);
+    color: var(--text-main);
     font-family: var(--serif);
     font-size: 1.1rem;
+    transition: color 0.4s ease;
 }
 
 .image-stamp {
@@ -454,12 +672,14 @@ h2 em {
     left: -25px;
     padding: 12px 15px;
     border: 1px solid var(--gold);
-    background: var(--cream-soft);
+    background: var(--bg-image-stamp);
+    color: var(--text-main);
     font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     transform: rotate(-5deg);
     box-shadow: var(--shadow-sm);
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 .hero-bottom {
@@ -467,10 +687,11 @@ h2 em {
     align-items: center;
     gap: 18px;
     padding-top: 65px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.12em;
+    transition: color 0.4s ease;
 }
 
 .bottom-line {
@@ -513,10 +734,11 @@ h2 em {
 
 .section-number small {
     padding-top: 8px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.12em;
+    transition: color 0.4s ease;
 }
 
 .about-content h2 {
@@ -532,9 +754,10 @@ h2 em {
 
 .about-bottom p {
     max-width: 560px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.9rem;
     line-height: 1.9;
+    transition: color 0.4s ease;
 }
 
 .about-bottom .text-link {
@@ -543,13 +766,14 @@ h2 em {
 
 
 /* ==========================
-   PRODUCTS — dengan animasi card
+   PRODUCTS
    ========================== */
 
 .products {
     background:
         radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.12), transparent 45%),
-        var(--cream);
+        var(--bg-products);
+    transition: background 0.4s ease;
 }
 
 .section-heading {
@@ -567,9 +791,10 @@ h2 em {
 .section-heading > p {
     max-width: 340px;
     margin-bottom: 7px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.9rem;
     line-height: 1.9;
+    transition: color 0.4s ease;
 }
 
 .product-grid {
@@ -594,12 +819,13 @@ h2 em {
     position: relative;
     overflow: hidden;
     height: 340px;
-    background: var(--cream-dark);
+    background: var(--bg-card-image);
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
     transition:
         transform 0.5s var(--ease),
-        box-shadow 0.5s ease;
+        box-shadow 0.5s ease,
+        background 0.4s ease;
 }
 
 .product-image img {
@@ -610,6 +836,10 @@ h2 em {
     filter: saturate(1.02) brightness(1);
 }
 
+html[data-theme="dark"] .product-image img {
+    filter: saturate(0.95) brightness(0.85);
+}
+
 .product-card:hover .product-image {
     transform: translateY(-10px);
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(199, 154, 62, 0.45);
@@ -618,6 +848,10 @@ h2 em {
 .product-card:hover .product-image img {
     transform: scale(1.07);
     filter: saturate(1.1) brightness(1.05);
+}
+
+html[data-theme="dark"] .product-card:hover .product-image img {
+    filter: saturate(1.05) brightness(0.95);
 }
 
 .product-image::after {
@@ -641,13 +875,14 @@ h2 em {
     top: 14px;
     left: 14px;
     padding: 7px 12px;
-    background: rgba(251, 244, 228, 0.95);
-    color: var(--brown);
+    background: var(--bg-product-tag);
+    color: var(--text-main);
     border-radius: 50px;
     font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     box-shadow: var(--shadow-sm);
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 .product-info {
@@ -668,8 +903,9 @@ h2 em {
 }
 
 .product-info p {
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.8rem;
+    transition: color 0.4s ease;
 }
 
 .product-arrow {
@@ -678,23 +914,30 @@ h2 em {
     height: 34px;
     flex-shrink: 0;
     place-items: center;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--text-main);
     border-radius: 50%;
-    transition: 0.35s var(--ease);
+    color: var(--text-main);
+    transition: 0.35s var(--ease), border-color 0.3s, color 0.3s;
 }
 
 .product-card:hover .product-arrow {
-    color: var(--white);
-    background: linear-gradient(135deg, var(--brown-mid), var(--brown));
+    color: #FBF4E4;
+    background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
     transform: rotate(-45deg);
     border-color: transparent;
 }
 
+html[data-theme="dark"] .product-card:hover .product-arrow {
+    color: #1C120B;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+}
+
 .disclaimer {
     margin-top: 25px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.7rem;
     font-style: italic;
+    transition: color 0.4s ease;
 }
 
 @keyframes cardFloatIn {
@@ -708,10 +951,11 @@ h2 em {
    ========================== */
 
 .values {
-    color: var(--cream);
+    color: var(--text-on-dark);
     background:
         radial-gradient(circle at 0% 100%, rgba(199, 154, 62, 0.12), transparent 45%),
-        linear-gradient(160deg, #3A2317, #2E1B12);
+        var(--bg-values);
+    transition: background 0.4s ease;
 }
 
 .values-grid {
@@ -726,7 +970,8 @@ h2 em {
 
 .values-content h2 {
     margin-bottom: 25px;
-    color: var(--cream);
+    color: var(--text-on-dark);
+    transition: color 0.4s ease;
 }
 
 .values-content h2 em {
@@ -736,13 +981,14 @@ h2 em {
 .values-content > p:not(.eyebrow) {
     max-width: 420px;
     margin-bottom: 30px;
-    color: #E1D0BC;
+    color: var(--text-on-dark-soft);
     font-size: 0.9rem;
     line-height: 1.9;
+    transition: color 0.4s ease;
 }
 
 .value-list {
-    border-top: 1px solid rgba(248, 240, 223, 0.2);
+    border-top: 1px solid var(--border-value);
 }
 
 .value-item {
@@ -751,8 +997,8 @@ h2 em {
     align-items: start;
     gap: 15px;
     padding: 27px 0;
-    border-bottom: 1px solid rgba(248, 240, 223, 0.2);
-    transition: background 0.3s ease, padding-left 0.3s ease;
+    border-bottom: 1px solid var(--border-value);
+    transition: background 0.3s ease, padding-left 0.3s ease, border-color 0.3s ease;
 }
 
 .value-item:hover {
@@ -773,12 +1019,14 @@ h2 em {
 .value-item h3 {
     margin-bottom: 8px;
     font-size: 1.45rem;
-    color: var(--cream);
+    color: var(--text-on-dark);
+    transition: color 0.4s ease;
 }
 
 .value-item p {
-    color: #D7C2AC;
+    color: var(--text-on-dark-soft);
     font-size: 0.82rem;
+    transition: color 0.4s ease;
 }
 
 
@@ -787,20 +1035,22 @@ h2 em {
    ========================== */
 
 .contact {
-    background: var(--cream);
+    background: var(--bg-contact);
+    transition: background 0.4s ease;
 }
 
 .contact-box {
     position: relative;
     overflow: hidden;
     padding: 80px 24px;
-    border: 1px solid rgba(199, 154, 62, 0.4);
+    border: 1px solid var(--border-contact-box);
     border-radius: 20px;
     background:
         radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.14), transparent 50%),
-        var(--white);
+        var(--bg-contact-box);
     text-align: center;
     box-shadow: var(--shadow-md);
+    transition: background 0.4s ease, border-color 0.3s ease;
 }
 
 .contact-box .eyebrow {
@@ -814,13 +1064,14 @@ h2 em {
 .contact-description {
     max-width: 480px;
     margin: 0 auto 28px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
+    transition: color 0.4s ease;
 }
 
 .contact-box > small {
     display: block;
     margin-top: 14px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.68rem;
 }
 
@@ -834,7 +1085,7 @@ h2 em {
 
 
 /* ==========================
-   CONTACT FORM — FORMSPREE (Floating Label)
+   CONTACT FORM
    ========================== */
 
 .contact-form {
@@ -844,12 +1095,19 @@ h2 em {
     padding: 36px 32px;
     background:
         radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.08), transparent 50%),
-        var(--white);
-    border: 1px solid rgba(199, 154, 62, 0.3);
+        var(--bg-form);
+    border: 1px solid var(--border-form);
     border-radius: 22px;
     box-shadow:
         0 12px 34px rgba(46, 27, 18, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: background 0.4s ease, border-color 0.3s ease, box-shadow 0.4s ease;
+}
+
+html[data-theme="dark"] .contact-form {
+    box-shadow:
+        0 12px 34px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .form-row {
@@ -858,7 +1116,6 @@ h2 em {
     gap: 16px;
 }
 
-/* Floating label group */
 .form-group {
     position: relative;
     margin-bottom: 20px;
@@ -868,17 +1125,18 @@ h2 em {
 .form-group textarea {
     width: 100%;
     padding: 22px 18px 10px;
-    border: 1px solid rgba(46, 27, 18, 0.15);
+    border: 1px solid var(--border-input);
     border-radius: 12px;
-    background: var(--cream-soft);
-    color: var(--brown);
+    background: var(--bg-input);
+    color: var(--text-main);
     font-family: var(--sans);
     font-size: 0.95rem;
     line-height: 1.5;
     transition:
         border-color 0.25s ease,
         background 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        color 0.4s ease;
 }
 
 .form-group input::placeholder,
@@ -886,7 +1144,6 @@ h2 em {
     color: transparent;
 }
 
-/* Label melayang */
 .form-group label {
     position: absolute;
     top: 50%;
@@ -895,21 +1152,19 @@ h2 em {
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.02em;
-    color: rgba(110, 75, 52, 0.7);
+    color: var(--text-soft);
     pointer-events: none;
     transition: all 0.28s var(--ease);
     background: transparent;
     padding: 0 4px;
 }
 
-/* Textarea label duduk di atas */
 .form-group textarea + label,
 .form-group:has(textarea) label {
     top: 18px;
     transform: translateY(0);
 }
 
-/* Saat fokus atau ada isi → label naik */
 .form-group input:focus + label,
 .form-group input:not(:placeholder-shown) + label,
 .form-group textarea:focus + label,
@@ -922,24 +1177,23 @@ h2 em {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: var(--cream-soft);
+    background: var(--bg-input);
     border-radius: 4px;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    background: var(--white);
+    background: var(--bg-input-focus);
     border-color: var(--gold);
     box-shadow: 0 0 0 4px rgba(199, 154, 62, 0.15);
 }
 
 .form-group input:hover,
 .form-group textarea:hover {
-    border-color: rgba(199, 154, 62, 0.55);
+    border-color: var(--border-input-hover);
 }
 
-/* === TEXTAREA — TIDAK BISA DI-RESIZE === */
 .form-group textarea {
     resize: none;
     min-height: 160px;
@@ -961,11 +1215,12 @@ h2 em {
     gap: 16px;
     max-width: 560px;
     margin: 0 auto 22px;
-    color: var(--brown-soft);
+    color: var(--text-soft);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    transition: color 0.4s ease;
 }
 
 .contact-divider::before,
@@ -977,13 +1232,14 @@ h2 em {
 }
 
 .btn-secondary {
-    color: var(--brown);
+    color: var(--text-main);
     background: transparent;
-    border: 1.5px solid var(--brown);
+    border: 1.5px solid var(--text-main);
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-secondary:hover {
-    color: var(--white);
+    color: #FBF4E4;
     background: linear-gradient(135deg, #25D366, #128C7E);
     border-color: transparent;
     box-shadow: 0 14px 34px rgba(18, 140, 126, 0.32);
@@ -995,8 +1251,9 @@ h2 em {
    ========================== */
 
 .footer {
-    color: var(--cream);
-    background: linear-gradient(180deg, #2E1B12, #201209);
+    color: var(--text-on-dark);
+    background: var(--bg-footer);
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 .footer-main {
@@ -1009,12 +1266,12 @@ h2 em {
 }
 
 .footer-brand > span {
-    color: var(--cream);
+    color: var(--text-on-dark);
 }
 
 .footer-main > p {
     margin: 0;
-    color: #D7C2AC;
+    color: var(--text-on-dark-soft);
     font-size: 0.8rem;
 }
 
@@ -1037,7 +1294,7 @@ h2 em {
     padding-top: 20px;
     padding-bottom: 20px;
     border-top: 1px solid rgba(248, 240, 223, 0.15);
-    color: #C7AE98;
+    color: var(--text-on-dark-soft);
     font-size: 0.68rem;
 }
 
@@ -1080,6 +1337,11 @@ h2 em {
         padding: 75px 0;
     }
 
+    .nav-actions {
+        margin-right: 0;
+        margin-left: auto;
+    }
+
     .menu-toggle {
         display: flex;
         flex-direction: column;
@@ -1089,9 +1351,9 @@ h2 em {
         width: 46px;
         height: 46px;
         padding: 10px;
-        border: 1px solid rgba(46, 27, 18, 0.2);
+        border: 1px solid var(--border-menu-toggle);
         border-radius: 12px;
-        background: rgba(251, 244, 228, 0.6);
+        background: var(--bg-menu-toggle);
         cursor: pointer;
         transition: background 0.25s, border-color 0.25s, transform 0.25s;
         position: relative;
@@ -1099,7 +1361,7 @@ h2 em {
     }
 
     .menu-toggle:hover {
-        background: rgba(199, 154, 62, 0.15);
+        background: var(--bg-menu-toggle-hover);
         border-color: var(--gold);
     }
 
@@ -1107,17 +1369,17 @@ h2 em {
         width: 22px;
         height: 2px;
         border-radius: 2px;
-        background: var(--brown);
+        background: var(--text-main);
         transition: 0.3s var(--ease);
     }
 
     .menu-toggle[aria-expanded="true"] {
-        background: var(--brown);
-        border-color: var(--brown);
+        background: var(--text-main);
+        border-color: var(--text-main);
     }
 
     .menu-toggle[aria-expanded="true"] span {
-        background: var(--cream);
+        background: var(--bg-body);
     }
 
     .menu-toggle[aria-expanded="true"] span:first-child {
@@ -1143,10 +1405,10 @@ h2 em {
         align-items: stretch;
         gap: 0;
         padding: 20px 24px 32px;
-        background: linear-gradient(180deg, var(--white), var(--cream-soft));
+        background: var(--bg-nav-mobile);
         border-bottom-left-radius: 24px;
         border-bottom-right-radius: 24px;
-        box-shadow: 0 24px 50px rgba(46, 27, 18, 0.18);
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
         visibility: hidden;
         opacity: 0;
         transform: translateY(-14px);
@@ -1163,8 +1425,8 @@ h2 em {
 
     .nav-menu > a:not(.nav-button) {
         padding: 15px 4px;
-        border-bottom: 1px solid rgba(46, 27, 18, 0.08);
-        color: var(--brown);
+        border-bottom: 1px solid var(--border-nav-mobile);
+        color: var(--text-main);
         font-size: 0.92rem;
         font-weight: 600;
     }
@@ -1182,10 +1444,15 @@ h2 em {
         padding: 14px 22px;
         text-align: center;
         border: none;
-        background: linear-gradient(135deg, var(--brown-mid), var(--brown));
-        color: var(--white);
+        background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
+        color: #FBF4E4;
         font-size: 0.88rem;
         box-shadow: 0 10px 22px rgba(46, 27, 18, 0.25);
+    }
+
+    html[data-theme="dark"] .nav-button {
+        background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        color: #1C120B;
     }
 
     .hero-grid {
@@ -1213,7 +1480,7 @@ h2 em {
 
 
 /* ==========================
-   MOBILE (Android)
+   MOBILE
    ========================== */
 
 @media (max-width: 640px) {
@@ -1249,6 +1516,20 @@ h2 em {
     .brand small {
         font-size: 0.5rem;
         letter-spacing: 0.25em;
+    }
+
+    .theme-toggle {
+        width: 56px;
+        height: 30px;
+    }
+
+    .theme-slider {
+        width: 22px;
+        height: 22px;
+    }
+
+    html[data-theme="dark"] {
+        --slider-translate: 24px;
     }
 
     .menu-toggle {
@@ -1385,7 +1666,6 @@ h2 em {
         font-size: 3.5rem;
     }
 
-    /* Form mobile — 1 kolom */
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;

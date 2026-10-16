@@ -1,11 +1,115 @@
+/* ==========================
+   ZURIYAH BAKERY — Script
+   ========================== */
 
 document.documentElement.classList.add("js-enabled");
 
+/* ==========================
+   THEME TOGGLE (Light / Dark)
+   ========================== */
+(function initTheme() {
+    const themeToggle = document.querySelector("#themeToggle");
+    const root = document.documentElement;
+
+    const STORAGE_KEY = "zuriyah-theme";
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    // Warna theme-color untuk tiap mode
+    const THEME_COLORS = {
+        light: "#F8F0DF",
+        dark: "#1C120B"
+    };
+
+    // Ambil preferensi tersimpan, atau ikut sistem
+    function getStoredTheme() {
+        try {
+            return localStorage.getItem(STORAGE_KEY);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function getSystemTheme() {
+        return window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    }
+
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            root.setAttribute("data-theme", "dark");
+        } else {
+            root.removeAttribute("data-theme");
+        }
+
+        if (themeToggle) {
+            themeToggle.setAttribute(
+                "aria-pressed",
+                String(theme === "dark")
+            );
+            themeToggle.setAttribute(
+                "aria-label",
+                theme === "dark"
+                    ? "Aktifkan mode terang"
+                    : "Aktifkan mode gelap"
+            );
+        }
+
+        if (metaTheme) {
+            metaTheme.setAttribute(
+                "content",
+                THEME_COLORS[theme] || THEME_COLORS.light
+            );
+        }
+    }
+
+    // Tentukan tema awal
+    const storedTheme = getStoredTheme();
+    const initialTheme = storedTheme || getSystemTheme();
+    applyTheme(initialTheme);
+
+    // Toggle saat tombol diklik
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const isDark = root.getAttribute("data-theme") === "dark";
+            const nextTheme = isDark ? "light" : "dark";
+
+            applyTheme(nextTheme);
+
+            try {
+                localStorage.setItem(STORAGE_KEY, nextTheme);
+            } catch (e) {
+                /* ignore */
+            }
+        });
+    }
+
+    // Ikuti perubahan tema sistem (kalau user belum pilih manual)
+    if (window.matchMedia) {
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        const handler = (e) => {
+            if (!getStoredTheme()) {
+                applyTheme(e.matches ? "dark" : "light");
+            }
+        };
+
+        if (mq.addEventListener) {
+            mq.addEventListener("change", handler);
+        } else if (mq.addListener) {
+            mq.addListener(handler);
+        }
+    }
+})();
+
+
+/* ==========================
+   MOBILE NAVIGATION
+   ========================== */
 const menuToggle = document.querySelector(".menu-toggle");
 const navMenu = document.querySelector(".nav-menu");
 const navLinks = document.querySelectorAll(".nav-menu a");
 
-// Mobile navigation
 function closeMenu() {
     if (!menuToggle || !navMenu) return;
 
@@ -52,14 +156,20 @@ if (menuToggle && navMenu) {
     });
 }
 
-// Automatic footer year
+
+/* ==========================
+   FOOTER YEAR
+   ========================== */
 const yearElement = document.querySelector("#year");
 
 if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
 }
 
-// Reveal animations when elements enter the viewport
+
+/* ==========================
+   REVEAL ANIMATIONS
+   ========================== */
 const revealElements = document.querySelectorAll(
     ".hero-content, .hero-image, .section-number, " +
     ".about-content, .section-heading, .product-card, " +
