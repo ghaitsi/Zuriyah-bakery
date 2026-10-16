@@ -183,6 +183,7 @@ if ("IntersectionObserver" in window) {
 
 /* ==========================
    3D HORIZONTAL PRODUCT SLIDER
+   — Spacing DINAMIS mengikuti lebar layar
    ========================== */
 (function initProductSlider() {
     const stage = document.querySelector("#sliderStage");
@@ -200,6 +201,51 @@ if ("IntersectionObserver" in window) {
     let autoplayTimer = null;
     const AUTOPLAY_DELAY = 5000;
 
+    // State spacing (dinamis per breakpoint)
+    const layout3D = {
+        translateX: 240,   // jarak antar card (horizontal)
+        translateZ: 220,   // kedalaman (mundur ke belakang)
+        rotateY: 22,       // rotasi Y (derajat)
+        scaleSide: 0.82,   // scale untuk card non-aktif
+        maxBlur: 2,
+        fadeLimit: 3       // card ke-berapa yang mulai invisible
+    };
+
+    function updateSpacing() {
+        const w = window.innerWidth;
+
+        if (w <= 380) {
+            layout3D.translateX = 130;
+            layout3D.translateZ = 110;
+            layout3D.rotateY = 18;
+            layout3D.scaleSide = 0.75;
+            layout3D.maxBlur = 1.4;
+            layout3D.fadeLimit = 2;
+        } else if (w <= 640) {
+            layout3D.translateX = 150;
+            layout3D.translateZ = 130;
+            layout3D.rotateY = 18;
+            layout3D.scaleSide = 0.78;
+            layout3D.maxBlur = 1.6;
+            layout3D.fadeLimit = 2;
+        } else if (w <= 900) {
+            layout3D.translateX = 190;
+            layout3D.translateZ = 180;
+            layout3D.rotateY = 20;
+            layout3D.scaleSide = 0.8;
+            layout3D.maxBlur = 1.8;
+            layout3D.fadeLimit = 3;
+        } else {
+            layout3D.translateX = 240;
+            layout3D.translateZ = 220;
+            layout3D.rotateY = 22;
+            layout3D.scaleSide = 0.82;
+            layout3D.maxBlur = 2;
+            layout3D.fadeLimit = 3;
+        }
+    }
+
+    // Dots
     const dots = cards.map((_, i) => {
         const dot = document.createElement("button");
         dot.type = "button";
@@ -216,29 +262,34 @@ if ("IntersectionObserver" in window) {
         cards.forEach((card, i) => {
             let diff = i - current;
 
+            // Wrap-around (jarak terpendek)
             if (diff > total / 2) diff -= total;
             if (diff < -total / 2) diff += total;
 
             const absDiff = Math.abs(diff);
 
-            const translateX = diff * 240;
-            const translateZ = -absDiff * 220;
-            const rotateY = diff * -22;
-            const scale = absDiff === 0 ? 1 : 0.82;
-            const opacity = absDiff > 3 ? 0 : 1 - absDiff * 0.18;
-            const blur = absDiff > 2 ? 2 : absDiff * 0.8;
+            const tx = diff * layout3D.translateX;
+            const tz = -absDiff * layout3D.translateZ;
+            const ry = diff * -layout3D.rotateY;
+            const sc = absDiff === 0 ? 1 : layout3D.scaleSide;
+            const op = absDiff > layout3D.fadeLimit
+                ? 0
+                : 1 - absDiff * 0.2;
+            const bl = absDiff > layout3D.fadeLimit - 1
+                ? layout3D.maxBlur
+                : absDiff * (layout3D.maxBlur / layout3D.fadeLimit);
 
             card.style.transform = `
                 translate(-50%, -50%)
-                translateX(${translateX}px)
-                translateZ(${translateZ}px)
-                rotateY(${rotateY}deg)
-                scale(${scale})
+                translateX(${tx}px)
+                translateZ(${tz}px)
+                rotateY(${ry}deg)
+                scale(${sc})
             `;
-            card.style.opacity = opacity;
-            card.style.filter = `blur(${blur}px)`;
+            card.style.opacity = op;
+            card.style.filter = `blur(${bl}px)`;
             card.style.zIndex = String(100 - absDiff);
-            card.style.pointerEvents = absDiff > 3 ? "none" : "auto";
+            card.style.pointerEvents = absDiff > layout3D.fadeLimit ? "none" : "auto";
 
             card.classList.toggle("is-active", diff === 0);
         });
@@ -259,7 +310,6 @@ if ("IntersectionObserver" in window) {
     // Klik card non-aktif → pindah slide
     cards.forEach((card) => {
         card.addEventListener("click", (e) => {
-            // Kalau klik tombol panah → biarkan modal handler urus
             if (e.target.closest("[data-open-modal]")) return;
 
             if (!card.classList.contains("is-active")) {
@@ -276,7 +326,6 @@ if ("IntersectionObserver" in window) {
     prevBtn.addEventListener("click", () => { prev(); restartAutoplay(); });
 
     document.addEventListener("keydown", (e) => {
-        // Hanya kalau modal tidak terbuka
         if (document.body.classList.contains("modal-open")) return;
         if (e.key === "ArrowRight") { next(); restartAutoplay(); }
         if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
@@ -285,7 +334,7 @@ if ("IntersectionObserver" in window) {
     // Swipe / drag
     let startX = 0;
     let isDown = false;
-    const SWIPE_THRESHOLD = 60;
+    const SWIPE_THRESHOLD = 50;
 
     function onDown(x) {
         isDown = true;
@@ -327,6 +376,7 @@ if ("IntersectionObserver" in window) {
         onUp(e.changedTouches[0].clientX);
     });
 
+    // Autoplay
     function startAutoplay() {
         stopAutoplay();
         autoplayTimer = setInterval(next, AUTOPLAY_DELAY);
@@ -352,6 +402,8 @@ if ("IntersectionObserver" in window) {
         else startAutoplay();
     });
 
+    // Init
+    updateSpacing();
     layout();
 
     const prefersReduced = window.matchMedia(
@@ -362,10 +414,14 @@ if ("IntersectionObserver" in window) {
         startAutoplay();
     }
 
+    // Re-layout saat resize
     let resizeTimer;
     window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(layout, 150);
+        resizeTimer = setTimeout(() => {
+            updateSpacing();
+            layout();
+        }, 150);
     });
 })();
 
@@ -420,7 +476,6 @@ if ("IntersectionObserver" in window) {
         }
     }
 
-    // Event delegation — pakai capture agar duluan dari card click
     document.addEventListener("click", (e) => {
         const trigger = e.target.closest("[data-open-modal]");
         if (!trigger) return;
@@ -443,7 +498,6 @@ if ("IntersectionObserver" in window) {
         }
     });
 
-    // Focus trap
     modal.addEventListener("keydown", (e) => {
         if (e.key !== "Tab") return;
 
