@@ -60,7 +60,6 @@
 
             <div class="nav-actions">
 
-                <!-- Theme Toggle -->
                 <button
                     class="theme-toggle"
                     id="themeToggle"
@@ -159,7 +158,6 @@
 
                     <img src="assets/image.jpeg" alt="image">
 
-
                     <div class="image-badge">
                         <span aria-hidden="true">✳</span>
 
@@ -239,7 +237,7 @@
         </section>
 
 
-        <!-- ==================== PRODUCTS ==================== -->
+        <!-- ==================== PRODUCTS — 3D SLIDER ==================== -->
         <section class="section products" id="products">
 
             <div class="container">
@@ -260,421 +258,211 @@
                     </div>
 
 
-<p>
-    All variant <span class="price">3K</span>
-</p>
+                    <p>
+                        All variant <span class="price">3K</span>
+                    </p>
 
                 </div>
 
 
-                <div class="product-grid">
+                <!-- ===== SLIDER WRAPPER ===== -->
+                <div class="product-slider" id="productSlider">
 
-                    <!-- Product 01 -->
-                    <article class="product-card">
+                    <button
+                        class="slider-nav slider-prev"
+                        id="sliderPrev"
+                        type="button"
+                        aria-label="Produk sebelumnya"
+                    >
+                        <span aria-hidden="true">‹</span>
+                    </button>
 
-                        <div class="product-image">
-
-                            <img
-                                src="image/kelapa pandan.jpeg"
-                                alt="Roti Pandan"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                01 / SIGNATURE
-                            </span>
-
-                        </div>
+                    <button
+                        class="slider-nav slider-next"
+                        id="sliderNext"
+                        type="button"
+                        aria-label="Produk berikutnya"
+                    >
+                        <span aria-hidden="true">›</span>
+                    </button>
 
 
-                        <div class="product-info">
+                    <div class="slider-stage" id="sliderStage">
 
-                            <div>
-
-                                <h3>
-                                    Coconut Pandan
-                                </h3>
-
-                                <p>
-                                Saat aroma hijau pandan yang khas menyeruak dari dalam oven bersama gurihnya parutan kelapa, ada rasa tenang yang seketika hadir. Ia membawa kita kembali
-                                 pada aroma dapur rumah di pagi hari atau wangi toko roti langganan masa kecil.
-                                </p>
-
+                        <!-- Product 01 -->
+                        <article class="product-card" data-index="0">
+                            <div class="product-image">
+                                <img src="image/kelapa pandan.jpeg" alt="Roti Pandan" loading="lazy">
+                                <span>01 / SIGNATURE</span>
                             </div>
-
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- Product 02 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/bluebery.jpeg"
-                                alt="Choco Banana"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                02 / PASTRY
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Blueberry Jam
-                                </h3>
-
-                                <p>
-                                   Sensasi Kejutan di Tengah Kelembutan. Saat digigit, kelembutan roti yang gurih seketika pecah oleh lelehan selai blueberry yang masam manis dan segar. Sebuah pengingat bahwa di balik rutinitas hidup yang terkadang terasa datar dan melelahkan, selalu ada momen kesegaran yang siap membangkitkan semangat.
-                                </p>
-
+                            <div class="product-info">
+                                <div>
+                                    <h3>Coconut Pandan</h3>
+                                    <p>Saat aroma hijau pandan yang khas menyeruak dari dalam oven bersama gurihnya parutan kelapa, ada rasa tenang yang seketika hadir. Ia membawa kita kembali pada aroma dapur rumah di pagi hari atau wangi toko roti langganan masa kecil.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Coconut Pandan" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
                             </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- Product 03 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/choco banana.jpeg"
-                                alt="Roti Choco Banana"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                03 / DAILY TREATS
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Choco Banana
-                                </h3>
-
-                                <p>
-                                   Pelukan Nyaman di Kala Lelah (Comfort Food Sejati): Choco banana adalah paduan klasik yang tidak pernah salah. Kehangatan adonan roti yang membalut manis gurihnya pisang dan pekat lezatnya cokelat yang meleleh menciptakan sensasi rasa aman. Saat hati merasa cemas atau tubuh diterpa lelah, gigitan pertama roti ini seolah berbisik, "Semua akan baik-baik saja.
-                                </p>
-
+                        <!-- Product 02 -->
+                        <article class="product-card" data-index="1">
+                            <div class="product-image">
+                                <img src="image/bluebery.jpeg" alt="Blueberry Jam" loading="lazy">
+                                <span>02 / SWEET FILLED</span>
                             </div>
-
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
- 
-                  <!-- Product 04 -->
-
-                   <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/vanila.jpeg"
-                                alt="Roti Vanilla"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                04 / SIGNATURE
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                     Vanilla Cream
-                                </h3>
-
-                                <p>
-                                    Kedamaian dalam Keheningan (Peace & Serenity): Warna krim lembut dari isian vanila berpadu dengan taburan wijen putih yang bersih di atas permukaan roti. Roti ini membawa suasana hati menjadi tenang dan teduh. Ia hadir bukan dengan kejutan rasa yang menggelegar, melainkan seperti bisikan lembut yang menenangkan pikiran di tengah hiruk-pikuk dunia.
-                                </p>
-
+                            <div class="product-info">
+                                <div>
+                                    <h3>Blueberry Jam</h3>
+                                    <p>Sensasi Kejutan di Tengah Kelembutan. Saat digigit, kelembutan roti yang gurih seketika pecah oleh lelehan selai blueberry yang masam manis dan segar. Sebuah pengingat bahwa di balik rutinitas hidup yang terkadang terasa datar dan melelahkan, selalu ada momen kesegaran yang siap membangkitkan semangat.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Blueberry Jam" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
                             </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-                         <!-- Product 05 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/srikaya.jpeg"
-                                alt="Srikaya"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                05 / PASTRY
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Rasakaya Cream
-                                </h3>
-
-                                <p>
-                                    Kehangatan Kenangan yang Mewah: Isian srikaya dengan warna keemasan yang khas dan pekat. Seketika membangkitkan nostalgia rasa manis warisan leluhur. Ia memeluk jiwa dengan kehangatan rasa manis yang legit, pekat, dan penuh kasih sayang.
-                                </p>
-
+                        <!-- Product 03 -->
+                        <article class="product-card" data-index="2">
+                            <div class="product-image">
+                                <img src="image/choco banana.jpeg" alt="Roti Choco Banana" loading="lazy">
+                                <span>03 / COMFORT</span>
                             </div>
-
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-                      <!-- Product 06 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/sosis.jpeg"
-                                alt="Sosis"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                06 / PASTRY
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Sausage Original Mayo
-                                </h3>
-
-                                <p>
-                                    Pelukan Kasih yang Mengenyangkan (Nurturing Care): Sosis yang terbungkus rapi di dalam gulungan roti lembut disempurnakan oleh lumuran mayones yang gurih-asam lembut menciptakan rasa aman dan terlindungi. Ini adalah tipe makanan yang memberikan kepuasan instan, rasa kenyang yang mantap, dan perasaan diperhatikan.
-                                </p>
-
+                            <div class="product-info">
+                                <div>
+                                    <h3>Choco Banana</h3>
+                                    <p>Pelukan Nyaman di Kala Lelah (Comfort Food Sejati): Choco banana adalah paduan klasik yang tidak pernah salah. Kehangatan adonan roti yang membalut manis gurihnya pisang dan pekat lezatnya cokelat yang meleleh menciptakan sensasi rasa aman. Saat hati merasa cemas atau tubuh diterpa lelah, gigitan pertama roti ini seolah berbisik, "Semua akan baik-baik saja."</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Choco Banana" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
                             </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-                       <!-- Product 07 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/melon pan.jpeg"
-                                alt="Roti Melon Pan"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                07 / DAILY TREATS
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Original Meron 
-                                </h3>
-
-                                <p>
-                                   Nikmati perpaduan roti lembut dengan lapisan luar bertekstur khas melon pan dan cita rasa durian yang meggoda
-                                   di setiap gigitan
-                                   Aroma durian khas, sensasi manis yang memanjakan dan tekstur yang unik bikin momen ngemil jadi istimewa 
-                                </p>
-
+                        <!-- Product 04 -->
+                        <article class="product-card" data-index="3">
+                            <div class="product-image">
+                                <img src="image/vanila.jpeg" alt="Roti Vanilla" loading="lazy">
+                                <span>04 / SIGNATURE</span>
                             </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Vanilla Cream</h3>
+                                    <p>Kedamaian dalam Keheningan (Peace & Serenity): Warna krim lembut dari isian vanila berpadu dengan taburan wijen putih yang bersih di atas permukaan roti. Roti ini membawa suasana hati menjadi tenang dan teduh. Ia hadir bukan dengan kejutan rasa yang menggelegar, melainkan seperti bisikan lembut yang menenangkan pikiran di tengah hiruk-pikuk dunia.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Vanilla Cream" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
+                        <!-- Product 05 -->
+                        <article class="product-card" data-index="4">
+                            <div class="product-image">
+                                <img src="image/srikaya.jpeg" alt="Srikaya" loading="lazy">
+                                <span>05 / TRADITIONAL</span>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Rasakaya Cream</h3>
+                                    <p>Kehangatan Kenangan yang Mewah: Isian srikaya dengan warna keemasan yang khas dan pekat. Seketika membangkitkan nostalgia rasa manis warisan leluhur. Ia memeluk jiwa dengan kehangatan rasa manis yang legit, pekat, dan penuh kasih sayang.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Rasakaya Cream" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
-                        </div>
+                        <!-- Product 06 -->
+                        <article class="product-card" data-index="5">
+                            <div class="product-image">
+                                <img src="image/sosis.jpeg" alt="Sosis" loading="lazy">
+                                <span>06 / SAVORY</span>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Sausage Original Mayo</h3>
+                                    <p>Pelukan Kasih yang Mengenyangkan (Nurturing Care): Sosis yang terbungkus rapi di dalam gulungan roti lembut disempurnakan oleh lumuran mayones yang gurih-asam lembut menciptakan rasa aman dan terlindungi. Ini adalah tipe makanan yang memberikan kepuasan instan, rasa kenyang yang mantap, dan perasaan diperhatikan.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Sausage Original Mayo" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
-                    </article>
+                        <!-- Product 07 -->
+                        <article class="product-card" data-index="6">
+                            <div class="product-image">
+                                <img src="image/melon pan.jpeg" alt="Roti Melon Pan" loading="lazy">
+                                <span>07 / JAPANESE</span>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Original Meron</h3>
+                                    <p>Nikmati perpaduan roti lembut dengan lapisan luar bertekstur khas melon pan dan cita rasa durian yang menggoda di setiap gigitan. Aroma durian khas, sensasi manis yang memanjakan dan tekstur yang unik bikin momen ngemil jadi istimewa.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Original Meron" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
                         <!-- Product 08 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/melon pan stroberi.jpeg"
-                                alt="Roti Melon Stroberi"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                08 / DAILY TREATS
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                     strawberry Meron 
-                                </h3>
-
-                                <p>
-                                    Roti lembut dengan lapisan khas melon pan berwarna pink yang menggoda. Cantik tampilannya,istimiwa sensasinya
-                                </p>
-
+                        <article class="product-card" data-index="7">
+                            <div class="product-image">
+                                <img src="image/melon pan stroberi.jpeg" alt="Roti Melon Stroberi" loading="lazy">
+                                <span>08 / JAPANESE</span>
                             </div>
-
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-                          <!-- Product 09 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/roti kopi.jpeg"
-                                alt="Roti Melon Pan"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                08 / DAILY TREATS
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Coffe Cream
-                                </h3>
-
-                                <p>
-                                    Roti cokelat dengan isian krim mocca yang lembut dan aroma kopi yang khas. Perpaduan manis dan nikmat untuk menemani waktu santai mu
-                                </p>
-
+                            <div class="product-info">
+                                <div>
+                                    <h3>Strawberry Meron</h3>
+                                    <p>Roti lembut dengan lapisan khas melon pan berwarna pink yang menggoda. Cantik tampilannya, istimewa sensasinya.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Strawberry Meron" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
                             </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-
-                        </div>
-
-                    </article>
-
-                          <!-- Product 10 -->
-                    <article class="product-card">
-
-                        <div class="product-image">
-
-                            <img
-                                src="image/roti cokelat.jpeg"
-                                alt="Roti Cokelat"
-                                loading="lazy"
-                            >
-
-                            <span>
-                                10 / DAILY TREATS
-                            </span>
-
-                        </div>
-
-
-                        <div class="product-info">
-
-                            <div>
-
-                                <h3>
-                                    Choco Bread
-                                </h3>
-
-                                <p>
-                                    Roti lembut dengan taburan cokelat yang menggoda dan warna keemasan yang bikin selera meningkat.
-                                    Teman ngemilfaforit untuk segala suasana
-                                </p>
-
+                        <!-- Product 09 -->
+                        <article class="product-card" data-index="8">
+                            <div class="product-image">
+                                <img src="image/roti kopi.jpeg" alt="Roti Kopi" loading="lazy">
+                                <span>09 / COFFEE</span>
                             </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Coffe Cream</h3>
+                                    <p>Roti cokelat dengan isian krim mocca yang lembut dan aroma kopi yang khas. Perpaduan manis dan nikmat untuk menemani waktu santai mu.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Coffe Cream" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
-                            <span class="product-arrow" aria-hidden="true">
-                                ↗
-                            </span>
+                        <!-- Product 10 -->
+                        <article class="product-card" data-index="9">
+                            <div class="product-image">
+                                <img src="image/roti cokelat.jpeg" alt="Roti Cokelat" loading="lazy">
+                                <span>10 / CLASSIC</span>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <h3>Choco Bread</h3>
+                                    <p>Roti lembut dengan taburan cokelat yang menggoda dan warna keemasan yang bikin selera meningkat. Teman ngemil favorit untuk segala suasana.</p>
+                                </div>
+                                <button class="product-arrow" type="button" aria-label="Lihat detail Choco Bread" data-open-modal>
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                            </div>
+                        </article>
 
-                        </div>
+                    </div>
 
-                    </article>
+
+                    <div class="slider-dots" id="sliderDots"></div>
 
                 </div>
 
@@ -716,83 +504,31 @@
 
                 <div class="value-list">
 
-                    <!-- Value 01 -->
                     <article class="value-item">
-
-                        <span class="value-number">
-                            01
-                        </span>
-
+                        <span class="value-number">01</span>
                         <div>
-
-                            <h3>
-                                Autentik
-                            </h3>
-
-                            <p>
-                                Mengutamakan karakter rasa dan
-                                pengalaman yang berkesan.
-                            </p>
-
+                            <h3>Autentik</h3>
+                            <p>Mengutamakan karakter rasa dan pengalaman yang berkesan.</p>
                         </div>
-
-                        <span class="value-symbol" aria-hidden="true">
-                            ✳
-                        </span>
-
+                        <span class="value-symbol" aria-hidden="true">✳</span>
                     </article>
 
-
-                    <!-- Value 02 -->
                     <article class="value-item">
-
-                        <span class="value-number">
-                            02
-                        </span>
-
+                        <span class="value-number">02</span>
                         <div>
-
-                            <h3>
-                                Berkualitas
-                            </h3>
-
-                            <p>
-                                Memperhatikan kualitas dalam setiap
-                                sajian yang dihadirkan.
-                            </p>
-
+                            <h3>Berkualitas</h3>
+                            <p>Memperhatikan kualitas dalam setiap sajian yang dihadirkan.</p>
                         </div>
-
-                        <span class="value-symbol" aria-hidden="true">
-                            ✳
-                        </span>
-
+                        <span class="value-symbol" aria-hidden="true">✳</span>
                     </article>
 
-
-                    <!-- Value 03 -->
                     <article class="value-item">
-
-                        <span class="value-number">
-                            03
-                        </span>
-
+                        <span class="value-number">03</span>
                         <div>
-
-                            <h3>
-                                Hangat
-                            </h3>
-
-                            <p>
-                                Menjadikan setiap momentum bersama keluarga dan orang yang dicintai semakin terasa kebersamaannya.
-                            </p>
-
+                            <h3>Hangat</h3>
+                            <p>Menjadikan setiap momentum bersama keluarga dan orang yang dicintai semakin terasa kebersamaannya.</p>
                         </div>
-
-                        <span class="value-symbol" aria-hidden="true">
-                            ✳
-                        </span>
-
+                        <span class="value-symbol" aria-hidden="true">✳</span>
                     </article>
 
                 </div>
@@ -807,9 +543,7 @@
 
             <div class="container contact-box">
 
-                <span class="contact-decoration" aria-hidden="true">
-                    ✳
-                </span>
+                <span class="contact-decoration" aria-hidden="true">✳</span>
 
                 <h2>
                     Mari ciptakan momen<br>
@@ -822,98 +556,85 @@
                 </p>
 
 
-                <!-- ==================== FORMSPREE FORM ==================== -->
-<form
-    class="contact-form"
-    action="https://formspree.io/f/mrpeojjy"
-    method="POST"
-    novalidate
->
+                <form
+                    class="contact-form"
+                    action="https://formspree.io/f/mrpeojjy"
+                    method="POST"
+                    novalidate
+                >
 
-    <div class="form-row">
+                    <div class="form-row">
 
-        <!-- Nama -->
-        <div class="form-group">
-            <label for="name">Nama</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Masukkan nama Anda"
-                autocomplete="name"
-                maxlength="80"
-                required
-            >
-        </div>
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Masukkan nama Anda"
+                                autocomplete="name"
+                                maxlength="80"
+                                required
+                            >
+                        </div>
 
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="nama@email.com"
+                                autocomplete="email"
+                                inputmode="email"
+                                maxlength="120"
+                                required
+                            >
+                        </div>
 
-        <!-- Email -->
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="nama@email.com"
-                autocomplete="email"
-                inputmode="email"
-                maxlength="120"
-                required
-            >
-        </div>
+                    </div>
 
-    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            placeholder="Tulis pesan Anda di sini..."
+                            maxlength="1000"
+                            required
+                        ></textarea>
+                    </div>
 
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="Pesan Baru dari Website ZURIYAH Bakery"
+                    >
 
-    <!-- Pesan -->
-    <div class="form-group">
-        <label for="message">Pesan</label>
-        <textarea
-            id="message"
-            name="message"
-            rows="5"
-            placeholder="Tulis pesan Anda di sini..."
-            maxlength="1000"
-            required
-        ></textarea>
-    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-submit"
+                    >
+                        Kirim Pesan
+                    </button>
 
-
-    <!-- Subject email Formspree -->
-    <input
-        type="hidden"
-        name="_subject"
-        value="Pesan Baru dari Website ZURIYAH Bakery"
-    >
-
-
-    <!-- Tombol Submit -->
-    <button
-        type="submit"
-        class="btn btn-primary btn-submit"
-    >
-        Kirim Pesan
-    </button>
-
-</form>
+                </form>
 
 
-                <!-- Divider -->
                 <div class="contact-divider">
                     <span>atau</span>
                 </div>
 
 
-                <!-- WhatsApp -->
-                    <a href="https://wa.me/6281554016406" target="_blank"
+                <a
+                    href="https://wa.me/6281554016406"
                     class="btn btn-secondary"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Hubungi via WhatsApp 
+                    Hubungi via WhatsApp
                 </a>
-
-
 
             </div>
 
@@ -928,31 +649,20 @@
         <div class="container footer-main">
 
             <a href="#home" class="brand footer-brand" aria-label="ZURIYAH Bakery — Kembali ke atas">
-
-                <img
-                    src="assets/new logo.jpeg"
-                    alt="Logo ZURIYAH Bakery"
-                >
-
+                <img src="assets/new logo.jpeg" alt="Logo ZURIYAH Bakery">
                 <span>
                     ZURIYAH
                     <small>BAKERY</small>
                 </span>
-
             </a>
 
-
-            <p>
-                Autentik · Berkualitas · Hangat
-            </p>
-
+            <p>Autentik · Berkualitas · Hangat</p>
 
             <a href="#home" class="back-top">
                 KEMBALI KE ATAS ↑
             </a>
 
         </div>
-
 
         <div class="container footer-bottom">
 
@@ -970,6 +680,73 @@
         </div>
 
     </footer>
+
+
+    <!-- ==================== PRODUCT DETAIL MODAL ==================== -->
+    <div
+        class="product-modal"
+        id="productModal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <div class="product-modal-backdrop" data-close-modal></div>
+
+        <div class="product-modal-content" role="document">
+
+            <button
+                class="product-modal-close"
+                id="modalClose"
+                type="button"
+                aria-label="Tutup detail produk"
+            >
+                <span aria-hidden="true">×</span>
+            </button>
+
+            <div class="product-modal-grid">
+
+                <div class="product-modal-image">
+                    <img id="modalImage" src="" alt="">
+                </div>
+
+                <div class="product-modal-info">
+
+                    <span class="product-modal-tag" id="modalTag">
+                        SIGNATURE
+                    </span>
+
+                    <h2 class="product-modal-title" id="modalTitle">
+                        Nama Produk
+                    </h2>
+
+                    <p class="product-modal-description" id="modalDescription">
+                        Deskripsi produk...
+                    </p>
+
+                    <div class="product-modal-footer">
+                        <span class="product-modal-price">
+                            Rp <strong>3.000</strong>
+                        </span>
+
+                        <a
+                            href="https://wa.me/6281554016406"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-primary"
+                        >
+                            Pesan Sekarang ↗
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>
