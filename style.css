@@ -1,7 +1,4 @@
-/* ==========================
-   ZURIYAH BAKERY
-   Main stylesheet — Light + Dark Mode (Warm Bakery Theme)
-   ========================== */
+
 
 /* ==========================
    LIGHT MODE (Default)
@@ -791,10 +788,19 @@ html[data-theme="dark"] .nav-button:hover {
 .section-heading > p {
     max-width: 340px;
     margin-bottom: 7px;
-    color: red;
-    font-size: 3rem;
-    line-height: 1.9;
-    transition: color 0.4s ease;
+    color: var(--gold);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.section-heading > p .price {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    letter-spacing: -0.03em;
 }
 
 .product-grid {
