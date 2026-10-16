@@ -1094,35 +1094,24 @@ html[data-theme="dark"] .product-card:hover .product-arrow {
    CONTACT FORM
    ========================== */
 
+/* ==========================
+   CONTACT FORM
+   ========================== */
+
 .contact-form {
-    width: 100%;
     max-width: 580px;
-    margin: 0 auto 32px;
+    margin: 0 auto 26px;
     text-align: left;
-    padding: 36px 32px 40px;
-
+    padding: 36px 32px;
     background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(199, 154, 62, 0.08),
-            transparent 50%
-        ),
+        radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.08), transparent 50%),
         var(--bg-form);
-
     border: 1px solid var(--border-form);
     border-radius: 22px;
-
     box-shadow:
         0 12px 34px rgba(46, 27, 18, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
-    transition:
-        background 0.4s ease,
-        border-color 0.3s ease,
-        box-shadow 0.4s ease;
-
-    /* Biar isi tidak keluar dari kotak */
-    overflow: visible;
+    transition: background 0.4s ease, border-color 0.3s ease, box-shadow 0.4s ease;
 }
 
 html[data-theme="dark"] .contact-form {
@@ -1140,12 +1129,31 @@ html[data-theme="dark"] .contact-form {
 .form-group {
     position: relative;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Label di atas input — tidak akan pernah nutupin teks user */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-soft);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+    color: var(--gold);
+}
+
+/* Input & textarea */
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 22px 18px 10px;
+    padding: 14px 18px;
     border: 1px solid var(--border-input);
     border-radius: 12px;
     background: var(--bg-input);
@@ -1162,44 +1170,8 @@ html[data-theme="dark"] .contact-form {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: transparent;
-}
-
-.form-group label {
-    position: absolute;
-    top: 50%;
-    left: 18px;
-    transform: translateY(-50%);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
     color: var(--text-soft);
-    pointer-events: none;
-    transition: all 0.28s var(--ease);
-    background: transparent;
-    padding: 0 4px;
-}
-
-.form-group textarea + label,
-.form-group:has(textarea) label {
-    top: 18px;
-    transform: translateY(0);
-}
-
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:focus + label,
-.form-group textarea:not(:placeholder-shown) + label {
-    top: 6px;
-    left: 14px;
-    transform: translateY(0) scale(0.85);
-    transform-origin: left top;
-    color: var(--gold);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--bg-input);
-    border-radius: 4px;
+    opacity: 0.55;
 }
 
 .form-group input:focus,
@@ -1215,12 +1187,13 @@ html[data-theme="dark"] .contact-form {
     border-color: var(--border-input-hover);
 }
 
+/* Textarea — tidak bisa di-resize */
 .form-group textarea {
     resize: none;
     min-height: 160px;
     height: 160px;
-    padding-top: 28px;
     overflow-y: auto;
+    line-height: 1.6;
 }
 
 .btn-submit {
@@ -1730,48 +1703,5 @@ html[data-theme="dark"] .contact-form {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
-    }
-}
-
-@media (max-width: 640px) {
-
-    .contact {
-        padding: 60px 0 80px;
-    }
-
-    .contact-form {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 35px;
-        padding: 30px 18px 40px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .form-group textarea {
-        min-height: 180px;
-        height: 180px;
-    }
-
-    .btn-submit {
-        margin-top: 10px;
-    }
-
-    .contact-divider {
-        margin-top: 10px;
-        margin-bottom: 20px;
     }
 }
