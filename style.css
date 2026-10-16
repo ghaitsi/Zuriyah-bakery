@@ -2913,3 +2913,420 @@ html[data-theme="dark"] .product-modal-content {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ====================================================
+   QNA FLOATING SIDEBAR — Gaya tombol Facebook
+   ==================================================== */
+
+/* Backdrop */
+.qna-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(20, 12, 6, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.qna-backdrop.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+html[data-theme="dark"] .qna-backdrop {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* ===== TRIGGER BUTTON — mirip tombol Facebook ===== */
+.qna-trigger {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    padding: 18px 12px;
+    border: none;
+    border-radius: 12px 0 0 12px;
+    background: linear-gradient(135deg, var(--brown-mid), #2E1B12);
+    color: #FBF4E4;
+    cursor: pointer;
+
+    box-shadow:
+        -4px 4px 20px rgba(46, 27, 18, 0.35),
+        inset 1px 0 0 rgba(255, 255, 255, 0.1);
+
+    transition:
+        transform 0.4s var(--ease),
+        padding 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] .qna-trigger {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    box-shadow:
+        -4px 4px 20px rgba(199, 154, 62, 0.4),
+        inset 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.qna-trigger:hover {
+    padding: 20px 14px;
+    box-shadow:
+        -6px 6px 28px rgba(46, 27, 18, 0.45),
+        inset 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+html[data-theme="dark"] .qna-trigger:hover {
+    box-shadow:
+        -6px 6px 28px rgba(199, 154, 62, 0.5),
+        inset 1px 0 0 rgba(255, 255, 255, 0.4);
+}
+
+.qna-trigger-icon {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+}
+
+.qna-trigger-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.qna-trigger-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+/* Animasi pulse */
+.qna-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.4;
+    z-index: -1;
+    animation: qnaPulse 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes qnaPulse {
+    0%   { transform: scale(1); opacity: 0.4; }
+    70%  { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1.15); opacity: 0; }
+}
+
+.qna-trigger.is-active {
+    transform: translateY(-50%) translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ===== PANEL — slide dari kanan ===== */
+.qna-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    width: min(420px, 100vw);
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.08), transparent 50%),
+        var(--bg-form);
+    border-left: 1px solid var(--border-form);
+    box-shadow: -20px 0 60px rgba(46, 27, 18, 0.25);
+
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0.45s ease;
+}
+
+html[data-theme="dark"] .qna-panel {
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
+}
+
+.qna-panel.is-open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+/* Header panel */
+.qna-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-input);
+    background:
+        radial-gradient(circle at 0% 100%, rgba(199, 154, 62, 0.08), transparent 60%),
+        var(--bg-form);
+    flex-shrink: 0;
+}
+
+.qna-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.qna-panel-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    box-shadow: 0 4px 12px rgba(199, 154, 62, 0.4);
+}
+
+.qna-panel-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.qna-panel-title h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    line-height: 1.15;
+}
+
+.qna-panel-title p {
+    margin: 2px 0 0;
+    font-size: 0.7rem;
+    color: var(--text-soft);
+}
+
+.qna-panel-close {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-input);
+    border-radius: 50%;
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.qna-panel-close:hover {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    border-color: transparent;
+    transform: rotate(90deg) scale(1.05);
+}
+
+/* Body panel — scrollable */
+.qna-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-light) transparent;
+}
+
+.qna-panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.qna-panel-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.qna-panel-body::-webkit-scrollbar-thumb {
+    background: var(--gold-light);
+    border-radius: 10px;
+}
+
+/* Override styling form di dalam panel */
+.qna-panel .qna-form-wrapper,
+.qna-panel .qna-list-wrapper {
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.qna-panel .qna-form-wrapper {
+    padding: 18px 16px;
+    border: 1px solid var(--border-input);
+    border-radius: 16px;
+    background: var(--bg-input);
+}
+
+.qna-panel .qna-list-wrapper {
+    padding: 18px 16px;
+    border: 1px solid var(--border-input);
+    border-radius: 16px;
+    background: var(--bg-input);
+}
+
+.qna-section-title {
+    margin: 0 0 14px;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.qna-panel .qna-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-input);
+}
+
+.qna-panel .qna-list-header .qna-section-title {
+    margin: 0;
+}
+
+.qna-panel .form-row {
+    grid-template-columns: 1fr 1fr;
+}
+
+.qna-panel .form-group {
+    margin-bottom: 12px;
+}
+
+.qna-panel .form-group label {
+    font-size: 0.62rem;
+    margin-bottom: 5px;
+}
+
+.qna-panel .form-group input,
+.qna-panel .form-group select,
+.qna-panel .form-group textarea {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+}
+
+.qna-panel .form-group textarea {
+    min-height: 80px;
+}
+
+.qna-panel .btn-submit {
+    margin-top: 4px;
+    min-height: 44px;
+}
+
+.qna-panel .qna-list {
+    max-height: none;
+    padding-right: 0;
+}
+
+/* ===== RESPONSIVE — Mobile ===== */
+@media (max-width: 640px) {
+    .qna-trigger {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        transform: none;
+
+        flex-direction: row;
+        gap: 10px;
+        padding: 12px 18px;
+        border-radius: 50px;
+
+        box-shadow:
+            0 8px 24px rgba(46, 27, 18, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    html[data-theme="dark"] .qna-trigger {
+        box-shadow:
+            0 8px 24px rgba(199, 154, 62, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .qna-trigger:hover {
+        padding: 12px 18px;
+    }
+
+    .qna-trigger.is-active {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    .qna-trigger-label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 0.75rem;
+    }
+
+    .qna-trigger-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .qna-panel {
+        width: 100vw;
+        max-width: 100vw;
+    }
+
+    .qna-panel-header {
+        padding: 16px 18px;
+    }
+
+    .qna-panel-body {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .qna-panel .qna-form-wrapper,
+    .qna-panel .qna-list-wrapper {
+        padding: 16px 14px;
+        border-radius: 14px;
+    }
+
+    .qna-panel .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .qna-trigger::after {
+        animation: none;
+    }
+}

@@ -629,15 +629,10 @@ if ("IntersectionObserver" in window) {
 
 
 /* ==========================
-   QNA — SAVE PERTANYAAN USER
-   Tanpa database, pakai localStorage
-   ========================== */
-/* ==========================
    QNA — PUBLIC BOARD via JSONBin.io
    Semua user bisa lihat & kirim pertanyaan
    ========================== */
 (function initQnA() {
-    /* ===== KONFIGURASI ===== */
     const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
     const JSONBIN_BIN = "6ad221bcac6210605a373689";
 
@@ -760,7 +755,6 @@ if ("IntersectionObserver" in window) {
         try {
             entries = await fetchEntries();
 
-            // Cache ke localStorage sebagai fallback
             try {
                 localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
             } catch (e) {}
@@ -770,7 +764,6 @@ if ("IntersectionObserver" in window) {
             console.error("Gagal load QnA:", err);
             showToast("Gagal memuat data. Coba refresh.", "error");
 
-            // Fallback pakai cache
             try {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (raw) {
@@ -883,7 +876,6 @@ if ("IntersectionObserver" in window) {
             createdAt: new Date().toISOString()
         };
 
-        // Optimistic update
         const newEntries = [entry, ...entries];
         if (newEntries.length > MAX_ENTRIES) newEntries.length = MAX_ENTRIES;
 
@@ -936,4 +928,92 @@ if ("IntersectionObserver" in window) {
 
     /* ============ INIT ============ */
     loadData(true);
+})();
+
+
+/* ==========================
+   QNA FLOATING PANEL — FIX
+   ========================== */
+(function initQnaPanel() {
+    const trigger = document.querySelector("#qnaTrigger");
+    const panel = document.querySelector("#qnaPanel");
+    const backdrop = document.querySelector("#qnaBackdrop");
+    const closeBtn = document.querySelector("#qnaClose");
+
+    if (!trigger || !panel || !backdrop) return;
+
+    let isOpen = false;
+
+    function openPanel() {
+        if (isOpen) return;
+        isOpen = true;
+
+        panel.classList.add("is-open");
+        backdrop.classList.add("is-visible");
+        trigger.classList.add("is-active");
+        trigger.setAttribute("aria-expanded", "true");
+        panel.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        setTimeout(() => closeBtn?.focus(), 350);
+    }
+
+    function closePanel() {
+        if (!isOpen) return;
+        isOpen = false;
+
+        panel.classList.remove("is-open");
+        backdrop.classList.remove("is-visible");
+        trigger.classList.remove("is-active");
+        trigger.setAttribute("aria-expanded", "false");
+        panel.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    function togglePanel() {
+        if (isOpen) closePanel();
+        else openPanel();
+    }
+
+    /* Klik trigger → toggle */
+    trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        togglePanel();
+    });
+
+    /* Close button */
+    closeBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closePanel();
+    });
+
+    /* Backdrop click */
+    backdrop.addEventListener("click", closePanel);
+
+    /* ESC */
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isOpen) closePanel();
+    });
+
+    /* Focus trap */
+    panel.addEventListener("keydown", (e) => {
+        if (e.key !== "Tab") return;
+
+        const focusable = panel.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    });
 })();
