@@ -791,8 +791,8 @@ html[data-theme="dark"] .nav-button:hover {
 .section-heading > p {
     max-width: 340px;
     margin-bottom: 7px;
-    color: var(--text-soft);
-    font-size: 0.9rem;
+    color: red;
+    font-size: 3rem;
     line-height: 1.9;
     transition: color 0.4s ease;
 }
