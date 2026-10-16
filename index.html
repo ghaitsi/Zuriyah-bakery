@@ -237,7 +237,7 @@
         </section>
 
 
-        <!-- ==================== PRODUCTS — 3D SLIDER ==================== -->
+        <!-- ==================== PRODUCTS — 3D SLIDER + SEARCH/FILTER ==================== -->
         <section class="section products" id="products">
 
             <div class="container">
@@ -265,6 +265,45 @@
                 </div>
 
 
+                <!-- ===== SEARCH & FILTER (FITUR BARU #1) ===== -->
+                <div class="product-toolbar">
+
+                    <div class="product-search">
+                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <input
+                            type="search"
+                            id="productSearch"
+                            placeholder="Cari roti favoritmu..."
+                            aria-label="Cari produk"
+                            autocomplete="off"
+                        >
+                        <button
+                            class="search-clear"
+                            id="searchClear"
+                            type="button"
+                            aria-label="Bersihkan pencarian"
+                            hidden
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <div class="product-filters" id="productFilters" role="tablist" aria-label="Filter kategori">
+                        <button class="filter-btn is-active" type="button" data-filter="all" role="tab" aria-selected="true">Semua</button>
+                        <button class="filter-btn" type="button" data-filter="signature" role="tab" aria-selected="false">Signature</button>
+                        <button class="filter-btn" type="button" data-filter="sweet" role="tab" aria-selected="false">Sweet</button>
+                        <button class="filter-btn" type="button" data-filter="savory" role="tab" aria-selected="false">Savory</button>
+                        <button class="filter-btn" type="button" data-filter="traditional" role="tab" aria-selected="false">Traditional</button>
+                        <button class="filter-btn" type="button" data-filter="japanese" role="tab" aria-selected="false">Japanese</button>
+                        <button class="filter-btn" type="button" data-filter="coffee" role="tab" aria-selected="false">Coffee</button>
+                    </div>
+
+                </div>
+
+                <!-- Info hasil pencarian -->
+                <p class="product-result-info" id="productResultInfo" hidden></p>
+
+
                 <!-- ===== SLIDER WRAPPER ===== -->
                 <div class="product-slider" id="productSlider">
 
@@ -290,7 +329,7 @@
                     <div class="slider-stage" id="sliderStage">
 
                         <!-- Product 01 -->
-                        <article class="product-card" data-index="0">
+                        <article class="product-card" data-index="0" data-category="signature" data-name="coconut pandan roti pandan kelapa">
                             <div class="product-image">
                                 <img src="image/kelapa pandan.jpeg" alt="Roti Pandan" loading="lazy">
                                 <span>01 / SIGNATURE</span>
@@ -307,7 +346,7 @@
                         </article>
 
                         <!-- Product 02 -->
-                        <article class="product-card" data-index="1">
+                        <article class="product-card" data-index="1" data-category="sweet" data-name="blueberry jam selai">
                             <div class="product-image">
                                 <img src="image/bluebery.jpeg" alt="Blueberry Jam" loading="lazy">
                                 <span>02 / SWEET FILLED</span>
@@ -324,7 +363,7 @@
                         </article>
 
                         <!-- Product 03 -->
-                        <article class="product-card" data-index="2">
+                        <article class="product-card" data-index="2" data-category="sweet" data-name="choco banana cokelat pisang">
                             <div class="product-image">
                                 <img src="image/choco banana.jpeg" alt="Roti Choco Banana" loading="lazy">
                                 <span>03 / COMFORT</span>
@@ -341,7 +380,7 @@
                         </article>
 
                         <!-- Product 04 -->
-                        <article class="product-card" data-index="3">
+                        <article class="product-card" data-index="3" data-category="signature" data-name="vanilla cream vanila krim">
                             <div class="product-image">
                                 <img src="image/vanila.jpeg" alt="Roti Vanilla" loading="lazy">
                                 <span>04 / SIGNATURE</span>
@@ -358,7 +397,7 @@
                         </article>
 
                         <!-- Product 05 -->
-                        <article class="product-card" data-index="4">
+                        <article class="product-card" data-index="4" data-category="traditional" data-name="rasakaya srikaya cream">
                             <div class="product-image">
                                 <img src="image/srikaya.jpeg" alt="Srikaya" loading="lazy">
                                 <span>05 / TRADITIONAL</span>
@@ -375,7 +414,7 @@
                         </article>
 
                         <!-- Product 06 -->
-                        <article class="product-card" data-index="5">
+                        <article class="product-card" data-index="5" data-category="savory" data-name="sausage sosis mayo original">
                             <div class="product-image">
                                 <img src="image/sosis.jpeg" alt="Sosis" loading="lazy">
                                 <span>06 / SAVORY</span>
@@ -392,7 +431,7 @@
                         </article>
 
                         <!-- Product 07 -->
-                        <article class="product-card" data-index="6">
+                        <article class="product-card" data-index="6" data-category="japanese" data-name="original meron melon pan durian">
                             <div class="product-image">
                                 <img src="image/melon pan.jpeg" alt="Roti Melon Pan" loading="lazy">
                                 <span>07 / JAPANESE</span>
@@ -409,7 +448,7 @@
                         </article>
 
                         <!-- Product 08 -->
-                        <article class="product-card" data-index="7">
+                        <article class="product-card" data-index="7" data-category="japanese" data-name="strawberry meron melon pan stroberi pink">
                             <div class="product-image">
                                 <img src="image/melon pan stroberi.jpeg" alt="Roti Melon Stroberi" loading="lazy">
                                 <span>08 / JAPANESE</span>
@@ -426,7 +465,7 @@
                         </article>
 
                         <!-- Product 09 -->
-                        <article class="product-card" data-index="8">
+                        <article class="product-card" data-index="8" data-category="coffee" data-name="coffe cream kopi mocca moka">
                             <div class="product-image">
                                 <img src="image/roti kopi.jpeg" alt="Roti Kopi" loading="lazy">
                                 <span>09 / COFFEE</span>
@@ -443,7 +482,7 @@
                         </article>
 
                         <!-- Product 10 -->
-                        <article class="product-card" data-index="9">
+                        <article class="product-card" data-index="9" data-category="sweet" data-name="choco bread cokelat klasik">
                             <div class="product-image">
                                 <img src="image/roti cokelat.jpeg" alt="Roti Cokelat" loading="lazy">
                                 <span>10 / CLASSIC</span>
@@ -463,6 +502,13 @@
 
 
                     <div class="slider-dots" id="sliderDots"></div>
+
+                    <!-- Empty state kalau hasil pencarian kosong -->
+                    <div class="product-empty" id="productEmpty" hidden>
+                        <span aria-hidden="true">🥐</span>
+                        <p><strong>Tidak ada produk ditemukan</strong></p>
+                        <small>Coba kata kunci lain atau ubah filter kategori.</small>
+                    </div>
 
                 </div>
 
@@ -664,6 +710,35 @@
 
         </div>
 
+
+        <!-- ==================== DEVELOPER WATERMARK ==================== -->
+        <div class="container developer-watermark">
+
+            <div class="dev-badge">
+                <span class="dev-dot" aria-hidden="true"></span>
+                <span class="dev-label">Developed by</span>
+            </div>
+
+            <a
+                href="https://wa.me/6281554016406"
+                class="dev-signature"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Afif Ghaitsi — Developer"
+            >
+                <span class="dev-initials" aria-hidden="true">AG</span>
+
+                <span class="dev-info">
+                    <span class="dev-name">Afif Ghaitsi</span>
+                    <span class="dev-role">Full-Stack Web Developer</span>
+                </span>
+
+                <span class="dev-arrow" aria-hidden="true">↗</span>
+            </a>
+
+        </div>
+
+
         <div class="container footer-bottom">
 
             <p>
@@ -730,8 +805,10 @@
                             Rp <strong>3.000</strong>
                         </span>
 
+                        <!-- Tombol WhatsApp dinamis (FITUR BARU #2) -->
                         <a
                             href="https://wa.me/6281554016406"
+                            id="modalOrderBtn"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="btn btn-primary"
