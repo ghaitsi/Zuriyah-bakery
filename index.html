@@ -91,6 +91,7 @@
                 <a href="#about">Tentang Kami</a>
                 <a href="#products">Produk</a>
                 <a href="#values">Keunggulan</a>
+                <a href="#qna">Tanya Jawab</a>
                 <a href="kategori roti/index.html">Kategori Roti</a>
 
                 <a href="#contact" class="nav-button">
@@ -265,11 +266,17 @@
                 </div>
 
 
-                <!-- ===== SEARCH & FILTER (FITUR BARU #1) ===== -->
+                <!-- ===== SEARCH & FILTER ===== -->
                 <div class="product-toolbar">
 
                     <div class="product-search">
-                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <span class="search-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="M21 21l-4.3-4.3"></path>
+                                <path d="M8 11c0-1.7 1.3-3 3-3s3 1.3 3 3-1.3 3-3 3"></path>
+                            </svg>
+                        </span>
                         <input
                             type="search"
                             id="productSearch"
@@ -584,6 +591,182 @@
         </section>
 
 
+        <!-- ==================== QNA SECTION ==================== -->
+        <section class="section qna" id="qna">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            TANYA JAWAB
+                        </p>
+
+                        <h2>
+                            Ada pertanyaan?<br>
+                            <em>Tulis di sini.</em>
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Pertanyaan tersimpan
+                        di browser Anda.
+                    </p>
+
+                </div>
+
+
+                <div class="qna-grid">
+
+                    <!-- ============ FORM ============ -->
+                    <div class="qna-form-wrapper">
+
+                        <div class="qna-form-header">
+                            <span class="qna-form-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </span>
+                            <div>
+                                <h3>Kirim Pertanyaan</h3>
+                                <p>Kami akan menjawab secepatnya</p>
+                            </div>
+                        </div>
+
+
+                        <form class="qna-form" id="qnaForm" novalidate>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="qnaName">Nama</label>
+                                    <input
+                                        type="text"
+                                        id="qnaName"
+                                        name="qnaName"
+                                        placeholder="Masukkan nama Anda"
+                                        maxlength="60"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="qnaEmail">Email</label>
+                                    <input
+                                        type="email"
+                                        id="qnaEmail"
+                                        name="qnaEmail"
+                                        placeholder="nama@email.com"
+                                        maxlength="100"
+                                        required
+                                    >
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="qnaCategory">Kategori</label>
+                                <select id="qnaCategory" name="qnaCategory" required>
+                                    <option value="">Pilih kategori...</option>
+                                    <option value="Produk">Produk</option>
+                                    <option value="Pengiriman">Pengiriman</option>
+                                    <option value="Pembayaran">Pembayaran</option>
+                                    <option value="Kerja Sama">Kerja Sama</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="qnaMessage">Pertanyaan</label>
+                                <textarea
+                                    id="qnaMessage"
+                                    name="qnaMessage"
+                                    rows="5"
+                                    placeholder="Tulis pertanyaan Anda di sini..."
+                                    maxlength="500"
+                                    required
+                                ></textarea>
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-submit"
+                            >
+                                Kirim Pertanyaan ↗
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- ============ DAFTAR PERTANYAAN ============ -->
+                    <div class="qna-list-wrapper">
+
+                        <div class="qna-list-header">
+
+                            <div class="qna-list-title">
+                                <h3>Pertanyaan Terkirim</h3>
+                                <span class="qna-count" id="qnaCount">0</span>
+                            </div>
+
+                            <button
+                                class="qna-clear-all"
+                                id="qnaClearAll"
+                                type="button"
+                                hidden
+                            >
+                                Hapus Semua
+                            </button>
+
+                        </div>
+
+
+                        <!-- Search pertanyaan -->
+                        <div class="qna-search">
+                            <span class="qna-search-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="M21 21l-4.3-4.3"></path>
+                                </svg>
+                            </span>
+                            <input
+                                type="search"
+                                id="qnaSearch"
+                                placeholder="Cari pertanyaan..."
+                                aria-label="Cari pertanyaan"
+                                autocomplete="off"
+                            >
+                        </div>
+
+
+                        <!-- Container list -->
+                        <div class="qna-list" id="qnaList">
+
+                            <!-- Empty state -->
+                            <div class="qna-empty" id="qnaEmpty">
+                                <span aria-hidden="true">💬</span>
+                                <p><strong>Belum ada pertanyaan</strong></p>
+                                <small>Kirim pertanyaan pertama Anda!</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
         <!-- ==================== CONTACT ==================== -->
         <section class="section contact" id="contact">
 
@@ -805,7 +988,6 @@
                             Rp <strong>3.000</strong>
                         </span>
 
-                        <!-- Tombol WhatsApp dinamis (FITUR BARU #2) -->
                         <a
                             href="https://wa.me/6281554016406"
                             id="modalOrderBtn"

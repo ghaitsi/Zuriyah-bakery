@@ -183,7 +183,6 @@ if ("IntersectionObserver" in window) {
 
 /* ==========================
    3D HORIZONTAL PRODUCT SLIDER
-   — Support filter & search
    ========================== */
 (function initProductSlider() {
     const stage = document.querySelector("#sliderStage");
@@ -196,7 +195,6 @@ if ("IntersectionObserver" in window) {
     const allCards = Array.from(stage.querySelectorAll(".product-card"));
     if (allCards.length === 0) return;
 
-    // Kartu yang sedang ditampilkan (setelah filter/search)
     let visibleCards = [...allCards];
     let total = visibleCards.length;
     let current = 0;
@@ -246,7 +244,6 @@ if ("IntersectionObserver" in window) {
         }
     }
 
-    // ===== DOTS =====
     let dots = [];
 
     function buildDots() {
@@ -264,9 +261,7 @@ if ("IntersectionObserver" in window) {
         });
     }
 
-    // ===== LAYOUT 3D =====
     function layout() {
-        // Sembunyikan semua dulu
         allCards.forEach((c) => {
             c.style.display = "none";
             c.classList.remove("is-active");
@@ -319,11 +314,9 @@ if ("IntersectionObserver" in window) {
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1); }
 
-    // Klik card non-aktif → pindah slide
     allCards.forEach((card) => {
         card.addEventListener("click", (e) => {
             if (e.target.closest("[data-open-modal]")) return;
-
             if (!visibleCards.includes(card)) return;
 
             if (!card.classList.contains("is-active")) {
@@ -345,7 +338,6 @@ if ("IntersectionObserver" in window) {
         if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
     });
 
-    // Swipe / drag
     let startX = 0;
     let isDown = false;
     const SWIPE_THRESHOLD = 50;
@@ -387,7 +379,6 @@ if ("IntersectionObserver" in window) {
         onUp(e.changedTouches[0].clientX);
     });
 
-    // ===== AUTOPLAY =====
     function startAutoplay() {
         stopAutoplay();
         if (total <= 1) return;
@@ -414,9 +405,7 @@ if ("IntersectionObserver" in window) {
         else startAutoplay();
     });
 
-    // ============================================
-    // FITUR #1 — SEARCH & FILTER
-    // ============================================
+    /* ========== SEARCH & FILTER ========== */
     const searchInput = document.querySelector("#productSearch");
     const searchClear = document.querySelector("#searchClear");
     const filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
@@ -425,6 +414,16 @@ if ("IntersectionObserver" in window) {
 
     let activeFilter = "all";
     let activeQuery = "";
+
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, (s) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[s]));
+    }
 
     function applyFilters() {
         const q = activeQuery.trim().toLowerCase();
@@ -444,7 +443,6 @@ if ("IntersectionObserver" in window) {
         total = visibleCards.length;
         current = 0;
 
-        // Update UI
         if (emptyState) {
             emptyState.hidden = total > 0;
         }
@@ -460,28 +458,15 @@ if ("IntersectionObserver" in window) {
             }
         }
 
-        // Toggle tombol clear
         if (searchClear) {
             searchClear.hidden = activeQuery.length === 0;
         }
 
-        // Rebuild dots & layout
         buildDots();
         layout();
         restartAutoplay();
     }
 
-    function escapeHtml(str) {
-        return str.replace(/[&<>"']/g, (s) => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        }[s]));
-    }
-
-    // Search input
     if (searchInput) {
         let debounceTimer;
         searchInput.addEventListener("input", (e) => {
@@ -493,7 +478,6 @@ if ("IntersectionObserver" in window) {
         });
     }
 
-    // Clear search
     if (searchClear) {
         searchClear.addEventListener("click", () => {
             if (searchInput) searchInput.value = "";
@@ -503,7 +487,6 @@ if ("IntersectionObserver" in window) {
         });
     }
 
-    // Filter buttons
     filterBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             filterBtns.forEach((b) => {
@@ -518,7 +501,7 @@ if ("IntersectionObserver" in window) {
         });
     });
 
-    // ===== INIT =====
+    /* ========== INIT ========== */
     updateSpacing();
     buildDots();
     layout();
@@ -544,7 +527,6 @@ if ("IntersectionObserver" in window) {
 
 /* ==========================
    PRODUCT DETAIL MODAL
-   + FITUR #2 — WhatsApp Auto-Order
    ========================== */
 (function initProductModal() {
     const modal = document.querySelector("#productModal");
@@ -558,7 +540,7 @@ if ("IntersectionObserver" in window) {
 
     if (!modal) return;
 
-    const WA_NUMBER = "6281554016406"; // ganti sesuai nomor WA
+    const WA_NUMBER = "6281554016406";
     let lastFocused = null;
 
     function openModal(card) {
@@ -578,7 +560,6 @@ if ("IntersectionObserver" in window) {
         modalTitle.textContent = productName;
         modalDescription.textContent = desc ? desc.textContent.trim() : "";
 
-        // FITUR #2 — WA auto-order dengan nama produk
         if (modalOrderBtn) {
             const message = `Halo ZURIYAH Bakery! 👋%0A%0ASaya ingin memesan:%0A*${encodeURIComponent(productName)}*%0A%0AApakah masih tersedia? Terima kasih 🥐`;
             modalOrderBtn.href = `https://wa.me/${WA_NUMBER}?text=${message}`;
@@ -644,4 +625,284 @@ if ("IntersectionObserver" in window) {
             first.focus();
         }
     });
+})();
+
+
+/* ==========================
+   QNA — SAVE PERTANYAAN USER
+   Tanpa database, pakai localStorage
+   ========================== */
+(function initQnA() {
+    const STORAGE_KEY = "zuriyah-qna";
+    const MAX_ENTRIES = 50;
+
+    const form = document.querySelector("#qnaForm");
+    const listEl = document.querySelector("#qnaList");
+    const emptyEl = document.querySelector("#qnaEmpty");
+    const countEl = document.querySelector("#qnaCount");
+    const clearAllBtn = document.querySelector("#qnaClearAll");
+    const searchInput = document.querySelector("#qnaSearch");
+
+    if (!form || !listEl) return;
+
+    /* ============ STORAGE ============ */
+    function loadEntries() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveEntries(entries) {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+        } catch (e) {
+            showToast("Penyimpanan penuh!", "error");
+        }
+    }
+
+    let entries = loadEntries();
+
+    /* ============ TOAST ============ */
+    let toastEl = null;
+    let toastTimer = null;
+
+    function showToast(message, type = "success") {
+        if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.className = "qna-toast";
+            toastEl.innerHTML = `
+                <span class="qna-toast-icon" aria-hidden="true">${type === "error" ? "!" : "✓"}</span>
+                <span class="qna-toast-text"></span>
+            `;
+            document.body.appendChild(toastEl);
+        }
+
+        const iconEl = toastEl.querySelector(".qna-toast-icon");
+        const textEl = toastEl.querySelector(".qna-toast-text");
+
+        iconEl.textContent = type === "error" ? "!" : "✓";
+        textEl.textContent = message;
+
+        toastEl.classList.add("is-visible");
+
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toastEl.classList.remove("is-visible");
+        }, 2600);
+    }
+
+    /* ============ HELPERS ============ */
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, (s) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[s]));
+    }
+
+    function getInitials(name) {
+        const parts = String(name || "?").trim().split(/\s+/).slice(0, 2);
+        return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
+    }
+
+    function timeAgo(iso) {
+        const now = Date.now();
+        const then = new Date(iso).getTime();
+        const diff = Math.floor((now - then) / 1000);
+
+        if (diff < 60) return "Baru saja";
+        if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
+        if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
+
+        const d = new Date(iso);
+        return d.toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+    }
+
+    /* ============ RENDER ============ */
+    let searchQuery = "";
+
+    function renderList() {
+        const q = searchQuery.trim().toLowerCase();
+
+        const filtered = !q
+            ? entries
+            : entries.filter((e) => {
+                const haystack = `${e.name} ${e.email} ${e.category} ${e.message}`.toLowerCase();
+                return haystack.includes(q);
+            });
+
+        if (countEl) {
+            countEl.textContent = entries.length;
+        }
+
+        if (clearAllBtn) {
+            clearAllBtn.hidden = entries.length === 0;
+        }
+
+        if (filtered.length === 0) {
+            listEl.innerHTML = "";
+            if (emptyEl) {
+                emptyEl.hidden = false;
+
+                const emptyTitle = emptyEl.querySelector("p strong");
+                const emptySub = emptyEl.querySelector("small");
+
+                if (q) {
+                    if (emptyTitle) emptyTitle.textContent = "Tidak ada hasil";
+                    if (emptySub) emptySub.textContent = "Coba kata kunci lain.";
+                } else {
+                    if (emptyTitle) emptyTitle.textContent = "Belum ada pertanyaan";
+                    if (emptySub) emptySub.textContent = "Kirim pertanyaan pertama Anda!";
+                }
+
+                listEl.appendChild(emptyEl);
+            }
+            return;
+        }
+
+        if (emptyEl) emptyEl.hidden = true;
+
+        listEl.innerHTML = filtered.map((entry) => `
+            <div class="qna-item" data-id="${escapeHtml(entry.id)}">
+                <div class="qna-item-header">
+                    <div class="qna-item-author">
+                        <span class="qna-item-avatar" aria-hidden="true">${escapeHtml(getInitials(entry.name))}</span>
+                        <span class="qna-item-name">${escapeHtml(entry.name)}</span>
+                        <span class="qna-item-meta">· ${escapeHtml(timeAgo(entry.createdAt))}</span>
+                    </div>
+
+                    <div class="qna-item-header-right" style="display:flex;gap:8px;align-items:center;">
+                        <span class="qna-item-category">${escapeHtml(entry.category)}</span>
+                        <button
+                            class="qna-item-delete"
+                            type="button"
+                            aria-label="Hapus pertanyaan"
+                            data-delete-id="${escapeHtml(entry.id)}"
+                        >×</button>
+                    </div>
+                </div>
+
+                <p class="qna-item-message">${escapeHtml(entry.message)}</p>
+
+                <small class="qna-item-email">${escapeHtml(entry.email)}</small>
+            </div>
+        `).join("");
+    }
+
+    /* ============ SUBMIT ============ */
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nameEl = document.querySelector("#qnaName");
+        const emailEl = document.querySelector("#qnaEmail");
+        const catEl = document.querySelector("#qnaCategory");
+        const msgEl = document.querySelector("#qnaMessage");
+
+        const name = nameEl?.value.trim() || "";
+        const email = emailEl?.value.trim() || "";
+        const category = catEl?.value || "";
+        const message = msgEl?.value.trim() || "";
+
+        if (!name || name.length < 2) {
+            showToast("Nama minimal 2 karakter", "error");
+            nameEl?.focus();
+            return;
+        }
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showToast("Email tidak valid", "error");
+            emailEl?.focus();
+            return;
+        }
+
+        if (!category) {
+            showToast("Pilih kategori dulu", "error");
+            catEl?.focus();
+            return;
+        }
+
+        if (!message || message.length < 5) {
+            showToast("Pertanyaan minimal 5 karakter", "error");
+            msgEl?.focus();
+            return;
+        }
+
+        const entry = {
+            id: `q_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+            name,
+            email,
+            category,
+            message,
+            createdAt: new Date().toISOString()
+        };
+
+        entries.unshift(entry);
+
+        if (entries.length > MAX_ENTRIES) {
+            entries = entries.slice(0, MAX_ENTRIES);
+        }
+
+        saveEntries(entries);
+        renderList();
+
+        form.reset();
+
+        showToast("Pertanyaan berhasil dikirim!");
+    });
+
+    /* ============ DELETE ============ */
+    listEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-delete-id]");
+        if (!btn) return;
+
+        const id = btn.dataset.deleteId;
+        if (!id) return;
+
+        entries = entries.filter((en) => en.id !== id);
+        saveEntries(entries);
+        renderList();
+
+        showToast("Pertanyaan dihapus");
+    });
+
+    /* ============ CLEAR ALL ============ */
+    clearAllBtn?.addEventListener("click", () => {
+        if (entries.length === 0) return;
+
+        const confirmed = window.confirm("Yakin ingin menghapus semua pertanyaan?");
+        if (!confirmed) return;
+
+        entries = [];
+        saveEntries(entries);
+        renderList();
+
+        showToast("Semua pertanyaan dihapus");
+    });
+
+    /* ============ SEARCH ============ */
+    if (searchInput) {
+        let searchTimer;
+        searchInput.addEventListener("input", (e) => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                searchQuery = e.target.value || "";
+                renderList();
+            }, 150);
+        });
+    }
+
+    /* ============ INIT ============ */
+    renderList();
 })();
