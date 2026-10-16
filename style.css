@@ -2004,6 +2004,81 @@ html[data-theme="dark"] .qna-toast-icon {
 }
 
 /* ==========================
+   QNA — LOADING, REFRESH, STATUS
+   ========================== */
+
+.qna-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 0;
+}
+
+.qna-loading[hidden] { display: none; }
+
+.qna-skeleton {
+    height: 90px;
+    border-radius: 14px;
+    background: linear-gradient(
+        90deg,
+        var(--bg-input) 0%,
+        var(--bg-input-focus) 50%,
+        var(--bg-input) 100%
+    );
+    background-size: 200% 100%;
+    animation: qnaShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes qnaShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.qna-refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px 16px;
+    border: 1px dashed var(--border-input);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-soft);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s;
+}
+
+.qna-refresh:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(199, 154, 62, 0.06);
+    transform: translateY(-2px);
+}
+
+.qna-refresh:active { transform: translateY(0); }
+
+.qna-refresh > span {
+    display: inline-block;
+    font-size: 1rem;
+    transition: transform 0.5s ease;
+}
+
+.qna-refresh.is-loading > span {
+    animation: qnaSpin 0.8s linear infinite;
+}
+
+@keyframes qnaSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+/* ==========================
    FOOTER
    ========================== */
 

@@ -632,40 +632,32 @@ if ("IntersectionObserver" in window) {
    QNA — SAVE PERTANYAAN USER
    Tanpa database, pakai localStorage
    ========================== */
+/* ==========================
+   QNA — PUBLIC BOARD via JSONBin.io
+   Semua user bisa lihat & kirim pertanyaan
+   ========================== */
 (function initQnA() {
-    const STORAGE_KEY = "zuriyah-qna";
-    const MAX_ENTRIES = 50;
+    /* ===== KONFIGURASI ===== */
+    const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
+    const JSONBIN_BIN = "6ad221bcac6210605a373689";
+
+    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+    const CACHE_KEY = "zuriyah-qna-cache";
+    const MAX_ENTRIES = 100;
 
     const form = document.querySelector("#qnaForm");
     const listEl = document.querySelector("#qnaList");
     const emptyEl = document.querySelector("#qnaEmpty");
     const countEl = document.querySelector("#qnaCount");
-    const clearAllBtn = document.querySelector("#qnaClearAll");
     const searchInput = document.querySelector("#qnaSearch");
+    const loadingEl = document.querySelector("#qnaLoading");
+    const refreshBtn = document.querySelector("#qnaRefresh");
 
     if (!form || !listEl) return;
 
-    /* ============ STORAGE ============ */
-    function loadEntries() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) return [];
-            const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (e) {
-            return [];
-        }
-    }
-
-    function saveEntries(entries) {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-        } catch (e) {
-            showToast("Penyimpanan penuh!", "error");
-        }
-    }
-
-    let entries = loadEntries();
+    let entries = [];
+    let isLoading = false;
+    let searchQuery = "";
 
     /* ============ TOAST ============ */
     let toastEl = null;
@@ -689,21 +681,15 @@ if ("IntersectionObserver" in window) {
         textEl.textContent = message;
 
         toastEl.classList.add("is-visible");
-
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => {
-            toastEl.classList.remove("is-visible");
-        }, 2600);
+        toastTimer = setTimeout(() => toastEl.classList.remove("is-visible"), 2600);
     }
 
     /* ============ HELPERS ============ */
     function escapeHtml(str) {
         return String(str).replace(/[&<>"']/g, (s) => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
+            "&": "&amp;", "<": "&lt;", ">": "&gt;",
+            '"': "&quot;", "'": "&#39;"
         }[s]));
     }
 
@@ -722,17 +708,85 @@ if ("IntersectionObserver" in window) {
         if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
         if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
 
-        const d = new Date(iso);
-        return d.toLocaleDateString("id-ID", {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
+        return new Date(iso).toLocaleDateString("id-ID", {
+            day: "numeric", month: "short", year: "numeric"
         });
     }
 
-    /* ============ RENDER ============ */
-    let searchQuery = "";
+    /* ============ API ============ */
+    async function fetchEntries() {
+        const res = await fetch(`${API_URL}/latest`, {
+            headers: {
+                "X-Master-Key": JSONBIN_KEY,
+                "X-Bin-Meta": "false"
+            }
+        });
 
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.record)) return data.record;
+        return [];
+    }
+
+    async function saveEntries(newEntries) {
+        const res = await fetch(API_URL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": JSONBIN_KEY
+            },
+            body: JSON.stringify(newEntries)
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+    }
+
+    /* ============ LOAD ============ */
+    async function loadData(showLoading = true) {
+        if (isLoading) return;
+        isLoading = true;
+
+        if (showLoading && loadingEl) {
+            loadingEl.hidden = false;
+            listEl.style.display = "none";
+        }
+
+        if (refreshBtn) refreshBtn.classList.add("is-loading");
+
+        try {
+            entries = await fetchEntries();
+
+            // Cache ke localStorage sebagai fallback
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
+            } catch (e) {}
+
+            renderList();
+        } catch (err) {
+            console.error("Gagal load QnA:", err);
+            showToast("Gagal memuat data. Coba refresh.", "error");
+
+            // Fallback pakai cache
+            try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (raw) {
+                    entries = JSON.parse(raw);
+                    renderList();
+                }
+            } catch (e) {}
+        } finally {
+            isLoading = false;
+            if (loadingEl) loadingEl.hidden = true;
+            listEl.style.display = "";
+            if (refreshBtn) refreshBtn.classList.remove("is-loading");
+        }
+    }
+
+    /* ============ RENDER ============ */
     function renderList() {
         const q = searchQuery.trim().toLowerCase();
 
@@ -743,19 +797,12 @@ if ("IntersectionObserver" in window) {
                 return haystack.includes(q);
             });
 
-        if (countEl) {
-            countEl.textContent = entries.length;
-        }
-
-        if (clearAllBtn) {
-            clearAllBtn.hidden = entries.length === 0;
-        }
+        if (countEl) countEl.textContent = entries.length;
 
         if (filtered.length === 0) {
             listEl.innerHTML = "";
             if (emptyEl) {
                 emptyEl.hidden = false;
-
                 const emptyTitle = emptyEl.querySelector("p strong");
                 const emptySub = emptyEl.querySelector("small");
 
@@ -783,14 +830,8 @@ if ("IntersectionObserver" in window) {
                         <span class="qna-item-meta">· ${escapeHtml(timeAgo(entry.createdAt))}</span>
                     </div>
 
-                    <div class="qna-item-header-right" style="display:flex;gap:8px;align-items:center;">
+                    <div style="display:flex;gap:8px;align-items:center;">
                         <span class="qna-item-category">${escapeHtml(entry.category)}</span>
-                        <button
-                            class="qna-item-delete"
-                            type="button"
-                            aria-label="Hapus pertanyaan"
-                            data-delete-id="${escapeHtml(entry.id)}"
-                        >×</button>
                     </div>
                 </div>
 
@@ -802,7 +843,7 @@ if ("IntersectionObserver" in window) {
     }
 
     /* ============ SUBMIT ============ */
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const nameEl = document.querySelector("#qnaName");
@@ -816,79 +857,54 @@ if ("IntersectionObserver" in window) {
         const message = msgEl?.value.trim() || "";
 
         if (!name || name.length < 2) {
-            showToast("Nama minimal 2 karakter", "error");
-            nameEl?.focus();
-            return;
+            showToast("Nama minimal 2 karakter", "error"); nameEl?.focus(); return;
         }
-
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showToast("Email tidak valid", "error");
-            emailEl?.focus();
-            return;
+            showToast("Email tidak valid", "error"); emailEl?.focus(); return;
         }
-
         if (!category) {
-            showToast("Pilih kategori dulu", "error");
-            catEl?.focus();
-            return;
+            showToast("Pilih kategori dulu", "error"); catEl?.focus(); return;
+        }
+        if (!message || message.length < 5) {
+            showToast("Pertanyaan minimal 5 karakter", "error"); msgEl?.focus(); return;
         }
 
-        if (!message || message.length < 5) {
-            showToast("Pertanyaan minimal 5 karakter", "error");
-            msgEl?.focus();
-            return;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.innerHTML || "";
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "Mengirim...";
         }
 
         const entry = {
             id: `q_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-            name,
-            email,
-            category,
-            message,
+            name, email, category, message,
             createdAt: new Date().toISOString()
         };
 
-        entries.unshift(entry);
+        // Optimistic update
+        const newEntries = [entry, ...entries];
+        if (newEntries.length > MAX_ENTRIES) newEntries.length = MAX_ENTRIES;
 
-        if (entries.length > MAX_ENTRIES) {
-            entries = entries.slice(0, MAX_ENTRIES);
+        try {
+            await saveEntries(newEntries);
+            entries = newEntries;
+
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify(entries)); } catch (e) {}
+
+            renderList();
+            form.reset();
+            showToast("Pertanyaan berhasil dikirim!");
+        } catch (err) {
+            console.error("Gagal kirim:", err);
+            showToast("Gagal mengirim. Coba lagi.", "error");
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         }
-
-        saveEntries(entries);
-        renderList();
-
-        form.reset();
-
-        showToast("Pertanyaan berhasil dikirim!");
-    });
-
-    /* ============ DELETE ============ */
-    listEl.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-delete-id]");
-        if (!btn) return;
-
-        const id = btn.dataset.deleteId;
-        if (!id) return;
-
-        entries = entries.filter((en) => en.id !== id);
-        saveEntries(entries);
-        renderList();
-
-        showToast("Pertanyaan dihapus");
-    });
-
-    /* ============ CLEAR ALL ============ */
-    clearAllBtn?.addEventListener("click", () => {
-        if (entries.length === 0) return;
-
-        const confirmed = window.confirm("Yakin ingin menghapus semua pertanyaan?");
-        if (!confirmed) return;
-
-        entries = [];
-        saveEntries(entries);
-        renderList();
-
-        showToast("Semua pertanyaan dihapus");
     });
 
     /* ============ SEARCH ============ */
@@ -903,6 +919,21 @@ if ("IntersectionObserver" in window) {
         });
     }
 
+    /* ============ REFRESH ============ */
+    refreshBtn?.addEventListener("click", () => {
+        loadData(false);
+        showToast("Memuat ulang data...");
+    });
+
+    /* ============ AUTO REFRESH ============ */
+    setInterval(() => {
+        if (!document.hidden && !isLoading) {
+            fetchEntries()
+                .then((data) => { entries = data; renderList(); })
+                .catch(() => {});
+        }
+    }, 30000);
+
     /* ============ INIT ============ */
-    renderList();
+    loadData(true);
 })();
