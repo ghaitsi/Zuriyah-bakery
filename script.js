@@ -630,7 +630,7 @@ if ("IntersectionObserver" in window) {
 
 /* ==========================
    QNA — PUBLIC BOARD via JSONBin.io
-   Semua user bisa lihat & kirim pertanyaan
+   + REPLY SYSTEM
    ========================== */
 (function initQnA() {
     const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
@@ -639,6 +639,7 @@ if ("IntersectionObserver" in window) {
     const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
     const CACHE_KEY = "zuriyah-qna-cache";
     const MAX_ENTRIES = 100;
+    const MAX_REPLIES = 20;
 
     const form = document.querySelector("#qnaForm");
     const listEl = document.querySelector("#qnaList");
@@ -653,6 +654,7 @@ if ("IntersectionObserver" in window) {
     let entries = [];
     let isLoading = false;
     let searchQuery = "";
+    let activeReplyId = null;
 
     /* ============ TOAST ============ */
     let toastEl = null;
@@ -814,7 +816,10 @@ if ("IntersectionObserver" in window) {
 
         if (emptyEl) emptyEl.hidden = true;
 
-        listEl.innerHTML = filtered.map((entry) => `
+        listEl.innerHTML = filtered.map((entry) => {
+            const replies = Array.isArray(entry.replies) ? entry.replies : [];
+
+            return `
             <div class="qna-item" data-id="${escapeHtml(entry.id)}">
                 <div class="qna-item-header">
                     <div class="qna-item-author">
@@ -830,12 +835,63 @@ if ("IntersectionObserver" in window) {
 
                 <p class="qna-item-message">${escapeHtml(entry.message)}</p>
 
-                <small class="qna-item-email">${escapeHtml(entry.email)}</small>
+                <div class="qna-item-footer">
+                    <small class="qna-item-email">${escapeHtml(entry.email)}</small>
+                    <button
+                        class="qna-item-reply-btn"
+                        type="button"
+                        data-reply-id="${escapeHtml(entry.id)}"
+                        aria-label="Balas pertanyaan"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                        Balas${replies.length > 0 ? ` (${replies.length})` : ""}
+                    </button>
+                </div>
+
+                ${replies.length > 0 ? `
+                    <div class="qna-replies">
+                        ${replies.map((reply) => `
+                            <div class="qna-reply-item">
+                                <span class="qna-reply-avatar" aria-hidden="true">${escapeHtml(getInitials(reply.name))}</span>
+                                <div class="qna-reply-content">
+                                    <div class="qna-reply-header">
+                                        <strong>${escapeHtml(reply.name)}</strong>
+                                        <span>· ${escapeHtml(timeAgo(reply.createdAt))}</span>
+                                    </div>
+                                    <p class="qna-reply-message">${escapeHtml(reply.message)}</p>
+                                </div>
+                            </div>
+                        `).join("")}
+                    </div>
+                ` : ""}
+
+                ${activeReplyId === entry.id ? `
+                    <div class="qna-reply-form" data-reply-form-id="${escapeHtml(entry.id)}">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="qna-reply-name" placeholder="Nama Anda" maxlength="60" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="qna-reply-email" placeholder="Email (opsional)" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="qna-reply-message" rows="2" placeholder="Tulis balasan Anda..." maxlength="500" required></textarea>
+                        </div>
+                        <div class="qna-reply-form-actions">
+                            <button type="button" class="qna-reply-cancel">Batal</button>
+                            <button type="button" class="qna-reply-submit btn btn-primary">Kirim Balasan ↗</button>
+                        </div>
+                    </div>
+                ` : ""}
             </div>
-        `).join("");
+            `;
+        }).join("");
     }
 
-    /* ============ SUBMIT ============ */
+    /* ============ SUBMIT PERTANYAAN ============ */
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -873,6 +929,7 @@ if ("IntersectionObserver" in window) {
         const entry = {
             id: `q_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
             name, email, category, message,
+            replies: [],
             createdAt: new Date().toISOString()
         };
 
@@ -898,6 +955,113 @@ if ("IntersectionObserver" in window) {
             }
         }
     });
+
+    /* ============ EVENT DELEGATION: REPLY ============ */
+    listEl.addEventListener("click", (e) => {
+        const replyBtn = e.target.closest(".qna-item-reply-btn");
+        if (replyBtn) {
+            const id = replyBtn.dataset.replyId;
+            activeReplyId = activeReplyId === id ? null : id;
+            renderList();
+
+            if (activeReplyId) {
+                setTimeout(() => {
+                    const replyForm = listEl.querySelector(`[data-reply-form-id="${activeReplyId}"]`);
+                    if (replyForm) {
+                        replyForm.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    }
+                }, 100);
+            }
+            return;
+        }
+
+        const cancelBtn = e.target.closest(".qna-reply-cancel");
+        if (cancelBtn) {
+            activeReplyId = null;
+            renderList();
+            return;
+        }
+
+        const submitReplyBtn = e.target.closest(".qna-reply-submit");
+        if (submitReplyBtn) {
+            const formWrapper = submitReplyBtn.closest(".qna-reply-form");
+            if (!formWrapper) return;
+
+            const entryId = formWrapper.dataset.replyFormId;
+            const nameInput = formWrapper.querySelector(".qna-reply-name");
+            const emailInput = formWrapper.querySelector(".qna-reply-email");
+            const messageInput = formWrapper.querySelector(".qna-reply-message");
+
+            const replyName = nameInput?.value.trim() || "";
+            const replyEmail = emailInput?.value.trim() || "";
+            const replyMessage = messageInput?.value.trim() || "";
+
+            if (!replyName || replyName.length < 2) {
+                showToast("Nama minimal 2 karakter", "error");
+                nameInput?.focus();
+                return;
+            }
+            if (!replyMessage || replyMessage.length < 2) {
+                showToast("Balasan minimal 2 karakter", "error");
+                messageInput?.focus();
+                return;
+            }
+
+            submitReply(entryId, replyName, replyEmail, replyMessage, submitReplyBtn);
+        }
+    });
+
+    /* ============ SUBMIT REPLY ============ */
+    async function submitReply(entryId, name, email, message, btn) {
+        const originalText = btn?.innerHTML || "Kirim Balasan";
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = "Mengirim...";
+        }
+
+        const entryIndex = entries.findIndex((en) => en.id === entryId);
+        if (entryIndex === -1) {
+            showToast("Pertanyaan tidak ditemukan", "error");
+            return;
+        }
+
+        const reply = {
+            id: `r_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            name,
+            email,
+            message,
+            createdAt: new Date().toISOString()
+        };
+
+        const newEntries = entries.map((en) => {
+            if (en.id !== entryId) return en;
+            const existingReplies = Array.isArray(en.replies) ? en.replies : [];
+            const newReplies = [...existingReplies, reply];
+            if (newReplies.length > MAX_REPLIES) {
+                newReplies.splice(0, newReplies.length - MAX_REPLIES);
+            }
+            return { ...en, replies: newReplies };
+        });
+
+        try {
+            await saveEntries(newEntries);
+            entries = newEntries;
+            activeReplyId = null;
+
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify(entries)); } catch (e) {}
+
+            renderList();
+            showToast("Balasan berhasil dikirim!");
+        } catch (err) {
+            console.error("Gagal kirim balasan:", err);
+            showToast("Gagal mengirim balasan. Coba lagi.", "error");
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+    }
 
     /* ============ SEARCH ============ */
     if (searchInput) {
@@ -932,7 +1096,7 @@ if ("IntersectionObserver" in window) {
 
 
 /* ==========================
-   QNA FLOATING PANEL — FIX
+   QNA FLOATING PANEL
    ========================== */
 (function initQnaPanel() {
     const trigger = document.querySelector("#qnaTrigger");
@@ -975,28 +1139,23 @@ if ("IntersectionObserver" in window) {
         else openPanel();
     }
 
-    /* Klik trigger → toggle */
     trigger.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         togglePanel();
     });
 
-    /* Close button */
     closeBtn?.addEventListener("click", (e) => {
         e.stopPropagation();
         closePanel();
     });
 
-    /* Backdrop click */
     backdrop.addEventListener("click", closePanel);
 
-    /* ESC */
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && isOpen) closePanel();
     });
 
-    /* Focus trap */
     panel.addEventListener("keydown", (e) => {
         if (e.key !== "Tab") return;
 
@@ -1015,5 +1174,117 @@ if ("IntersectionObserver" in window) {
             e.preventDefault();
             first.focus();
         }
+    });
+})();
+
+
+/* ====================================================
+   FITUR 1: VISITOR COUNTER
+   ==================================================== */
+(function initVisitorCounter() {
+    const el = document.querySelector("#visitorCount");
+    if (!el) return;
+
+    const STORAGE_KEY = "zuriyah-visitor";
+    const SESSION_KEY = "zuriyah-visitor-session";
+    const BASE_COUNT = 1247;
+
+    let current = 0;
+
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const hasSession = sessionStorage.getItem(SESSION_KEY);
+
+        if (stored) {
+            current = parseInt(stored, 10) || 0;
+        } else {
+            current = BASE_COUNT + Math.floor(Math.random() * 50);
+        }
+
+        if (!hasSession) {
+            current += 1;
+            sessionStorage.setItem(SESSION_KEY, "1");
+            localStorage.setItem(STORAGE_KEY, String(current));
+        }
+    } catch (e) {
+        current = BASE_COUNT;
+    }
+
+    const duration = 1400;
+    const start = Math.max(0, current - 50);
+    const startTime = performance.now();
+
+    function animate(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(start + (current - start) * eased);
+
+        el.textContent = value.toLocaleString("id-ID");
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            el.textContent = current.toLocaleString("id-ID");
+        }
+    }
+
+    if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(animate);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        obs.observe(el);
+    } else {
+        requestAnimationFrame(animate);
+    }
+})();
+
+
+/* ====================================================
+   FITUR 2: SCROLL TO TOP BUTTON
+   ==================================================== */
+(function initScrollTop() {
+    const btn = document.querySelector("#scrollTop");
+    if (!btn) return;
+
+    const SHOW_AFTER = 400;
+    let ticking = false;
+
+    function updateVisibility() {
+        const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrolled > SHOW_AFTER) {
+            btn.classList.add("is-visible");
+        } else {
+            btn.classList.remove("is-visible");
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            requestAnimationFrame(updateVisibility);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateVisibility();
+
+    btn.addEventListener("click", () => {
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        window.scrollTo({
+            top: 0,
+            behavior: prefersReduced ? "auto" : "smooth"
+        });
     });
 })();
