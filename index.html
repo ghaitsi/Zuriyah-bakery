@@ -38,13 +38,10 @@
      BACKGROUND DECORATIONS
      ============================================ -->
 <div class="bg-decorations" aria-hidden="true">
-
-    <!-- Ambient blobs -->
     <div class="bg-blob bg-blob-1"></div>
     <div class="bg-blob bg-blob-2"></div>
     <div class="bg-blob bg-blob-3"></div>
 
-    <!-- Floating bakery icons -->
     <svg class="floating-icon floating-icon-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 17h18a2 2 0 0 0 2-2 8 8 0 0 0-8-8H9a8 8 0 0 0-8 8 2 2 0 0 0 2 2z"/>
         <path d="M7 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/>
@@ -70,12 +67,10 @@
         <line x1="15" y1="9" x2="15.01" y2="9"/>
     </svg>
 
-    <!-- Decorative dots -->
     <div class="bg-dot bg-dot-1"></div>
     <div class="bg-dot bg-dot-2"></div>
     <div class="bg-dot bg-dot-3"></div>
     <div class="bg-dot bg-dot-4"></div>
-
 </div>
 <!-- END BACKGROUND DECORATIONS -->
     <header class="header">
@@ -101,7 +96,7 @@
                 <a href="#home">Beranda</a>
                 <a href="#about">Tentang</a>
                 <a href="#products">Catalogue</a>
-                <a href="#values">Keunggulan</a>
+                <a href="#location">Lokasi</a>
                 <a href="#contact" class="nav-button">Hubungi Kami</a>
             </div>
         </nav>
@@ -123,7 +118,6 @@
                         <a href="#about" class="text-link">Kenali ZURIYAH →</a>
                     </div>
 
-                    <!-- FITUR 2: LIVE VISITOR COUNTER -->
                     <div class="visitor-counter">
                         <div class="visitor-dot" aria-hidden="true"></div>
                         <span class="visitor-text">
@@ -173,6 +167,53 @@
         </section>
 
 
+        <!-- CERTIFICATIONS / SERTIFIKASI -->
+        <section class="section certifications" id="certifications">
+            <div class="container">
+                <div class="cert-header">
+                    <div class="section-number"><span>02</span><small>SERTIFIKASI RESMI</small></div>
+                    <div class="cert-header-text">
+                        <p class="eyebrow"><span aria-hidden="true"></span>TERUJI & TERPERCAYA</p>
+                        <h2>Standar yang kami <em>jaga.</em></h2>
+                        <p>Produk ZURIYAH Bakery telah tersertifikasi Halal dan terdaftar di BPOM, memastikan keamanan dan kualitas di setiap gigitan.</p>
+                    </div>
+                </div>
+
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-logo">
+                            <img src="assets/halal-mui.png" alt="Logo Halal MUI" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('is-placeholder');">
+                            <div class="cert-placeholder">
+                                <span aria-hidden="true">☪</span>
+                                <small>Logo Halal</small>
+                            </div>
+                        </div>
+                        <div class="cert-info">
+                            <h3>Halal MUI</h3>
+                            <p>Tersertifikasi halal oleh Majelis Ulama Indonesia. Setiap bahan dan proses produksi sesuai standar syariat.</p>
+                            <span class="cert-badge">SERTIFIKAT HALAL</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-logo">
+                            <img src="assets/bpom.png" alt="Logo BPOM" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('is-placeholder');">
+                            <div class="cert-placeholder">
+                                <span aria-hidden="true">🏛</span>
+                                <small>Logo BPOM</small>
+                            </div>
+                        </div>
+                        <div class="cert-info">
+                            <h3>BPOM RI</h3>
+                            <p>Terdaftar di Badan Pengawas Obat dan Makanan Republik Indonesia. Aman, berkualitas, dan sesuai standar nasional.</p>
+                            <span class="cert-badge">TERDAFTAR BPOM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- PRODUCTS -->
         <section class="section products" id="products">
             <div class="container">
@@ -182,7 +223,14 @@
                         <p class="eyebrow">DARI OVEN KAMI</p>
                         <h2>Temukan favorit<br><em>di setiap gigitan.</em></h2>
                     </div>
-                    <p>All variant <span class="price">3K</span></p>
+                    <div class="price-card">
+                        <span class="price-label">Mulai dari</span>
+                        <span class="price-value">
+                            <span class="price-currency">Rp</span>
+                            <span class="price-amount">3.000</span>
+                        </span>
+                        <span class="price-note">/ pcs · all variant</span>
+                    </div>
                 </div>
 
                 <div class="product-toolbar">
@@ -400,6 +448,71 @@
         </section>
 
 
+        <!-- LOCATION & OPERATIONAL HOURS -->
+        <section class="section location" id="location">
+            <div class="container">
+                <div class="location-header">
+                    <div>
+                        <p class="eyebrow"><span aria-hidden="true"></span>TEMUKAN KAMI</p>
+                        <h2>Mampir dan rasakan<br><em>kehangatannya.</em></h2>
+                    </div>
+                    <a href="https://maps.google.com/?q=ZURIYAH+Bakery" target="_blank" rel="noopener noreferrer" class="text-link">Buka di Google Maps →</a>
+                </div>
+
+                <div class="location-grid">
+                    <!-- MAP -->
+                    <div class="map-wrapper">
+                        <iframe
+                            src="https://maps.google.com/maps?q=ZURIYAH%20Bakery%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Lokasi ZURIYAH Bakery">
+                        </iframe>
+                    </div>
+
+                    <!-- INFO -->
+                    <div class="location-info">
+                        <!-- ALAMAT — pakai SVG icon elegan -->
+                        <div class="info-card">
+                            <div class="info-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>Alamat</h3>
+                                <p>Jl.Haji Semplak No. 115, Kota Bogor<br>Provinsi Jawa Barat,</p>
+                            </div>
+                        </div>
+
+                        <!-- JAM OPERASIONAL — pakai SVG clock icon elegan -->
+                        <div class="info-card">
+                            <div class="info-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>Jam Operasional</h3>
+                                <div class="hours-list" id="hoursList">
+                                    <!-- Diisi otomatis oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KONTAK DIHAPUS — udah ada di section Contact bawah -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- CONTACT -->
         <section class="section contact" id="contact">
             <div class="container contact-box">
@@ -469,36 +582,18 @@
     </footer>
 
 
-    <!-- ============================================
-         FITUR 1: SCROLL TO TOP BUTTON
-         ============================================ -->
-    <button
-        class="scroll-top"
-        id="scrollTop"
-        type="button"
-        aria-label="Kembali ke atas"
-        title="Kembali ke atas"
-    >
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" type="button" aria-label="Kembali ke atas" title="Kembali ke atas">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 19V5M5 12l7-7 7 7"/>
         </svg>
     </button>
 
 
-    <!-- ============================================
-         QNA FLOATING SIDEBAR
-         ============================================ -->
-
+    <!-- QNA FLOATING SIDEBAR -->
     <div class="qna-backdrop" id="qnaBackdrop" aria-hidden="true"></div>
 
-    <button
-        class="qna-trigger"
-        id="qnaTrigger"
-        type="button"
-        aria-label="Buka Tanya Jawab"
-        aria-expanded="false"
-        aria-controls="qnaPanel"
-    >
+    <button class="qna-trigger" id="qnaTrigger" type="button" aria-label="Buka Tanya Jawab" aria-expanded="false" aria-controls="qnaPanel">
         <span class="qna-trigger-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -507,12 +602,7 @@
         <span class="qna-trigger-label">Tanya Jawab</span>
     </button>
 
-    <aside
-        class="qna-panel"
-        id="qnaPanel"
-        aria-hidden="true"
-        aria-label="Panel Tanya Jawab"
-    >
+    <aside class="qna-panel" id="qnaPanel" aria-hidden="true" aria-label="Panel Tanya Jawab">
         <header class="qna-panel-header">
             <div class="qna-panel-title">
                 <span class="qna-panel-icon" aria-hidden="true">
@@ -532,8 +622,6 @@
         </header>
 
         <div class="qna-panel-body">
-
-            <!-- FORM -->
             <div class="qna-form-wrapper">
                 <h4 class="qna-section-title">Kirim Pertanyaan</h4>
 
@@ -570,7 +658,6 @@
                 </form>
             </div>
 
-            <!-- LIST -->
             <div class="qna-list-wrapper">
                 <div class="qna-list-header">
                     <h4 class="qna-section-title">Pertanyaan Publik</h4>
@@ -606,7 +693,6 @@
                     Muat Ulang
                 </button>
             </div>
-
         </div>
     </aside>
 

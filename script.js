@@ -151,6 +151,8 @@ if (yearElement) {
 const revealElements = document.querySelectorAll(
     ".hero-content, .hero-image, .section-number, " +
     ".about-content, .section-heading, " +
+    ".cert-header, .cert-card, " +
+    ".location-header, .map-wrapper, .info-card, " +
     ".values-content, .value-item, .contact-box"
 );
 
@@ -1179,70 +1181,180 @@ if ("IntersectionObserver" in window) {
 
 
 /* ====================================================
-   FITUR 1: VISITOR COUNTER
+   FITUR 1: VISITOR COUNTER (REAL via JSONBin.io)
+   Bin ID: 6ad315aeac6210605a393343
+   Mulai dari 0 — tanpa angka karangan
    ==================================================== */
 (function initVisitorCounter() {
     const el = document.querySelector("#visitorCount");
     if (!el) return;
 
-    const STORAGE_KEY = "zuriyah-visitor";
-    const SESSION_KEY = "zuriyah-visitor-session";
-    const BASE_COUNT = 1247;
+    /* ====== KONFIGURASI ====== */
+    const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
+    const JSONBIN_BIN = "6ad315aeac6210605a393343";
+
+    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+    const CACHE_KEY = "zuriyah-visitor-cache";
+    const COUNTED_KEY = "zuriyah-visitor-counted";
 
     let current = 0;
+    let displayStart = 0;
 
-    try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        const hasSession = sessionStorage.getItem(SESSION_KEY);
-
-        if (stored) {
-            current = parseInt(stored, 10) || 0;
-        } else {
-            current = BASE_COUNT + Math.floor(Math.random() * 50);
-        }
-
-        if (!hasSession) {
-            current += 1;
-            sessionStorage.setItem(SESSION_KEY, "1");
-            localStorage.setItem(STORAGE_KEY, String(current));
-        }
-    } catch (e) {
-        current = BASE_COUNT;
+    /* ============ HELPERS ============ */
+    function safeGet(store, key) {
+        try { return store.getItem(key); } catch (e) { return null; }
+    }
+    function safeSet(store, key, value) {
+        try { store.setItem(key, value); } catch (e) {}
     }
 
-    const duration = 1400;
-    const start = Math.max(0, current - 50);
-    const startTime = performance.now();
+    function getCachedCount() {
+        const raw = safeGet(localStorage, CACHE_KEY);
+        const n = parseInt(raw, 10);
+        return Number.isFinite(n) && n >= 0 ? n : null;
+    }
 
-    function animate(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const value = Math.floor(start + (current - start) * eased);
+    function setCachedCount(n) {
+        safeSet(localStorage, CACHE_KEY, String(n));
+    }
 
-        el.textContent = value.toLocaleString("id-ID");
+    /* ============ API ============ */
+    function extractCount(data) {
+        if (typeof data === "number") return data;
+        if (data && typeof data === "object" && !Array.isArray(data)) {
+            if (typeof data.visitors === "number") return data.visitors;
+            if (typeof data.count === "number") return data.count;
+        }
+        return null;
+    }
 
-        if (progress < 1) {
-            requestAnimationFrame(animate);
+    async function fetchCount() {
+        const res = await fetch(`${API_URL}/latest`, {
+            headers: {
+                "X-Master-Key": JSONBIN_KEY,
+                "X-Bin-Meta": "false"
+            },
+            cache: "no-store"
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        return { raw: data, count: extractCount(data) };
+    }
+
+    async function saveCount(visitors) {
+        const res = await fetch(API_URL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": JSONBIN_KEY
+            },
+            body: JSON.stringify({ visitors })
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+    }
+
+    /* ============ ANIMASI ANGKA ============ */
+    function animateTo(target, from) {
+        const duration = 1200;
+        const startVal = Math.max(0, from ?? target);
+        const startTime = performance.now();
+
+        function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = Math.floor(startVal + (target - startVal) * eased);
+
+            el.textContent = value.toLocaleString("id-ID");
+
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            } else {
+                el.textContent = target.toLocaleString("id-ID");
+            }
+        }
+        requestAnimationFrame(tick);
+    }
+
+    function renderStatic(n) {
+        el.textContent = Number(n || 0).toLocaleString("id-ID");
+    }
+
+    function observeAndAnimate() {
+        if ("IntersectionObserver" in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateTo(current, displayStart);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            obs.observe(el);
         } else {
-            el.textContent = current.toLocaleString("id-ID");
+            animateTo(current, displayStart);
         }
     }
 
-    if ("IntersectionObserver" in window) {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    requestAnimationFrame(animate);
-                    obs.unobserve(entry.target);
+    /* ============ LOGIKA UTAMA ============ */
+    async function run() {
+        // tampilkan cache terakhir dulu (kalau ada) — kalau belum, tampil 0
+        const cached = getCachedCount();
+        if (cached !== null) {
+            current = cached;
+            displayStart = cached;
+            renderStatic(cached);
+        } else {
+            renderStatic(0);
+        }
+
+        const alreadyCounted = safeGet(sessionStorage, COUNTED_KEY) === "1";
+
+        try {
+            const { count } = await fetchCount();
+
+            let next;
+
+            if (count === null) {
+                // bin kosong / belum punya angka → mulai dari 0 lalu +1
+                next = 1;
+                await saveCount(next);
+                setCachedCount(next);
+                safeSet(sessionStorage, COUNTED_KEY, "1");
+                displayStart = 0;
+            } else if (!alreadyCounted) {
+                // sesi baru → +1 real
+                next = count + 1;
+                setCachedCount(next);
+                safeSet(sessionStorage, COUNTED_KEY, "1");
+                displayStart = cached ?? count;
+
+                try {
+                    await saveCount(next);
+                } catch (err) {
+                    console.warn("Gagal simpan visitor:", err);
                 }
-            });
-        }, { threshold: 0.3 });
+            } else {
+                // sesi sama → tampilkan angka dari server apa adanya
+                next = count;
+                setCachedCount(count);
+                displayStart = cached ?? count;
+            }
 
-        obs.observe(el);
-    } else {
-        requestAnimationFrame(animate);
+            current = next;
+            observeAndAnimate();
+        } catch (err) {
+            console.error("Visitor counter gagal:", err);
+            // fallback: cache terakhir, kalau tidak ada → 0
+            const fallback = getCachedCount() ?? 0;
+            current = fallback;
+            displayStart = fallback;
+            animateTo(fallback, fallback);
+        }
     }
+
+    run();
 })();
 
 
@@ -1287,4 +1399,49 @@ if ("IntersectionObserver" in window) {
             behavior: prefersReduced ? "auto" : "smooth"
         });
     });
+})();
+
+
+/* ====================================================
+   FITUR 3: JAM OPERASIONAL (AUTO HIGHLIGHT HARI INI)
+   ==================================================== */
+(function initOperationalHours() {
+    const container = document.querySelector("#hoursList");
+    if (!container) return;
+
+    // ============================================
+    // GANTI JAM OPERASIONAL KAMU DI SINI
+    // 0 = Minggu, 1 = Senin, ... 6 = Sabtu
+    // ============================================
+    const SCHEDULE = [
+        { day: "Minggu", open: null, close: null, closed: true },
+        { day: "Senin", open: "08:00", close: "20:00", closed: false },
+        { day: "Selasa", open: "08:00", close: "20:00", closed: false },
+        { day: "Rabu", open: "08:00", close: "20:00", closed: false },
+        { day: "Kamis", open: "08:00", close: "20:00", closed: false },
+        { day: "Jumat", open: "08:00", close: "20:00", closed: false },
+        { day: "Sabtu", open: "09:00", close: "18:00", closed: false }
+    ];
+
+    const todayIndex = new Date().getDay();
+
+    container.innerHTML = SCHEDULE.map((item, index) => {
+        const isToday = index === todayIndex;
+        const timeText = item.closed
+            ? "Tutup"
+            : `${item.open} – ${item.close}`;
+
+        const classes = [
+            "hours-row",
+            isToday ? "is-today" : "",
+            item.closed ? "is-closed" : ""
+        ].filter(Boolean).join(" ");
+
+        return `
+            <div class="${classes}">
+                <span class="day">${item.day}${isToday ? " (Hari ini)" : ""}</span>
+                <span class="time">${timeText}</span>
+            </div>
+        `;
+    }).join("");
 })();
