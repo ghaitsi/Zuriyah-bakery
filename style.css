@@ -1296,16 +1296,25 @@ html[data-theme="dark"] .contact-form { box-shadow: 0 12px 34px rgba(0, 0, 0, 0.
 .qna-form select {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C79A3E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 16px;
+    -moz-appearance: none;
+    background-color: var(--bg-input);
+    
+    /* KUNCI PERBAIKANNYA DI 3 BARIS INI */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C79A3E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 16px center !important;
+    background-size: 16px 16px !important;
+    
     padding-right: 42px;
     cursor: pointer;
 }
 
+/* Pastikan dark mode juga sama */
 html[data-theme="dark"] .qna-form select {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E4BE6E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E4BE6E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 16px center !important;
+    background-size: 16px 16px !important;
 }
 
 .qna-form textarea { resize: none; min-height: 110px; }
@@ -3209,4 +3218,139 @@ html[data-theme="dark"] .map-wrapper iframe {
     .hours-row {
         font-size: 0.76rem;
     }
+}
+/* ====================================================
+   FOOTER — SERTIFIKASI (UPDATE: Lebih Rapi & Lega)
+   ==================================================== */
+.footer-certs {
+    padding: 32px 0;
+    border-top: 1px solid rgba(228, 190, 110, 0.15);
+    text-align: center; /* Biar judulnya ketengah */
+}
+
+.footer-certs-title {
+    margin: 0 0 24px;
+    color: var(--gold-light);
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.footer-certs-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Biar tinggi kartu sama rata */
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-cert-item {
+    display: flex;
+    flex-direction: column; /* Teks turun ke bawah logo */
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    /* Kotaknya dibikin lebih lega */
+    width: 160px;
+    padding: 20px 16px;
+    
+    border: 1px solid rgba(228, 190, 110, 0.2);
+    border-radius: 16px; /* Ganti bulat jadi kotak rounded biar muat teks */
+    background: linear-gradient(135deg, rgba(228, 190, 110, 0.06), rgba(199, 154, 62, 0.02));
+    transition: transform 0.35s var(--ease), border-color 0.3s ease, background 0.3s ease;
+}
+
+.footer-cert-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(228, 190, 110, 0.55);
+    background: linear-gradient(135deg, rgba(228, 190, 110, 0.12), rgba(199, 154, 62, 0.04));
+}
+
+.footer-cert-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px; /* Lebarin dikit */
+    height: 70px; 
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(228, 190, 110, 0.25);
+    overflow: hidden;
+    padding: 8px; /* Kasih jarak dalam biar logo gak nempel pinggir */
+}
+
+.footer-cert-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* KUNCI UTAMA: Biar gambar proporsional gak kepotong */
+}
+
+/* Placeholder kalau gambar belum ada */
+.footer-cert-placeholder {
+    display: none;
+    color: var(--gold-light);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.footer-cert-logo.is-placeholder .footer-cert-placeholder {
+    display: block;
+}
+
+.footer-cert-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.footer-cert-text strong {
+    color: var(--text-on-dark);
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.footer-cert-text small {
+    margin-top: 4px;
+    color: var(--text-on-dark-soft);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Responsive Mobile */
+@media (max-width: 640px) {
+    .footer-certs { padding: 24px 0; }
+    
+    .footer-certs-grid { 
+        flex-direction: row; /* Tetep kesamping biar hemat tempat */
+        justify-content: center;
+        gap: 12px; 
+    }
+
+    .footer-cert-item {
+        width: calc(50% - 12px); /* Bagi 2 kolom di HP */
+        max-width: 170px;
+        padding: 16px 12px;
+        gap: 10px;
+    }
+
+    .footer-cert-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .footer-cert-text strong { font-size: 0.9rem; }
+    .footer-cert-text small { font-size: 0.55rem; }
 }

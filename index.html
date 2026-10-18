@@ -34,9 +34,7 @@
 </head>
 
 <body>
-<!-- ============================================
-     BACKGROUND DECORATIONS
-     ============================================ -->
+<!-- BACKGROUND DECORATIONS -->
 <div class="bg-decorations" aria-hidden="true">
     <div class="bg-blob bg-blob-1"></div>
     <div class="bg-blob bg-blob-2"></div>
@@ -72,7 +70,7 @@
     <div class="bg-dot bg-dot-3"></div>
     <div class="bg-dot bg-dot-4"></div>
 </div>
-<!-- END BACKGROUND DECORATIONS -->
+
     <header class="header">
         <nav class="navbar container" aria-label="Menu utama">
             <a href="#home" class="brand" aria-label="ZURIYAH Bakery — Beranda">
@@ -104,7 +102,6 @@
 
 
     <main>
-
         <!-- HERO -->
         <section class="hero" id="home">
             <div class="container hero-grid">
@@ -148,7 +145,6 @@
             </div>
         </section>
 
-
         <!-- ABOUT -->
         <section class="section about" id="about">
             <div class="container about-grid">
@@ -166,58 +162,9 @@
             </div>
         </section>
 
-
-        <!-- CERTIFICATIONS / SERTIFIKASI -->
-        <section class="section certifications" id="certifications">
-            <div class="container">
-                <div class="cert-header">
-                    <div class="section-number"><span>02</span><small>SERTIFIKASI RESMI</small></div>
-                    <div class="cert-header-text">
-                        <p class="eyebrow"><span aria-hidden="true"></span>TERUJI & TERPERCAYA</p>
-                        <h2>Standar yang kami <em>jaga.</em></h2>
-                        <p>Produk ZURIYAH Bakery telah tersertifikasi Halal dan terdaftar di BPOM, memastikan keamanan dan kualitas di setiap gigitan.</p>
-                    </div>
-                </div>
-
-                <div class="cert-grid">
-                    <div class="cert-card">
-                        <div class="cert-logo">
-                            <img src="assets/halal-mui.png" alt="Logo Halal MUI" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('is-placeholder');">
-                            <div class="cert-placeholder">
-                                <span aria-hidden="true">☪</span>
-                                <small>Logo Halal</small>
-                            </div>
-                        </div>
-                        <div class="cert-info">
-                            <h3>Halal MUI</h3>
-                            <p>Tersertifikasi halal oleh Majelis Ulama Indonesia. Setiap bahan dan proses produksi sesuai standar syariat.</p>
-                            <span class="cert-badge">SERTIFIKAT HALAL</span>
-                        </div>
-                    </div>
-
-                    <div class="cert-card">
-                        <div class="cert-logo">
-                            <img src="assets/bpom.png" alt="Logo BPOM" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('is-placeholder');">
-                            <div class="cert-placeholder">
-                                <span aria-hidden="true">🏛</span>
-                                <small>Logo BPOM</small>
-                            </div>
-                        </div>
-                        <div class="cert-info">
-                            <h3>BPOM RI</h3>
-                            <p>Terdaftar di Badan Pengawas Obat dan Makanan Republik Indonesia. Aman, berkualitas, dan sesuai standar nasional.</p>
-                            <span class="cert-badge">TERDAFTAR BPOM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
         <!-- PRODUCTS -->
         <section class="section products" id="products">
             <div class="container">
-
                 <div class="section-heading">
                     <div>
                         <p class="eyebrow">DARI OVEN KAMI</p>
@@ -264,6 +211,7 @@
                     <button class="slider-nav slider-next" id="sliderNext" type="button" aria-label="Produk berikutnya"><span aria-hidden="true">›</span></button>
 
                     <div class="slider-stage" id="sliderStage">
+                        <!-- Produk 1 -->
                         <article class="product-card" data-index="0" data-category="signature" data-name="coconut pandan roti pandan kelapa">
                             <div class="product-image">
                                 <img src="image/kelapa pandan.jpeg" alt="Roti Pandan" loading="lazy">
@@ -277,7 +225,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 2 -->
                         <article class="product-card" data-index="1" data-category="sweet" data-name="blueberry jam selai">
                             <div class="product-image">
                                 <img src="image/bluebery.jpeg" alt="Blueberry Jam" loading="lazy">
@@ -291,7 +239,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 3 -->
                         <article class="product-card" data-index="2" data-category="sweet" data-name="choco banana cokelat pisang">
                             <div class="product-image">
                                 <img src="image/choco banana.jpeg" alt="Roti Choco Banana" loading="lazy">
@@ -305,7 +253,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 4 -->
                         <article class="product-card" data-index="3" data-category="signature" data-name="vanilla cream vanila krim">
                             <div class="product-image">
                                 <img src="image/vanila.jpeg" alt="Roti Vanilla" loading="lazy">
@@ -319,7 +267,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 5 -->
                         <article class="product-card" data-index="4" data-category="traditional" data-name="rasakaya srikaya cream">
                             <div class="product-image">
                                 <img src="image/srikaya.jpeg" alt="Srikaya" loading="lazy">
@@ -333,7 +281,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 6 -->
                         <article class="product-card" data-index="5" data-category="savory" data-name="sausage sosis mayo original">
                             <div class="product-image">
                                 <img src="image/sosis.jpeg" alt="Sosis" loading="lazy">
@@ -347,7 +295,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 7 -->
                         <article class="product-card" data-index="6" data-category="japanese" data-name="original meron melon pan durian">
                             <div class="product-image">
                                 <img src="image/melon pan.jpeg" alt="Roti Melon Pan" loading="lazy">
@@ -361,7 +309,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 8 -->
                         <article class="product-card" data-index="7" data-category="japanese" data-name="strawberry meron melon pan stroberi pink">
                             <div class="product-image">
                                 <img src="image/melon pan stroberi.jpeg" alt="Roti Melon Stroberi" loading="lazy">
@@ -375,7 +323,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 9 -->
                         <article class="product-card" data-index="8" data-category="coffee" data-name="coffe cream kopi mocca moka">
                             <div class="product-image">
                                 <img src="image/roti kopi.jpeg" alt="Roti Kopi" loading="lazy">
@@ -389,7 +337,7 @@
                                 <button class="product-arrow" type="button" aria-label="Lihat detail" data-open-modal><span aria-hidden="true">↗</span></button>
                             </div>
                         </article>
-
+                        <!-- Produk 10 -->
                         <article class="product-card" data-index="9" data-category="sweet" data-name="choco bread cokelat klasik">
                             <div class="product-image">
                                 <img src="image/roti cokelat.jpeg" alt="Roti Cokelat" loading="lazy">
@@ -406,7 +354,6 @@
                     </div>
 
                     <div class="slider-dots" id="sliderDots"></div>
-
                     <div class="product-empty" id="productEmpty" hidden>
                         <span aria-hidden="true">🥐</span>
                         <p><strong>Tidak ada produk ditemukan</strong></p>
@@ -415,7 +362,6 @@
                 </div>
             </div>
         </section>
-
 
         <!-- VALUES -->
         <section class="section values" id="values">
@@ -447,8 +393,7 @@
             </div>
         </section>
 
-
-        <!-- LOCATION & OPERATIONAL HOURS -->
+        <!-- LOCATION -->
         <section class="section location" id="location">
             <div class="container">
                 <div class="location-header">
@@ -460,29 +405,14 @@
                 </div>
 
                 <div class="location-grid">
-                    <!-- MAP -->
                     <div class="map-wrapper">
-                        <iframe
-                            src="https://maps.google.com/maps?q=ZURIYAH%20Bakery%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                            width="100%"
-                            height="100%"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="Lokasi ZURIYAH Bakery">
-                        </iframe>
+                        <iframe src="https://maps.google.com/maps?q=ZURIYAH%20Bakery%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi ZURIYAH Bakery"></iframe>
                     </div>
 
-                    <!-- INFO -->
                     <div class="location-info">
-                        <!-- ALAMAT — pakai SVG icon elegan -->
                         <div class="info-card">
                             <div class="info-icon" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                             </div>
                             <div>
                                 <h3>Alamat</h3>
@@ -490,28 +420,19 @@
                             </div>
                         </div>
 
-                        <!-- JAM OPERASIONAL — pakai SVG clock icon elegan -->
                         <div class="info-card">
                             <div class="info-icon" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                             </div>
                             <div>
                                 <h3>Jam Operasional</h3>
-                                <div class="hours-list" id="hoursList">
-                                    <!-- Diisi otomatis oleh JS -->
-                                </div>
+                                <div class="hours-list" id="hoursList"></div>
                             </div>
                         </div>
-
-                        <!-- KONTAK DIHAPUS — udah ada di section Contact bawah -->
                     </div>
                 </div>
             </div>
         </section>
-
 
         <!-- CONTACT -->
         <section class="section contact" id="contact">
@@ -540,13 +461,10 @@
                 </form>
 
                 <div class="contact-divider"><span>atau</span></div>
-
                 <a href="https://wa.me/6281554016406" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Hubungi via WhatsApp</a>
             </div>
         </section>
-
     </main>
-
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -557,6 +475,23 @@
             </a>
             <p>Autentik · Berkualitas · Hangat</p>
             <a href="#home" class="back-top">KEMBALI KE ATAS ↑</a>
+        </div>
+
+        <div class="container footer-certs">
+            <p class="footer-certs-title">TERSERTIFIKASI & TERDAFTAR</p>
+            <div class="footer-certs-grid">
+                <div class="footer-cert-item">
+                    <div class="footer-cert-logo">
+                        <img src="assets/logo halal remake.png" alt="Logo Halal MUI" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('is-placeholder');">
+                        <div class="footer-cert-placeholder"><span aria-hidden="true">☪</span></div>
+                    </div>
+                    <div class="footer-cert-text">
+                        <strong>Halal MUI</strong>
+                        <small>Tersertifikasi Halal</small>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="container developer-watermark">
@@ -581,14 +516,11 @@
         </div>
     </footer>
 
-
-    <!-- SCROLL TO TOP -->
     <button class="scroll-top" id="scrollTop" type="button" aria-label="Kembali ke atas" title="Kembali ke atas">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 19V5M5 12l7-7 7 7"/>
         </svg>
     </button>
-
 
     <!-- QNA FLOATING SIDEBAR -->
     <div class="qna-backdrop" id="qnaBackdrop" aria-hidden="true"></div>
@@ -633,7 +565,8 @@
                         </div>
                         <div class="form-group">
                             <label for="qnaEmail">Email</label>
-                            <input type="email" id="qnaEmail" name="qnaEmail" placeholder="email@anda.com" maxlength="100" required>
+                            <!-- Tambahkan readonly, biar kalau terisi otomatis gak bisa diedit -->
+                            <input type="email" id="qnaEmail" name="qnaEmail" placeholder="email@anda.com" maxlength="100">
                         </div>
                     </div>
 
@@ -695,7 +628,6 @@
             </div>
         </div>
     </aside>
-
 
     <!-- PRODUCT MODAL -->
     <div class="product-modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">

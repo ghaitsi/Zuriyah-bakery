@@ -20,18 +20,11 @@ document.documentElement.classList.add("js-enabled");
     };
 
     function getStoredTheme() {
-        try {
-            return localStorage.getItem(STORAGE_KEY);
-        } catch (e) {
-            return null;
-        }
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
     }
 
     function getSystemTheme() {
-        return window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
 
     function applyTheme(theme) {
@@ -43,19 +36,11 @@ document.documentElement.classList.add("js-enabled");
 
         if (themeToggle) {
             themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
-            themeToggle.setAttribute(
-                "aria-label",
-                theme === "dark"
-                    ? "Aktifkan mode terang"
-                    : "Aktifkan mode gelap"
-            );
+            themeToggle.setAttribute("aria-label", theme === "dark" ? "Aktifkan mode terang" : "Aktifkan mode gelap");
         }
 
         if (metaTheme) {
-            metaTheme.setAttribute(
-                "content",
-                THEME_COLORS[theme] || THEME_COLORS.light
-            );
+            metaTheme.setAttribute("content", THEME_COLORS[theme] || THEME_COLORS.light);
         }
     }
 
@@ -653,6 +638,37 @@ if ("IntersectionObserver" in window) {
 
     if (!form || !listEl) return;
 
+    /* ============ AUTO-FILL ADMIN & VALIDASI ============ */
+    // KUNCI RAHASIA: Ganti "zuriyah2024" dengan kode rahasia versi kamu
+    const ADMIN_KEY = "zuriyah2024";
+    const ADMIN_EMAIL = "zuriyah@gmail.com"; // Ganti dengan email official kamu
+
+    // Cek apakah URL ada ?admin=zuriyah2024
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAdmin = urlParams.get("admin") === ADMIN_KEY;
+
+    // Kalau dia admin (buka via link rahasia)
+    if (isAdmin) {
+        const emailInput = document.querySelector("#qnaEmail");
+        const catSelect = document.querySelector("#qnaCategory");
+        const nameInput = document.querySelector("#qnaName");
+
+        if (emailInput) {
+            emailInput.value = ADMIN_EMAIL;
+            emailInput.readOnly = true; // Kunci biar gak bisa diedit
+            emailInput.style.opacity = "0.7";
+        }
+        if (catSelect) {
+            catSelect.value = "Produk";
+            catSelect.disabled = true; // Kunci kategori
+            catSelect.style.opacity = "0.7";
+        }
+        if (nameInput) {
+            nameInput.value = "ZURIYAH Official";
+            nameInput.readOnly = true;
+        }
+    }
+
     let entries = [];
     let isLoading = false;
     let searchQuery = "";
@@ -907,6 +923,13 @@ if ("IntersectionObserver" in window) {
         const category = catEl?.value || "";
         const message = msgEl?.value.trim() || "";
 
+        // VALIDASI: Kalau orang lain (bukan admin) coba pakai email official
+        if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && !isAdmin) {
+            showToast("Email ini sudah terdaftar. Silakan gunakan email pribadi Anda.", "error");
+            emailEl?.focus();
+            return;
+        }
+
         if (!name || name.length < 2) {
             showToast("Nama minimal 2 karakter", "error"); nameEl?.focus(); return;
         }
@@ -946,6 +969,17 @@ if ("IntersectionObserver" in window) {
 
             renderList();
             form.reset();
+            
+            // Kalo admin, balikin lagi formnya ke setelan admin setelah reset
+            if (isAdmin) {
+                const emailInput = document.querySelector("#qnaEmail");
+                const catSelect = document.querySelector("#qnaCategory");
+                const nameInput = document.querySelector("#qnaName");
+                if (emailInput) emailInput.value = ADMIN_EMAIL;
+                if (catSelect) catSelect.value = "Produk";
+                if (nameInput) nameInput.value = "ZURIYAH Official";
+            }
+
             showToast("Pertanyaan berhasil dikirim!");
         } catch (err) {
             console.error("Gagal kirim:", err);
@@ -1182,14 +1216,11 @@ if ("IntersectionObserver" in window) {
 
 /* ====================================================
    FITUR 1: VISITOR COUNTER (REAL via JSONBin.io)
-   Bin ID: 6ad315aeac6210605a393343
-   Mulai dari 0 — tanpa angka karangan
    ==================================================== */
 (function initVisitorCounter() {
     const el = document.querySelector("#visitorCount");
     if (!el) return;
 
-    /* ====== KONFIGURASI ====== */
     const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
     const JSONBIN_BIN = "6ad315aeac6210605a393343";
 
@@ -1200,7 +1231,6 @@ if ("IntersectionObserver" in window) {
     let current = 0;
     let displayStart = 0;
 
-    /* ============ HELPERS ============ */
     function safeGet(store, key) {
         try { return store.getItem(key); } catch (e) { return null; }
     }
@@ -1218,7 +1248,6 @@ if ("IntersectionObserver" in window) {
         safeSet(localStorage, CACHE_KEY, String(n));
     }
 
-    /* ============ API ============ */
     function extractCount(data) {
         if (typeof data === "number") return data;
         if (data && typeof data === "object" && !Array.isArray(data)) {
@@ -1254,7 +1283,6 @@ if ("IntersectionObserver" in window) {
         return await res.json();
     }
 
-    /* ============ ANIMASI ANGKA ============ */
     function animateTo(target, from) {
         const duration = 1200;
         const startVal = Math.max(0, from ?? target);
@@ -1297,9 +1325,7 @@ if ("IntersectionObserver" in window) {
         }
     }
 
-    /* ============ LOGIKA UTAMA ============ */
     async function run() {
-        // tampilkan cache terakhir dulu (kalau ada) — kalau belum, tampil 0
         const cached = getCachedCount();
         if (cached !== null) {
             current = cached;
@@ -1317,14 +1343,12 @@ if ("IntersectionObserver" in window) {
             let next;
 
             if (count === null) {
-                // bin kosong / belum punya angka → mulai dari 0 lalu +1
                 next = 1;
                 await saveCount(next);
                 setCachedCount(next);
                 safeSet(sessionStorage, COUNTED_KEY, "1");
                 displayStart = 0;
             } else if (!alreadyCounted) {
-                // sesi baru → +1 real
                 next = count + 1;
                 setCachedCount(next);
                 safeSet(sessionStorage, COUNTED_KEY, "1");
@@ -1336,7 +1360,6 @@ if ("IntersectionObserver" in window) {
                     console.warn("Gagal simpan visitor:", err);
                 }
             } else {
-                // sesi sama → tampilkan angka dari server apa adanya
                 next = count;
                 setCachedCount(count);
                 displayStart = cached ?? count;
@@ -1346,7 +1369,6 @@ if ("IntersectionObserver" in window) {
             observeAndAnimate();
         } catch (err) {
             console.error("Visitor counter gagal:", err);
-            // fallback: cache terakhir, kalau tidak ada → 0
             const fallback = getCachedCount() ?? 0;
             current = fallback;
             displayStart = fallback;
@@ -1409,10 +1431,6 @@ if ("IntersectionObserver" in window) {
     const container = document.querySelector("#hoursList");
     if (!container) return;
 
-    // ============================================
-    // GANTI JAM OPERASIONAL KAMU DI SINI
-    // 0 = Minggu, 1 = Senin, ... 6 = Sabtu
-    // ============================================
     const SCHEDULE = [
         { day: "Minggu", open: null, close: null, closed: true },
         { day: "Senin", open: "08:00", close: "20:00", closed: false },
