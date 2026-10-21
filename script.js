@@ -618,6 +618,7 @@ if ("IntersectionObserver" in window) {
 /* ==========================
    QNA — PUBLIC BOARD via JSONBin.io
    + REPLY SYSTEM
+   + EMAIL SENSOR (PRIVACY)
    ========================== */
 (function initQnA() {
     const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
@@ -639,15 +640,12 @@ if ("IntersectionObserver" in window) {
     if (!form || !listEl) return;
 
     /* ============ AUTO-FILL ADMIN & VALIDASI ============ */
-    // KUNCI RAHASIA: Ganti "zuriyah2024" dengan kode rahasia versi kamu
     const ADMIN_KEY = "zuriyah2024";
-    const ADMIN_EMAIL = "zuriyah@gmail.com"; // Ganti dengan email official kamu
+    const ADMIN_EMAIL = "zuriyah@gmail.com";
 
-    // Cek apakah URL ada ?admin=zuriyah2024
     const urlParams = new URLSearchParams(window.location.search);
     const isAdmin = urlParams.get("admin") === ADMIN_KEY;
 
-    // Kalau dia admin (buka via link rahasia)
     if (isAdmin) {
         const emailInput = document.querySelector("#qnaEmail");
         const catSelect = document.querySelector("#qnaCategory");
@@ -655,12 +653,12 @@ if ("IntersectionObserver" in window) {
 
         if (emailInput) {
             emailInput.value = ADMIN_EMAIL;
-            emailInput.readOnly = true; // Kunci biar gak bisa diedit
+            emailInput.readOnly = true;
             emailInput.style.opacity = "0.7";
         }
         if (catSelect) {
             catSelect.value = "Produk";
-            catSelect.disabled = true; // Kunci kategori
+            catSelect.disabled = true;
             catSelect.style.opacity = "0.7";
         }
         if (nameInput) {
@@ -711,6 +709,75 @@ if ("IntersectionObserver" in window) {
     function getInitials(name) {
         const parts = String(name || "?").trim().split(/\s+/).slice(0, 2);
         return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
+    }
+
+    /**
+     * SENSOR EMAIL — Menyembunyikan email dari publik
+     * Format: "nama***@gmail.com" atau "***@gmail.com"
+     * Jika admin, tampilkan email lengkap.
+     */
+    function maskEmail(email) {
+        if (!email) return "Email tersembunyi";
+        
+        // Admin bisa lihat email lengkap
+        if (isAdmin) return email;
+        
+        const str = String(email);
+        const atIndex = str.indexOf("@");
+        
+        if (atIndex <= 0) {
+            // Format tidak valid, sensor semua
+            return "***@***";
+        }
+        
+        const localPart = str.slice(0, atIndex);
+        const domain = str.slice(atIndex + 1);
+        
+        // Sensor bagian lokal (sebelum @)
+        let maskedLocal;
+        if (localPart.length <= 2) {
+            maskedLocal = "***";
+        } else if (localPart.length <= 4) {
+            maskedLocal = localPart[0] + "***";
+        } else {
+            maskedLocal = localPart.slice(0, 2) + "***";
+        }
+        
+        // Sensor bagian domain (opsional, tetap tampil untuk kredibilitas)
+        return `${maskedLocal}@${domain}`;
+    }
+
+    /**
+     * SENSOR EMAIL — Versi ultra-privat
+     * Hanya menampilkan "Email terverifikasi" atau domain saja
+     */
+    function maskEmailUltra(email) {
+        if (!email) return "Email tersembunyi";
+        
+        if (isAdmin) return email;
+        
+        const str = String(email);
+        const atIndex = str.indexOf("@");
+        
+        if (atIndex <= 0) {
+            return "Email terverifikasi";
+        }
+        
+        const domain = str.slice(atIndex + 1);
+        
+        // Hanya tampilkan domain, bukan nama email
+        return `•••@${domain}`;
+    }
+
+    /**
+     * Format email untuk ditampilkan:
+     * - Admin: email lengkap
+     * - Publik: "n***@gmail.com" (default)
+     */
+    function formatEmailDisplay(email) {
+        if (!email) return "Email tidak tersedia";
+        if (isAdmin) return email;
+        return maskEmail(email);
     }
 
     function timeAgo(iso) {
@@ -854,7 +921,18 @@ if ("IntersectionObserver" in window) {
                 <p class="qna-item-message">${escapeHtml(entry.message)}</p>
 
                 <div class="qna-item-footer">
-                    <small class="qna-item-email">${escapeHtml(entry.email)}</small>
+                    <small class="qna-item-email" title="Email disembunyikan demi privasi">
+                        ${isAdmin 
+                            ? escapeHtml(formatEmailDisplay(entry.email)) 
+                            : `<span class="email-masked" aria-label="Email tersembunyi">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="display:inline;vertical-align:middle;margin-right:4px;">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                ${escapeHtml(maskEmail(entry.email))}
+                            </span>`
+                        }
+                    </small>
                     <button
                         class="qna-item-reply-btn"
                         type="button"
@@ -923,7 +1001,6 @@ if ("IntersectionObserver" in window) {
         const category = catEl?.value || "";
         const message = msgEl?.value.trim() || "";
 
-        // VALIDASI: Kalau orang lain (bukan admin) coba pakai email official
         if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && !isAdmin) {
             showToast("Email ini sudah terdaftar. Silakan gunakan email pribadi Anda.", "error");
             emailEl?.focus();
@@ -970,7 +1047,6 @@ if ("IntersectionObserver" in window) {
             renderList();
             form.reset();
             
-            // Kalo admin, balikin lagi formnya ke setelan admin setelah reset
             if (isAdmin) {
                 const emailInput = document.querySelector("#qnaEmail");
                 const catSelect = document.querySelector("#qnaCategory");
@@ -1432,13 +1508,12 @@ if ("IntersectionObserver" in window) {
     if (!container) return;
 
     const SCHEDULE = [
-        { day: "Minggu", open: null, close: null, closed: true },
-        { day: "Senin", open: "08:00", close: "20:00", closed: false },
-        { day: "Selasa", open: "08:00", close: "20:00", closed: false },
-        { day: "Rabu", open: "08:00", close: "20:00", closed: false },
-        { day: "Kamis", open: "08:00", close: "20:00", closed: false },
-        { day: "Jumat", open: "08:00", close: "20:00", closed: false },
-        { day: "Sabtu", open: "09:00", close: "18:00", closed: false }
+        { day: "Minggu-Sabtu", open: null, close: null, closed: true },
+        { day: "Senin", open: "05:30", close: "17:00", closed: false },
+        { day: "Selasa", open: "05:30", close: "17:00", closed: false },
+        { day: "Rabu", open: "05:30", close: "17:00", closed: false },
+        { day: "Kamis", open: "05:30", close: "17:00", closed: false },
+        { day: "Jumat", open: "05:30", close: "17:00", closed: false },
     ];
 
     const todayIndex = new Date().getDay();

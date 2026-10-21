@@ -1299,7 +1299,6 @@ html[data-theme="dark"] .contact-form { box-shadow: 0 12px 34px rgba(0, 0, 0, 0.
     -moz-appearance: none;
     background-color: var(--bg-input);
     
-    /* KUNCI PERBAIKANNYA DI 3 BARIS INI */
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C79A3E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
     background-repeat: no-repeat !important;
     background-position: right 16px center !important;
@@ -1309,7 +1308,6 @@ html[data-theme="dark"] .contact-form { box-shadow: 0 12px 34px rgba(0, 0, 0, 0.
     cursor: pointer;
 }
 
-/* Pastikan dark mode juga sama */
 html[data-theme="dark"] .qna-form select {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E4BE6E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
     background-repeat: no-repeat !important;
@@ -1577,6 +1575,43 @@ html[data-theme="dark"] .qna-toast-icon { background: rgba(28, 18, 11, 0.2); }
 }
 
 .qna-item-footer .qna-item-email { margin: 0; padding: 0; border: none; font-size: 0.68rem; opacity: 0.75; }
+
+/* ==========================
+   EMAIL MASKED BADGE (PRIVACY)
+   ========================== */
+.email-masked {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 50px;
+    background: rgba(199, 154, 62, 0.08);
+    color: var(--text-soft);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+    cursor: help;
+    transition: background 0.25s ease, opacity 0.25s ease;
+}
+
+.email-masked:hover {
+    background: rgba(199, 154, 62, 0.16);
+    opacity: 1;
+}
+
+.email-masked svg {
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+html[data-theme="dark"] .email-masked {
+    background: rgba(228, 190, 110, 0.1);
+}
+
+html[data-theme="dark"] .email-masked:hover {
+    background: rgba(228, 190, 110, 0.18);
+}
 
 .qna-item-reply-btn {
     display: inline-flex;
