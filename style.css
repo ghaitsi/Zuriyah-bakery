@@ -1759,6 +1759,115 @@ html[data-theme="dark"] .qna-reply-form { box-shadow: 0 4px 14px rgba(0, 0, 0, 0
 .footer-bottom p { margin: 0; }
 .footer-bottom span { color: var(--gold-light); }
 
+/* ====================================================
+   FOOTER — SOCIAL MEDIA LINKS (IG, TIKTOK, LINKTREE)
+   ==================================================== */
+.footer-socials {
+    padding: 32px 0;
+    border-top: 1px solid rgba(228, 190, 110, 0.15);
+    text-align: center;
+}
+
+.social-links-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 22px 12px 16px;
+    border: 1px solid rgba(228, 190, 110, 0.25);
+    border-radius: 50px;
+    background: linear-gradient(135deg, rgba(228, 190, 110, 0.05), rgba(199, 154, 62, 0.02));
+    color: var(--text-on-dark);
+    transition: transform 0.35s var(--ease), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    border-color: rgba(228, 190, 110, 0.6);
+    background: linear-gradient(135deg, rgba(228, 190, 110, 0.12), rgba(199, 154, 62, 0.05));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(228, 190, 110, 0.15);
+    color: var(--gold-light);
+    transition: transform 0.35s var(--ease), background 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+    background: var(--gold-light);
+    color: #1C120B;
+    transform: rotate(-8deg) scale(1.05);
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.social-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.social-text strong {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-on-dark);
+}
+
+.social-text small {
+    margin-top: 2px;
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-dark-soft);
+    opacity: 0.85;
+}
+
+/* Responsive Sosmed di HP */
+@media (max-width: 640px) {
+    .footer-socials { padding: 24px 0; }
+    
+    .social-links-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social-link {
+        width: 100%;
+        max-width: 280px;
+        justify-content: flex-start;
+        padding: 10px 18px 10px 12px;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .social-text strong { font-size: 0.9rem; }
+    .social-text small { font-size: 0.6rem; }
+}
+
 /* ==========================
    DEVELOPER WATERMARK
    ========================== */
@@ -3389,3 +3498,4 @@ html[data-theme="dark"] .map-wrapper iframe {
     .footer-cert-text strong { font-size: 0.9rem; }
     .footer-cert-text small { font-size: 0.55rem; }
 }
+
