@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>シュシュについて | パン工房シュシュ</title>
+
+    <meta name="description"
+        content="パン工房シュシュについて。千葉県香取市佐原にあるパン屋、パン工房シュシュの紹介ページです。">
+
+    <style>
+        /* ================================
+           RESET
+        ================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans JP",
+                "Yu Gothic",
+                "Hiragino Kaku Gothic ProN",
+                Meiryo,
+                sans-serif;
+
+            color: #3b2a20;
+            background: #fffdf9;
+            line-height: 1.8;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+
+            background: rgba(255, 253, 249, 0.96);
+            border-bottom: 1px solid #eee2d7;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(1180px, calc(100% - 40px));
+            min-height: 78px;
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .logo-main {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .logo-sub {
+            margin-top: 4px;
+
+            color: #92745f;
+
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .main-nav a {
+            position: relative;
+
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            color: #5c4739;
+
+            transition:
+                color 0.25s ease,
+                opacity 0.25s ease;
+        }
+
+        .main-nav a::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -7px;
+
+            width: 100%;
+            height: 1px;
+
+            background: #9d7558;
+
+            transform: scaleX(0);
+            transform-origin: center;
+
+            transition: transform 0.25s ease;
+        }
+
+        .main-nav a:hover {
+            color: #9d7558;
+        }
+
+        .main-nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+        .hero {
+            position: relative;
+
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    rgba(40, 25, 15, 0.34),
+                    rgba(40, 25, 15, 0.34)
+                ),
+                url("https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg")
+                center center / cover no-repeat;
+        }
+
+        .hero-content {
+            width: min(900px, calc(100% - 40px));
+
+            text-align: center;
+            color: white;
+
+            padding: 80px 20px;
+        }
+
+        .hero-en {
+            margin-bottom: 14px;
+
+            font-size: 0.82rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+
+            opacity: 0.9;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 500;
+            letter-spacing: 0.12em;
+        }
+
+        .hero-description {
+            margin-top: 20px;
+
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+
+            opacity: 0.95;
+        }
+
+        /* ================================
+           COMMON
+        ================================= */
+        .container {
+            width: min(1080px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+
+            text-align: center;
+        }
+
+        .section-title-en {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #a37b5e;
+
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            color: #3b2a20;
+
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            font-weight: 500;
+            letter-spacing: 0.12em;
+        }
+
+        /* ================================
+           INTRO
+        ================================= */
+        .intro {
+            background: #fffdf9;
+        }
+
+        .intro-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .intro-image {
+            overflow: hidden;
+
+            border-radius: 3px;
+        }
+
+        .intro-image img {
+            width: 100%;
+            height: 460px;
+
+            object-fit: cover;
+
+            transition: transform 0.5s ease;
+        }
+
+        .intro-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .intro-text {
+            color: #5b493e;
+
+            font-size: 0.95rem;
+        }
+
+        .intro-text p + p {
+            margin-top: 22px;
+        }
+
+        .intro-heading {
+            margin-bottom: 28px;
+
+            color: #3b2a20;
+
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+        }
+
+        /* ================================
+           MESSAGE
+        ================================= */
+        .message {
+            background: #f6eee7;
+        }
+
+        .message-inner {
+            width: min(800px, 100%);
+
+            margin: 0 auto;
+
+            text-align: center;
+        }
+
+        .message-inner p {
+            color: #5a473b;
+
+            font-size: 1rem;
+            line-height: 2.2;
+        }
+
+        .message-inner p + p {
+            margin-top: 24px;
+        }
+
+        /* ================================
+           GALLERY
+        ================================= */
+        .gallery {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .gallery-item {
+            position: relative;
+
+            overflow: hidden;
+
+            aspect-ratio: 1 / 1;
+
+            background: #eee5dd;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.5s ease,
+                filter 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.9);
+        }
+
+        /* ================================
+           INFO
+        ================================= */
+        .info {
+            background: #fffaf5;
+        }
+
+        .info-box {
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            border-top: 1px solid #dfd1c5;
+        }
+
+        .info-row {
+            display: grid;
+
+            grid-template-columns: 180px 1fr;
+
+            border-bottom: 1px solid #dfd1c5;
+        }
+
+        .info-label,
+        .info-value {
+            padding: 20px 24px;
+        }
+
+        .info-label {
+            background: #f5ece4;
+
+            color: #755b4a;
+
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #58473c;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+        .site-footer {
+            padding: 60px 20px 30px;
+
+            background: #3d2d24;
+
+            color: #fffaf5;
+
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-sub {
+            margin-top: 7px;
+
+            color: #cdbcae;
+
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+        }
+
+        .footer-nav {
+            margin-top: 35px;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 25px;
+        }
+
+        .footer-nav a {
+            color: #eaded5;
+
+            font-size: 0.85rem;
+
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            opacity: 0.65;
+        }
+
+        .copyright {
+            margin-top: 45px;
+
+            color: #a99688;
+
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ================================
+           MOBILE MENU
+        ================================= */
+        .menu-button {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid #d9c8bb;
+            border-radius: 50%;
+
+            background: transparent;
+
+            cursor: pointer;
+        }
+
+        .menu-button span,
+        .menu-button span::before,
+        .menu-button span::after {
+            display: block;
+
+            width: 17px;
+            height: 1px;
+
+            margin: auto;
+
+            background: #594438;
+
+            transition: transform 0.25s ease;
+        }
+
+        .menu-button span {
+            position: relative;
+        }
+
+        .menu-button span::before,
+        .menu-button span::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+        }
+
+        .menu-button span::before {
+            top: -6px;
+        }
+
+        .menu-button span::after {
+            top: 6px;
+        }
+
+        /* ================================
+           TABLET
+        ================================= */
+        @media (max-width: 800px) {
+
+            .header-inner {
+                min-height: 68px;
+            }
+
+            .main-nav {
+                gap: 18px;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+
+                gap: 40px;
+            }
+
+            .intro-image img {
+                height: 400px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+        @media (max-width: 600px) {
+
+            .header-inner {
+                width: calc(100% - 28px);
+            }
+
+            .logo-main {
+                font-size: 1.15rem;
+            }
+
+            .logo-sub {
+                font-size: 0.6rem;
+            }
+
+            .menu-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .main-nav {
+                position: absolute;
+
+                top: 100%;
+                left: 0;
+
+                width: 100%;
+
+                padding: 20px;
+
+                display: none;
+                flex-direction: column;
+
+                gap: 20px;
+
+                background: rgba(255, 253, 249, 0.98);
+
+                border-bottom: 1px solid #eee2d7;
+            }
+
+            .main-nav.active {
+                display: flex;
+            }
+
+            .main-nav a {
+                width: 100%;
+
+                padding: 6px 0;
+
+                text-align: center;
+            }
+
+            .main-nav a::after {
+                display: none;
+            }
+
+            .hero {
+                min-height: 430px;
+            }
+
+            .hero-content {
+                padding: 60px 10px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: 0.08em;
+            }
+
+            .hero-description {
+                font-size: 0.82rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .container {
+                width: calc(100% - 30px);
+            }
+
+            .section-title {
+                margin-bottom: 35px;
+            }
+
+            .intro-image img {
+                height: 300px;
+            }
+
+            .intro-heading {
+                font-size: 1.35rem;
+            }
+
+            .intro-text {
+                font-size: 0.9rem;
+            }
+
+            .message-inner p {
+                font-size: 0.9rem;
+                line-height: 2;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .info-label {
+                padding-bottom: 7px;
+
+                font-size: 0.85rem;
+            }
+
+            .info-value {
+                padding-top: 7px;
+
+                font-size: 0.88rem;
+            }
+
+            .footer-nav {
+                gap: 15px 22px;
+            }
+        }
+
+        /* ================================
+           SMALL MOBILE
+        ================================= */
+        @media (max-width: 380px) {
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a href="#" class="logo">
+                <span class="logo-main">パン工房シュシュ</span>
+                <span class="logo-sub">BREAD FARM CHOUCHOU</span>
+            </a>
+
+            <button
+                class="menu-button"
+                type="button"
+                aria-label="メニュー"
+                aria-expanded="false"
+                onclick="toggleMenu()"
+            >
+                <span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+
+                <a href="#">ホーム</a>
+
+                <a href="#about">シュシュについて</a>
+
+                <a href="#gallery">ギャラリー</a>
+
+                <a href="#info">店舗情報</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         HERO
+    ================================= -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-en">
+                    About Chouchou
+                </p>
+
+                <h1>
+                    シュシュについて
+                </h1>
+
+                <p class="hero-description">
+                    パン工房シュシュについて
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             ABOUT
+        ================================= -->
+        <section class="section intro" id="about">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span class="section-title-en">
+                        About Us
+                    </span>
+
+                    <h2>
+                        パン工房シュシュについて
+                    </h2>
+
+                </div>
+
+
+                <div class="intro-grid">
+
+                    <div class="intro-image">
+
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="intro-text">
+
+                        <h3 class="intro-heading">
+                            ご覧いただきまして<br>
+                            ありがとうございます。
+                        </h3>
+
+                        <p>
+                            当店は、2010年2月に小江戸と呼ばれる
+                            佐原の街（千葉県香取市）にオープンした
+                            パン屋です。
+                        </p>
+
+                        <p>
+                            地域の皆様に美味しいパンを召し上がって
+                            いただけるよう、一つ一つ丁寧にパンを
+                            作っています。
+                        </p>
+
+                        <p>
+                            毎日の食卓に並ぶパンだからこそ、
+                            素材や製法にもこだわり、皆様に
+                            愛されるパン屋を目指しています。
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             MESSAGE
+        ================================= -->
+        <section class="section message">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span class="section-title-en">
+                        Our Philosophy
+                    </span>
+
+                    <h2>
+                        大切にしていること
+                    </h2>
+
+                </div>
+
+
+                <div class="message-inner">
+
+                    <p>
+                        美味しいパンを通して、
+                        皆様の日常に小さな幸せを届けたい。
+                    </p>
+
+                    <p>
+                        そんな想いを大切にしながら、
+                        毎日パンを焼いています。
+                    </p>
+
+                    <p>
+                        お近くにお越しの際は、
+                        ぜひパン工房シュシュへお立ち寄りください。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             GALLERY
+        ================================= -->
+        <section class="section" id="gallery">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span class="section-title-en">
+                        Gallery
+                    </span>
+
+                    <h2>
+                        シュシュの風景
+                    </h2>
+
+                </div>
+
+
+                <div class="gallery">
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="https://chouchou-breadfarm.com/wp-content/uploads/2021/04/about-main.jpg"
+                            alt="パン工房シュシュ"
+                            loading="lazy"
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             STORE INFO
+        ================================= -->
+        <section class="section info" id="info">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span class="section-title-en">
+                        Information
+                    </span>
+
+                    <h2>
+                        店舗情報
+                    </h2>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            店名
+                        </div>
+
+                        <div class="info-value">
+                            パン工房シュシュ
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            所在地
+                        </div>
+
+                        <div class="info-value">
+                            千葉県香取市佐原
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            オープン
+                        </div>
+
+                        <div class="info-value">
+                            2010年2月
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            業種
+                        </div>
+
+                        <div class="info-value">
+                            パン屋・ベーカリー
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+    <footer class="site-footer">
+
+        <div class="footer-logo">
+            パン工房シュシュ
+        </div>
+
+        <div class="footer-sub">
+            BREAD FARM CHOUCHOU
+        </div>
+
+
+        <nav class="footer-nav">
+
+            <a href="#">
+                ホーム
+            </a>
+
+            <a href="#about">
+                シュシュについて
+            </a>
+
+            <a href="#gallery">
+                ギャラリー
+            </a>
+
+            <a href="#info">
+                店舗情報
+            </a>
+
+        </nav>
+
+
+        <p class="copyright">
+            © パン工房シュシュ All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+    <script>
+
+        function toggleMenu() {
+
+            const nav = document.getElementById("mainNav");
+            const button = document.querySelector(".menu-button");
+
+            nav.classList.toggle("active");
+
+            const isOpen = nav.classList.contains("active");
+
+            button.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+        }
+
+
+        document.querySelectorAll(".main-nav a").forEach(function(link) {
+
+            link.addEventListener("click", function() {
+
+                const nav = document.getElementById("mainNav");
+
+                if (nav.classList.contains("active")) {
+
+                    nav.classList.remove("active");
+
+                    document
+                        .querySelector(".menu-button")
+                        .setAttribute("aria-expanded", "false");
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

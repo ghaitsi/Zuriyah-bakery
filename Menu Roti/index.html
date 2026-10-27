@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F1E7D2">
+    <meta name="description" content="Menu Roti ZURIYAH Bakery — Pilihan roti artisan, pastry, dan sajian bakery premium.">
+    <title>Menu Roti | ZURIYAH Bakery</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="menu.css">
+    <link rel="icon" type="image/png" href="../assets/new logo.jpeg" sizes="32x32">
+</head>
+
+<body>
+
+    <!-- BACKGROUND DECORATIONS -->
+    <div class="bg-decorations" aria-hidden="true">
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+        <div class="bg-dot bg-dot-1"></div>
+        <div class="bg-dot bg-dot-2"></div>
+        <div class="bg-dot bg-dot-3"></div>
+        <div class="bg-dot bg-dot-4"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="navbar container" aria-label="Menu utama">
+            <a href="../index.html" class="brand" aria-label="ZURIYAH Bakery — Beranda">
+                <img src="../assets/new logo.jpeg" alt="ZURIYAH Bakery Logo">
+                <span>ZURIYAH<small>BAKERY</small></span>
+            </a>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema" aria-pressed="false">
+                    <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+                    <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+                    <span class="theme-slider" aria-hidden="true"></span>
+                </button>
+
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#about">About</a>
+                <a href="index.html" class="active">Menu Roti</a>
+                <a href="../index.html#products">Catalogue</a>
+                <a href="../index.html#location">Location</a>
+                <a href="../index.html#contact" class="nav-button">Hubungi Kami</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- SECTION TITLE -->
+        <section class="menu-hero">
+            <div class="container">
+                <p class="eyebrow"><span aria-hidden="true"></span>PILIHAN TERBAIK KAMI</p>
+                <h1>Menu <em>Roti</em></h1>
+                <p class="menu-description">Dari roti klasik hingga kreasi modern, setiap gigitan dibuat dengan bahan pilihan dan sepenuh hati.</p>
+                <div class="dots-divider">
+                    <span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span><span>•</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT SECTION -->
+        <section class="section products-section">
+            <div class="container">
+
+                <!-- TOOLBAR (SEARCH & FILTER) -->
+                <div class="menu-toolbar">
+                    <div class="search-box">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                        <input type="search" id="searchInput" placeholder="Cari roti favoritmu..." aria-label="Cari produk" autocomplete="off">
+                        <button class="search-clear" id="searchClear" type="button" aria-label="Bersihkan pencarian" hidden>×</button>
+                    </div>
+
+                    <div class="filter-group" id="filterGroup" role="tablist" aria-label="Filter kategori">
+                        <button class="filter-btn is-active" data-filter="all" type="button" role="tab" aria-selected="true">Semua</button>
+                        <button class="filter-btn" data-filter="signature" type="button" role="tab" aria-selected="false">Signature</button>
+                        <button class="filter-btn" data-filter="sweet" type="button" role="tab" aria-selected="false">Sweet</button>
+                        <button class="filter-btn" data-filter="savory" type="button" role="tab" aria-selected="false">Savory</button>
+                        <button class="filter-btn" data-filter="traditional" type="button" role="tab" aria-selected="false">Traditional</button>
+                        <button class="filter-btn" data-filter="japanese" type="button" role="tab" aria-selected="false">Japanese</button>
+                        <button class="filter-btn" data-filter="coffee" type="button" role="tab" aria-selected="false">Coffee</button>
+                    </div>
+                </div>
+
+                <p class="result-info" id="resultInfo" hidden></p>
+
+                <!-- PRODUCT GRID -->
+                <div class="product-grid" id="productGrid">
+
+                    <!-- PRODUK 1 -->
+                    <article class="product-card" data-category="signature" data-name="coconut pandan">
+                        <div class="image-wrapper">
+                            <img src="../image/kelapa pandan.jpeg" alt="Coconut Pandan" loading="lazy">
+                            <span class="product-tag">Signature</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Coconut Pandan</h3>
+                            <p>Saat aroma hijau pandan yang khas menyeruak dari dalam oven bersama gurihnya parutan kelapa, ada rasa tenang yang seketika hadir.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coconut%20Pandan" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 2 -->
+                    <article class="product-card" data-category="sweet" data-name="blueberry jam">
+                        <div class="image-wrapper">
+                            <img src="../image/bluebery.jpeg" alt="Blueberry Jam" loading="lazy">
+                            <span class="product-tag">Sweet</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Blueberry Jam</h3>
+                            <p>Sensasi kejutan di tengah kelembutan. Saat digigit, kelembutan roti yang gurih seketika pecah oleh lelehan selai blueberry yang masam manis.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Blueberry%20Jam" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 3 -->
+                    <article class="product-card" data-category="sweet" data-name="choco banana">
+                        <div class="image-wrapper">
+                            <img src="../image/cokelat banana.jpeg" alt="Choco Banana" loading="lazy">
+                            <span class="product-tag">Sweet</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Choco Banana</h3>
+                            <p>Roti lembut dengan perpaduan rasa cokelat dan pisang yang manis, dipanggang hingga keemasan dengan taburan kacang renyah.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Choco%20Banana" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 4 -->
+                    <article class="product-card" data-category="signature" data-name="vanilla cream">
+                        <div class="image-wrapper">
+                            <img src="../image/vanila.jpeg" alt="Vanilla Cream" loading="lazy">
+                            <span class="product-tag">Signature</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Vanilla Cream</h3>
+                            <p>Kedamaian dalam keheningan. Warna krim lembut dari isian vanila berpadu dengan taburan wijen putih.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Vanilla%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 5 -->
+                    <article class="product-card" data-category="traditional" data-name="rasakaya cream">
+                        <div class="image-wrapper">
+                            <img src="../image/srikaya.jpeg" alt="Rasakaya Cream" loading="lazy">
+                            <span class="product-tag">Traditional</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Rasakaya Cream</h3>
+                            <p>Kehangatan kenangan yang mewah. Isian srikaya dengan warna keemasan yang khas dan pekat.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Rasakaya%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 6 -->
+                    <article class="product-card" data-category="savory" data-name="sausage original mayo">
+                        <div class="image-wrapper">
+                            <img src="../image/sosis remake.jpeg" alt="Sausage Original Mayo" loading="lazy">
+                            <span class="product-tag">Savory</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Sausage Original Mayo</h3>
+                            <p>Pelukan kasih yang mengenyangkan. Sosis yang terbungkus rapi di dalam gulungan roti lembut.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Sausage%20Original%20Mayo" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 7 -->
+                    <article class="product-card" data-category="japanese" data-name="original meron">
+                        <div class="image-wrapper">
+                            <img src="../image/melon pan.jpeg" alt="Original Meron" loading="lazy">
+                            <span class="product-tag">Japanese</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Original Meron</h3>
+                            <p>Nikmati perpaduan roti lembut dengan lapisan luar bertekstur khas melon pan dan cita rasa durian.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Original%20Meron" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 8 -->
+                    <article class="product-card" data-category="japanese" data-name="strawberry meron">
+                        <div class="image-wrapper">
+                            <img src="../image/melon pan stroberi.jpeg" alt="Strawberry Meron" loading="lazy">
+                            <span class="product-tag">Japanese</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Strawberry Meron</h3>
+                            <p>Roti lembut dengan lapisan khas melon pan berwarna pink yang menggoda.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Strawberry%20Meron" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 9 -->
+                    <article class="product-card" data-category="coffee" data-name="coffe cream">
+                        <div class="image-wrapper">
+                            <img src="../image/coffe Bun.jpeg" alt="Coffe Cream" loading="lazy">
+                            <span class="product-tag">Coffee</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Coffe Cream</h3>
+                            <p>Roti cokelat dengan isian krim mocca yang lembut dan aroma kopi yang khas.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coffe%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 10 -->
+                    <article class="product-card" data-category="sweet" data-name="choco bread">
+                        <div class="image-wrapper">
+                            <img src="../image/roti cokelat.jpeg" alt="Choco Bread" loading="lazy">
+                            <span class="product-tag">Classic</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Choco Bread</h3>
+                            <p>Roti lembut dengan taburan cokelat yang menggoda dan warna keemasan yang bikin selera meningkat.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Choco%20Bread" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 11 -->
+                    <article class="product-card" data-category="sweet" data-name="vanilla strawberry bun">
+                        <div class="image-wrapper">
+                            <img src="../image/vanila stroberi bun.jpeg" alt="Vanilla Strawberry Bun" loading="lazy">
+                            <span class="product-tag">Sweet</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Vanilla Strawberry Bun</h3>
+                            <p>Roti berwarna pink yang cantik dengan tekstur lembut dan isian vanilla cream yang creamy serta manis.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Vanilla%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 12 -->
+                    <article class="product-card" data-category="coffee" data-name="banana coffee bun">
+                        <div class="image-wrapper">
+                            <img src="../image/banana coffe bun.jpeg" alt="Banana Coffee Bun" loading="lazy">
+                            <span class="product-tag">Coffee</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Banana Coffee Bun</h3>
+                            <p>Perpaduan aroma kopi khas dengan roti lembut dan isian selai pisang yang manis, ditambah taburan kacang gurih.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Banana%20Coffee%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 13 -->
+                    <article class="product-card" data-category="coffee" data-name="coffe strawberry bun">
+                        <div class="image-wrapper">
+                            <img src="../image/coffe stroberi bun.jpeg" alt="Coffe Strawberry Bun" loading="lazy">
+                            <span class="product-tag">Coffee</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Coffe Strawberry Bun</h3>
+                            <p>Roti pink cantik dengan motif cokelat kopi, bertekstur lembut, dan berisi coffee cream yang creamy.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coffe%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUK 14 -->
+                    <article class="product-card" data-category="sweet" data-name="strawberry bun">
+                        <div class="image-wrapper">
+                            <img src="../image/stroberi bun.jpeg" alt="Strawberry Bun" loading="lazy">
+                            <span class="product-tag">Sweet</span>
+                        </div>
+                        <div class="product-content">
+                            <h3>Strawberry Bun</h3>
+                            <p>Roti lembut dengan isian selai stroberi yang manis dan sedikit asam, menghadirkan rasa buah yang menyegarkan.</p>
+                            <div class="product-footer">
+                                <span class="product-price">Rp 3.000</span>
+                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div class="empty-state" id="emptyState" hidden>
+                    <span>🥐</span>
+                    <h3>Yah, tidak ditemukan...</h3>
+                    <p>Coba kata kunci lain atau pilih kategori yang berbeda ya!</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-main">
+            <a href="../index.html" class="brand footer-brand" aria-label="ZURIYAH Bakery — Kembali ke Beranda">
+                <img src="../assets/new logo.jpeg" alt="Logo ZURIYAH Bakery">
+                <span>ZURIYAH<small>BAKERY</small></span>
+            </a>
+            <p>Autentik · Berkualitas · Hangat</p>
+            <a href="#" class="back-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">KEMBALI KE ATAS ↑</a>
+        </div>
+        <div class="container footer-bottom">
+            <p>© <span id="year"></span> ZURIYAH Bakery. Semua hak dilindungi.</p>
+            <p>Dibuat dengan sepenuh hati <span aria-hidden="true">♥</span></p>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" type="button" aria-label="Kembali ke atas" title="Kembali ke atas">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script src="menu.js" defer></script>
+</body>
+</html>
