@@ -38,6 +38,16 @@
             </a>
 
             <div class="nav-actions">
+                <!-- CART BUTTON (FITUR BARU) -->
+                <button class="cart-btn" id="cartBtn" type="button" aria-label="Buka keranjang belanja">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema" aria-pressed="false">
                     <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
                     <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
@@ -51,11 +61,6 @@
 
             <div class="nav-menu" id="nav-menu">
                 <a href="../index.html">Home</a>
-                <a href="../index.html#about">About</a>
-                <a href="index.html" class="active">Menu Roti</a>
-                <a href="../index.html#products">Catalogue</a>
-                <a href="../index.html#location">Location</a>
-                <a href="../index.html#contact" class="nav-button">Hubungi Kami</a>
             </div>
         </nav>
     </header>
@@ -78,7 +83,7 @@
         <section class="section products-section">
             <div class="container">
 
-                <!-- TOOLBAR (SEARCH & FILTER) -->
+                <!-- TOOLBAR -->
                 <div class="menu-toolbar">
                     <div class="search-box">
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.3-4.3"></path></svg>
@@ -86,14 +91,32 @@
                         <button class="search-clear" id="searchClear" type="button" aria-label="Bersihkan pencarian" hidden>×</button>
                     </div>
 
-                    <div class="filter-group" id="filterGroup" role="tablist" aria-label="Filter kategori">
-                        <button class="filter-btn is-active" data-filter="all" type="button" role="tab" aria-selected="true">Semua</button>
-                        <button class="filter-btn" data-filter="signature" type="button" role="tab" aria-selected="false">Signature</button>
-                        <button class="filter-btn" data-filter="sweet" type="button" role="tab" aria-selected="false">Sweet</button>
-                        <button class="filter-btn" data-filter="savory" type="button" role="tab" aria-selected="false">Savory</button>
-                        <button class="filter-btn" data-filter="traditional" type="button" role="tab" aria-selected="false">Traditional</button>
-                        <button class="filter-btn" data-filter="japanese" type="button" role="tab" aria-selected="false">Japanese</button>
-                        <button class="filter-btn" data-filter="coffee" type="button" role="tab" aria-selected="false">Coffee</button>
+                    <div class="filter-sort-container">
+                        <div class="filter-group" id="filterGroup" role="tablist" aria-label="Filter kategori">
+                            <button class="filter-btn is-active" data-filter="all" type="button" role="tab" aria-selected="true">Semua</button>
+                            <button class="filter-btn" data-filter="signature" type="button" role="tab" aria-selected="false">Signature</button>
+                            <button class="filter-btn" data-filter="sweet" type="button" role="tab" aria-selected="false">Sweet</button>
+                            <button class="filter-btn" data-filter="savory" type="button" role="tab" aria-selected="false">Savory</button>
+                            <button class="filter-btn" data-filter="traditional" type="button" role="tab" aria-selected="false">Traditional</button>
+                            <button class="filter-btn" data-filter="japanese" type="button" role="tab" aria-selected="false">Japanese</button>
+                            <button class="filter-btn" data-filter="coffee" type="button" role="tab" aria-selected="false">Coffee</button>
+                        </div>
+
+                        <div class="sort-divider"></div>
+
+                        <div class="sort-wrapper">
+                            <label for="sortSelect" class="sort-label">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+                                Urutkan:
+                            </label>
+                            <select id="sortSelect" class="sort-select" aria-label="Urutkan produk">
+                                <option value="default">Default</option>
+                                <option value="name-asc">Nama (A-Z)</option>
+                                <option value="name-desc">Nama (Z-A)</option>
+                                <option value="price-asc">Harga Termurah</option>
+                                <option value="price-desc">Harga Termahal</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -103,225 +126,225 @@
                 <div class="product-grid" id="productGrid">
 
                     <!-- PRODUK 1 -->
-                    <article class="product-card" data-category="signature" data-name="coconut pandan">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="1" data-category="signature" data-name="Coconut Pandan" data-price="3000" data-image="../image/kelapa pandan.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/kelapa pandan.jpeg" alt="Coconut Pandan" loading="lazy">
                             <span class="product-tag">Signature</span>
                         </div>
                         <div class="product-content">
-                            <h3>Coconut Pandan</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Coconut Pandan</h3>
                             <p>Saat aroma hijau pandan yang khas menyeruak dari dalam oven bersama gurihnya parutan kelapa, ada rasa tenang yang seketika hadir.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coconut%20Pandan" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 2 -->
-                    <article class="product-card" data-category="sweet" data-name="blueberry jam">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="2" data-category="sweet" data-name="Blueberry Jam" data-price="3000" data-image="../image/bluebery.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/bluebery.jpeg" alt="Blueberry Jam" loading="lazy">
                             <span class="product-tag">Sweet</span>
                         </div>
                         <div class="product-content">
-                            <h3>Blueberry Jam</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Blueberry Jam</h3>
                             <p>Sensasi kejutan di tengah kelembutan. Saat digigit, kelembutan roti yang gurih seketika pecah oleh lelehan selai blueberry yang masam manis.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Blueberry%20Jam" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 3 -->
-                    <article class="product-card" data-category="sweet" data-name="choco banana">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="3" data-category="sweet" data-name="Choco Banana" data-price="3000" data-image="../image/cokelat banana.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/cokelat banana.jpeg" alt="Choco Banana" loading="lazy">
                             <span class="product-tag">Sweet</span>
                         </div>
                         <div class="product-content">
-                            <h3>Choco Banana</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Choco Banana</h3>
                             <p>Roti lembut dengan perpaduan rasa cokelat dan pisang yang manis, dipanggang hingga keemasan dengan taburan kacang renyah.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Choco%20Banana" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 4 -->
-                    <article class="product-card" data-category="signature" data-name="vanilla cream">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="4" data-category="signature" data-name="Vanilla Cream" data-price="3000" data-image="../image/vanila.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/vanila.jpeg" alt="Vanilla Cream" loading="lazy">
                             <span class="product-tag">Signature</span>
                         </div>
                         <div class="product-content">
-                            <h3>Vanilla Cream</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Vanilla Cream</h3>
                             <p>Kedamaian dalam keheningan. Warna krim lembut dari isian vanila berpadu dengan taburan wijen putih.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Vanilla%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 5 -->
-                    <article class="product-card" data-category="traditional" data-name="rasakaya cream">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="5" data-category="traditional" data-name="Rasakaya Cream" data-price="3000" data-image="../image/srikaya.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/srikaya.jpeg" alt="Rasakaya Cream" loading="lazy">
                             <span class="product-tag">Traditional</span>
                         </div>
                         <div class="product-content">
-                            <h3>Rasakaya Cream</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Rasakaya Cream</h3>
                             <p>Kehangatan kenangan yang mewah. Isian srikaya dengan warna keemasan yang khas dan pekat.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Rasakaya%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 6 -->
-                    <article class="product-card" data-category="savory" data-name="sausage original mayo">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="6" data-category="savory" data-name="Sausage Original Mayo" data-price="3000" data-image="../image/sosis remake.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/sosis remake.jpeg" alt="Sausage Original Mayo" loading="lazy">
                             <span class="product-tag">Savory</span>
                         </div>
                         <div class="product-content">
-                            <h3>Sausage Original Mayo</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Sausage Original Mayo</h3>
                             <p>Pelukan kasih yang mengenyangkan. Sosis yang terbungkus rapi di dalam gulungan roti lembut.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Sausage%20Original%20Mayo" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 7 -->
-                    <article class="product-card" data-category="japanese" data-name="original meron">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="7" data-category="japanese" data-name="Original Meron" data-price="3000" data-image="../image/melon pan.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/melon pan.jpeg" alt="Original Meron" loading="lazy">
                             <span class="product-tag">Japanese</span>
                         </div>
                         <div class="product-content">
-                            <h3>Original Meron</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Original Meron</h3>
                             <p>Nikmati perpaduan roti lembut dengan lapisan luar bertekstur khas melon pan dan cita rasa durian.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Original%20Meron" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 8 -->
-                    <article class="product-card" data-category="japanese" data-name="strawberry meron">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="8" data-category="japanese" data-name="Strawberry Meron" data-price="3000" data-image="../image/melon pan stroberi.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/melon pan stroberi.jpeg" alt="Strawberry Meron" loading="lazy">
                             <span class="product-tag">Japanese</span>
                         </div>
                         <div class="product-content">
-                            <h3>Strawberry Meron</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Strawberry Meron</h3>
                             <p>Roti lembut dengan lapisan khas melon pan berwarna pink yang menggoda.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Strawberry%20Meron" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 9 -->
-                    <article class="product-card" data-category="coffee" data-name="coffe cream">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="9" data-category="coffee" data-name="Coffe Cream" data-price="3000" data-image="../image/coffe Bun.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/coffe Bun.jpeg" alt="Coffe Cream" loading="lazy">
                             <span class="product-tag">Coffee</span>
                         </div>
                         <div class="product-content">
-                            <h3>Coffe Cream</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Coffe Cream</h3>
                             <p>Roti cokelat dengan isian krim mocca yang lembut dan aroma kopi yang khas.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coffe%20Cream" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 10 -->
-                    <article class="product-card" data-category="sweet" data-name="choco bread">
-                        <div class="image-wrapper">
-                            <img src="../image/roti cokelat.jpeg" alt="Choco Bread" loading="lazy">
+                    <article class="product-card" data-id="10" data-category="sweet" data-name="Choco Bread" data-price="3000" data-image="../image/cokelat springkle.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
+                            <img src="../image/cokelat springkle.jpeg" alt="Choco Bread" loading="lazy">
                             <span class="product-tag">Classic</span>
                         </div>
                         <div class="product-content">
-                            <h3>Choco Bread</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Choco Bread</h3>
                             <p>Roti lembut dengan taburan cokelat yang menggoda dan warna keemasan yang bikin selera meningkat.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Choco%20Bread" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 11 -->
-                    <article class="product-card" data-category="sweet" data-name="vanilla strawberry bun">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="11" data-category="sweet" data-name="Vanilla Strawberry Bun" data-price="3000" data-image="../image/vanila stroberi bun.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/vanila stroberi bun.jpeg" alt="Vanilla Strawberry Bun" loading="lazy">
                             <span class="product-tag">Sweet</span>
                         </div>
                         <div class="product-content">
-                            <h3>Vanilla Strawberry Bun</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Vanilla Strawberry Bun</h3>
                             <p>Roti berwarna pink yang cantik dengan tekstur lembut dan isian vanilla cream yang creamy serta manis.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Vanilla%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 12 -->
-                    <article class="product-card" data-category="coffee" data-name="banana coffee bun">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="12" data-category="coffee" data-name="Banana Coffee Bun" data-price="3000" data-image="../image/banana coffe bun.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/banana coffe bun.jpeg" alt="Banana Coffee Bun" loading="lazy">
                             <span class="product-tag">Coffee</span>
                         </div>
                         <div class="product-content">
-                            <h3>Banana Coffee Bun</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Banana Coffee Bun</h3>
                             <p>Perpaduan aroma kopi khas dengan roti lembut dan isian selai pisang yang manis, ditambah taburan kacang gurih.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Banana%20Coffee%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 13 -->
-                    <article class="product-card" data-category="coffee" data-name="coffe strawberry bun">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="13" data-category="coffee" data-name="Coffe Strawberry Bun" data-price="3000" data-image="../image/coffe stroberi bun.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/coffe stroberi bun.jpeg" alt="Coffe Strawberry Bun" loading="lazy">
                             <span class="product-tag">Coffee</span>
                         </div>
                         <div class="product-content">
-                            <h3>Coffe Strawberry Bun</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Coffe Strawberry Bun</h3>
                             <p>Roti pink cantik dengan motif cokelat kopi, bertekstur lembut, dan berisi coffee cream yang creamy.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Coffe%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
 
                     <!-- PRODUK 14 -->
-                    <article class="product-card" data-category="sweet" data-name="strawberry bun">
-                        <div class="image-wrapper">
+                    <article class="product-card" data-id="14" data-category="sweet" data-name="Strawberry Bun" data-price="3000" data-image="../image/stroberi bun.jpeg">
+                        <div class="image-wrapper" data-open-quickview>
                             <img src="../image/stroberi bun.jpeg" alt="Strawberry Bun" loading="lazy">
                             <span class="product-tag">Sweet</span>
                         </div>
                         <div class="product-content">
-                            <h3>Strawberry Bun</h3>
+                            <h3 data-open-quickview style="cursor:pointer;">Strawberry Bun</h3>
                             <p>Roti lembut dengan isian selai stroberi yang manis dan sedikit asam, menghadirkan rasa buah yang menyegarkan.</p>
                             <div class="product-footer">
                                 <span class="product-price">Rp 3.000</span>
-                                <a href="https://wa.me/6281554016406?text=Halo,%20saya%20mau%20pesan%20Strawberry%20Bun" class="btn-order" target="_blank" rel="noopener">Pesan ↗</a>
+                                <button class="btn-add-cart" type="button" data-add-cart>+ Keranjang</button>
                             </div>
                         </div>
                     </article>
@@ -361,6 +384,90 @@
             <path d="M12 19V5M5 12l7-7 7 7"/>
         </svg>
     </button>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/6281554016406?text=Halo%20ZURIYAH%20Bakery,%20saya%20mau%20tanya%20menu%20roti" 
+       class="floating-wa" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Chat via WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span class="floating-wa-tooltip">Chat via WhatsApp</span>
+    </a>
+
+    <!-- FITUR BARU: QUICK VIEW MODAL -->
+    <div class="quickview-modal" id="quickviewModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="quickview-backdrop" data-close-quickview></div>
+        <div class="quickview-content">
+            <button class="quickview-close" id="quickviewClose" type="button" aria-label="Tutup detail">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="quickview-grid">
+                <div class="quickview-image">
+                    <img id="qvImage" src="" alt="">
+                </div>
+                <div class="quickview-info">
+                    <span class="quickview-tag" id="qvTag">SIGNATURE</span>
+                    <h2 id="qvTitle">Nama Produk</h2>
+                    <p class="quickview-desc" id="qvDesc">Deskripsi...</p>
+                    <div class="quickview-price-wrap">
+                        <span class="quickview-price-label">Harga</span>
+                        <span class="quickview-price" id="qvPrice">Rp 3.000</span>
+                    </div>
+                    <div class="quickview-actions">
+                        <button class="btn-add-cart-large" id="qvAddCart" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            Tambah ke Keranjang
+                        </button>
+                        <a href="https://wa.me/6281554016406" id="qvWaLink" class="btn-wa-large" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Chat WA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FITUR BARU: CART DRAWER -->
+    <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Keranjang Belanja">
+        <header class="cart-header">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                Keranjang Belanja
+            </h2>
+            <button class="cart-close" id="cartClose" type="button" aria-label="Tutup keranjang">
+                <span aria-hidden="true">×</span>
+            </button>
+        </header>
+
+        <div class="cart-body" id="cartBody">
+            <div class="cart-empty" id="cartEmpty">
+                <span>🛒</span>
+                <p>Keranjang masih kosong</p>
+                <small>Yuk pilih roti favoritmu dulu!</small>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+        </div>
+
+        <footer class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span class="cart-total" id="cartTotal">Rp 0</span>
+            </div>
+            <p class="cart-note">Belum termasuk ongkir.</p>
+            <button class="btn-checkout" id="btnCheckout" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Checkout via WhatsApp
+            </button>
+        </footer>
+    </aside>
+
+    <!-- FITUR BARU: TOAST NOTIFICATION -->
+    <div class="toast" id="toast" aria-live="polite"></div>
 
     <script src="menu.js" defer></script>
 </body>
