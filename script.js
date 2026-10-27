@@ -1448,6 +1448,69 @@ if ("IntersectionObserver" in window) {
     });
 })();
 
+/* ====================================================
+   LOADING SCREEN INTERCEPT — PINDAH KE MENU ROTI
+   ==================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const menuLink = document.querySelector('a[data-intercepted="menu"]');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingBarFill = document.getElementById('loadingBarFill');
+    const loadingPercentage = document.getElementById('loadingPercentage');
+    const loadingText = document.getElementById('loadingText');
+
+    if (!menuLink || !loadingScreen) return;
+
+    const DURATION = 3000; // 3 detik
+    const INTERVAL = 50;   // update tiap 50ms
+
+    menuLink.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Simpan URL tujuan
+        const targetUrl = menuLink.getAttribute('href');
+
+        // Tampilkan loading screen
+        loadingScreen.classList.add('is-active');
+        loadingScreen.setAttribute('aria-hidden', 'false');
+
+        // Lock scroll
+        document.body.style.overflow = 'hidden';
+
+        // Reset progress
+        let currentStep = 0;
+        const steps = DURATION / INTERVAL;
+        if (loadingBarFill) loadingBarFill.style.width = '0%';
+        if (loadingPercentage) loadingPercentage.textContent = '0%';
+        if (loadingText) loadingText.textContent = 'Menyiapkan menu terbaik untukmu...';
+
+        // Animasi progress
+        const interval = setInterval(() => {
+            currentStep++;
+            const progress = Math.min((currentStep / steps) * 100, 100);
+
+            if (loadingBarFill) loadingBarFill.style.width = progress + '%';
+            if (loadingPercentage) loadingPercentage.textContent = Math.floor(progress) + '%';
+
+            // Update text di pertengahan
+            if (progress > 50 && progress < 60 && loadingText) {
+                loadingText.textContent = 'Sebentar lagi... ';
+            }
+
+            // Selesai
+            if (currentStep >= steps) {
+                clearInterval(interval);
+
+                if (loadingText) loadingText.textContent = 'Selamat menikmati! ';
+
+                // Redirect setelah 300ms biar 100% kelihatan
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 300);
+            }
+        }, INTERVAL);
+    });
+});
+
 
 /* ====================================================
    FITUR 3: JAM OPERASIONAL (AUTO HIGHLIGHT HARI INI)

@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================
-    // 5. CART SYSTEM (Fitur Baru)
+    // 5. CART SYSTEM
     // ==========================
     let cart = JSON.parse(localStorage.getItem('zuriyahCart')) || [];
 
@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(`${product.name} ditambahkan ke keranjang!`);
     }
 
-    // Open/Close Cart
     function openCart() {
         cartDrawer.classList.add('is-open');
         cartBackdrop.classList.add('is-visible');
@@ -175,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cartClose?.addEventListener('click', closeCart);
     cartBackdrop?.addEventListener('click', closeCart);
 
-    // Cart controls (event delegation)
     cartItemsEl?.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action]');
         if (!btn) return;
@@ -198,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCart();
     });
 
-    // Checkout via WhatsApp
     btnCheckout?.addEventListener('click', () => {
         if (cart.length === 0) return;
 
@@ -216,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://wa.me/6281554016406?text=${message}`, '_blank');
     });
 
-    // Add to Cart buttons
     document.querySelectorAll('[data-add-cart]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
@@ -231,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================
-    // 6. QUICK VIEW MODAL (Fitur Baru)
+    // 6. QUICK VIEW MODAL
     // ==========================
     const quickviewModal = document.getElementById('quickviewModal');
     const quickviewClose = document.getElementById('quickviewClose');
@@ -291,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ESC to close all modals
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (quickviewModal.classList.contains('is-open')) closeQuickview();
@@ -300,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================
-    // 7. SEARCH, FILTER, SORT (dengan Highlight)
+    // 7. SEARCH, FILTER, SORT
     // ==========================
     const searchInput = document.getElementById('searchInput');
     const searchClear = document.getElementById('searchClear');
@@ -315,14 +310,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchQuery = '';
     let activeSort = 'default';
 
-    // Simpan teks asli nama produk untuk highlight
     const originalNames = new Map();
     productCards.forEach(card => {
         const h3 = card.querySelector('.product-content h3');
         originalNames.set(card, h3.textContent);
     });
 
-    // Set filter dari localStorage
     if (activeFilter !== 'all') {
         filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('is-active');
@@ -350,7 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchCategory = (activeFilter === 'all' || category === activeFilter);
             const matchSearch = name.includes(searchQuery.toLowerCase());
 
-            // Highlight nama produk
             const h3 = card.querySelector('.product-content h3');
             if (matchSearch && searchQuery) {
                 h3.innerHTML = highlightText(originalNames.get(card), searchQuery);
@@ -367,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Sort
         if (activeSort !== 'default') {
             visibleCards.sort((a, b) => {
                 const nameA = a.dataset.name.toLowerCase();
@@ -388,7 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
             productCards.forEach(card => productGrid.appendChild(card));
         }
 
-        // Result info
         if (visibleCount === 0) {
             emptyState.hidden = false;
             resultInfo.hidden = true;

@@ -2803,6 +2803,180 @@ html[data-theme="dark"] .qna-panel { box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6);
     .qna-panel .form-row { grid-template-columns: 1fr; gap: 0; }
 }
 
+/* ====================================================
+   LOADING SCREEN (Intercept Menu Roti)
+   ==================================================== */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 50% 40%, rgba(199, 154, 62, 0.15), transparent 60%),
+        var(--bg-body);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    overflow: hidden;
+}
+
+.loading-screen.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    animation: fadeInUp 0.8s var(--ease) forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo dengan Ring Berputar */
+.loading-logo {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 24px;
+}
+
+.loading-logo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: contain;
+    padding: 8px;
+    background: var(--bg-form);
+    box-shadow: 0 8px 24px rgba(184, 135, 47, 0.25);
+    position: relative;
+    z-index: 2;
+    animation: logoPulse 2s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.loading-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--gold);
+    border-right-color: var(--gold-light);
+    animation: ringSpin 1.2s linear infinite;
+    z-index: 1;
+}
+
+@keyframes ringSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Judul */
+.loading-title {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-main);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.loading-title small {
+    margin-top: 6px;
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+}
+
+/* Teks */
+.loading-text {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-bottom: 24px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* Progress Bar */
+.loading-bar {
+    width: 220px;
+    height: 4px;
+    background: var(--bg-input);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: inset 0 1px 2px rgba(46, 27, 18, 0.08);
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    background-size: 200% 100%;
+    border-radius: 50px;
+    transition: width 0.1s linear;
+    animation: barShimmer 1.5s linear infinite;
+}
+
+@keyframes barShimmer {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Persentase */
+.loading-percentage {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+}
+
+/* Dark Mode Tweak */
+html[data-theme="dark"] .loading-logo img {
+    box-shadow: 0 8px 24px rgba(228, 190, 110, 0.3);
+}
+
+html[data-theme="dark"] .loading-bar {
+    background: rgba(242, 228, 206, 0.1);
+}
+
+/* Responsive Mobile */
+@media (max-width: 640px) {
+    .loading-logo { width: 90px; height: 90px; margin-bottom: 20px; }
+    .loading-title { font-size: 1.6rem; }
+    .loading-title small { font-size: 0.55rem; letter-spacing: 0.3em; }
+    .loading-text { font-size: 0.78rem; margin-bottom: 20px; }
+    .loading-bar { width: 180px; }
+    .loading-percentage { font-size: 0.95rem; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .loading-logo img,
+    .loading-ring,
+    .loading-bar-fill {
+        animation: none;
+    }
+}
+
+
 /* ==========================
    VISITOR COUNTER
    ========================== */
