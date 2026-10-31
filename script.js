@@ -623,7 +623,7 @@ if ("IntersectionObserver" in window) {
    + EMAIL SENSOR (ULTRA PRIVACY)
    ========================== */
 (function initQnA() {
-    const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
+    const JSONBIN_KEY = "$2a$10$FkCg6NCfX.JLZSP48AmZbue1YB2pmBI4XGffVsl7dIzKXaBz08qHC";
     const JSONBIN_BIN = "6ad221bcac6210605a373689";
 
     const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
@@ -1460,7 +1460,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!menuLink || !loadingScreen) return;
 
-    const DURATION = 3000; // 3 detik
+    const DURATION = 1000; // 3 detik
     const INTERVAL = 50;   // update tiap 50ms
 
     menuLink.addEventListener('click', (e) => {
@@ -1511,6 +1511,91 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* ====================================================
+   FITUR 4: BACKGROUND MUSIC + TOGGLE BUTTON
+   ==================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const music = document.getElementById('bgMusic');
+    const toggleBtn = document.getElementById('musicToggle');
+    if (!music || !toggleBtn) return;
+
+    // Volume musik (0.0 - 1.0)
+    music.volume = 0.4;
+
+    // Key localStorage biar preferensi user diingat
+    const MUSIC_PREF_KEY = 'zuriyah-music-muted';
+
+    // Ambil preferensi user (default: nyala)
+    let isMuted = false;
+    try {
+        isMuted = localStorage.getItem(MUSIC_PREF_KEY) === '1';
+    } catch (e) {}
+
+    // Fungsi update tampilan tombol
+    function updateButtonState() {
+        if (isMuted) {
+            toggleBtn.classList.add('is-muted');
+            toggleBtn.setAttribute('aria-pressed', 'false');
+            toggleBtn.setAttribute('aria-label', 'Nyalakan musik');
+            toggleBtn.setAttribute('title', 'Nyalakan musik');
+        } else {
+            toggleBtn.classList.remove('is-muted');
+            toggleBtn.setAttribute('aria-pressed', 'true');
+            toggleBtn.setAttribute('aria-label', 'Matikan musik');
+            toggleBtn.setAttribute('title', 'Matikan musik');
+        }
+    }
+
+    // Simpan preferensi
+    function savePreference() {
+        try {
+            localStorage.setItem(MUSIC_PREF_KEY, isMuted ? '1' : '0');
+        } catch (e) {}
+    }
+
+    // Fungsi play dengan fallback interaksi pertama
+    function tryPlayMusic() {
+        if (isMuted) return;
+
+        music.play().catch(() => {
+            // Browser blokir autoplay → tunggu interaksi pertama user
+            const playOnInteraction = () => {
+                if (!isMuted) {
+                    music.play().catch(() => {});
+                }
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
+                document.removeEventListener('scroll', playOnInteraction);
+                document.removeEventListener('keydown', playOnInteraction);
+            };
+
+            document.addEventListener('click', playOnInteraction, { once: true });
+            document.addEventListener('touchstart', playOnInteraction, { once: true });
+            document.addEventListener('scroll', playOnInteraction, { once: true });
+            document.addEventListener('keydown', playOnInteraction, { once: true });
+        });
+    }
+
+    // Toggle klik
+    toggleBtn.addEventListener('click', () => {
+        isMuted = !isMuted;
+
+        if (isMuted) {
+            music.pause();
+        } else {
+            music.play().catch(() => {});
+        }
+
+        updateButtonState();
+        savePreference();
+    });
+
+    // Init
+    updateButtonState();
+    if (!isMuted) {
+        tryPlayMusic();
+    }
+});
 
 /* ====================================================
    FITUR 3: JAM OPERASIONAL (AUTO HIGHLIGHT HARI INI)
