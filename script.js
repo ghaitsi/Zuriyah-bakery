@@ -20,12 +20,10 @@ document.documentElement.classList.add("js-enabled");
     };
 
     function getStoredTheme() {
-        // Kita biarkan kosong agar tidak mengambil setelan lama pengunjung
         return "dark"; 
     }
 
     function getSystemTheme() {
-        // Paksa selalu dark, abaikan setelan bawaan HP/Laptop
         return "dark";
     }
 
@@ -619,14 +617,15 @@ if ("IntersectionObserver" in window) {
 
 /* ==========================
    QNA — PUBLIC BOARD via JSONBin.io
-   + REPLY SYSTEM
-   + EMAIL SENSOR (ULTRA PRIVACY)
    ========================== */
 (function initQnA() {
-    const JSONBIN_KEY = "$2a$10$FkCg6NCfX.JLZSP48AmZbue1YB2pmBI4XGffVsl7dIzKXaBz08qHC";
-    const JSONBIN_BIN = "6ad221bcac6210605a373689";
+    // BIN ID QnA Baru (Sudah PUBLIC)
+    const JSONBIN_BIN_QNA = "6ae88b0aac6210605a65ca75"; 
+    
+    // Master Key kamu (Diperlukan HANYA untuk menyimpan/mengirim data)
+    const JSONBIN_MASTER_KEY = "$2a$10$FkCg6NCfX.JLZSP48AmZbue1YB2pmBI4XGffVsl7dIzKXaBz08qHC"; 
 
-    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_QNA}`;
     const CACHE_KEY = "zuriyah-qna-cache";
     const MAX_ENTRIES = 100;
     const MAX_REPLIES = 20;
@@ -713,22 +712,6 @@ if ("IntersectionObserver" in window) {
         return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
     }
 
-    /**
-     * SENSOR EMAIL — Blind Mode
-     * Publik tidak akan melihat huruf/domain sama sekali.
-     */
-    function maskEmail(email) {
-        if (!email) return "Tidak ada email";
-        if (isAdmin) return email;
-        return "Email Terlindungi";
-    }
-
-    function formatEmailDisplay(email) {
-        if (!email) return "Tidak ada email";
-        if (isAdmin) return email;
-        return maskEmail(email);
-    }
-
     function timeAgo(iso) {
         const now = Date.now();
         const then = new Date(iso).getTime();
@@ -746,15 +729,14 @@ if ("IntersectionObserver" in window) {
 
     /* ============ API ============ */
     async function fetchEntries() {
+        // KARENA PUBLIC, KITA TIDAK PERLU HEADER KEY SAAT MEMBACA
         const res = await fetch(`${API_URL}/latest`, {
             headers: {
-                "X-Master-Key": JSONBIN_KEY,
                 "X-Bin-Meta": "false"
             }
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
         const data = await res.json();
 
         if (Array.isArray(data)) return data;
@@ -763,11 +745,12 @@ if ("IntersectionObserver" in window) {
     }
 
     async function saveEntries(newEntries) {
+        // UNTUK MENYIMPAN, KITA TETAP BUTUH MASTER KEY
         const res = await fetch(API_URL, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-Master-Key": JSONBIN_KEY
+                "X-Master-Key": JSONBIN_MASTER_KEY
             },
             body: JSON.stringify(newEntries)
         });
@@ -797,16 +780,22 @@ if ("IntersectionObserver" in window) {
 
             renderList();
         } catch (err) {
-            console.error("Gagal load QnA:", err);
-            showToast("Gagal memuat data. Coba refresh.", "error");
+            console.warn("Gagal load QnA dari server, menggunakan cache:", err);
+            showToast("Koneksi lambat, menampilkan data tersimpan.", "error");
 
             try {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (raw) {
                     entries = JSON.parse(raw);
                     renderList();
+                } else {
+                    entries = [];
+                    renderList();
                 }
-            } catch (e) {}
+            } catch (e) {
+                entries = [];
+                renderList();
+            }
         } finally {
             isLoading = false;
             if (loadingEl) loadingEl.hidden = true;
@@ -1008,7 +997,15 @@ if ("IntersectionObserver" in window) {
             showToast("Pertanyaan berhasil dikirim!");
         } catch (err) {
             console.error("Gagal kirim:", err);
-            showToast("Gagal mengirim. Coba lagi.", "error");
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(newEntries));
+                entries = newEntries;
+                renderList();
+                form.reset();
+                showToast("Pertanyaan tersimpan secara lokal (Offline).", "error");
+            } catch (e) {
+                showToast("Gagal mengirim. Coba lagi.", "error");
+            }
         } finally {
             if (submitBtn) {
                 submitBtn.disabled = false;
@@ -1116,10 +1113,18 @@ if ("IntersectionObserver" in window) {
             showToast("Balasan berhasil dikirim!");
         } catch (err) {
             console.error("Gagal kirim balasan:", err);
-            showToast("Gagal mengirim balasan. Coba lagi.", "error");
-            if (btn) {
-                btn.disabled = false;
-                btn.innerHTML = originalText;
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(newEntries));
+                entries = newEntries;
+                activeReplyId = null;
+                renderList();
+                showToast("Balasan tersimpan lokal (Offline).", "error");
+            } catch (e) {
+                showToast("Gagal mengirim balasan. Coba lagi.", "error");
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
             }
         }
     }
@@ -1246,10 +1251,13 @@ if ("IntersectionObserver" in window) {
     const el = document.querySelector("#visitorCount");
     if (!el) return;
 
-    const JSONBIN_KEY = "$2a$10$hR/BpeB0os9dc332y953gOHGK9cgaRcCPTg1TiD3WsLxs4NK/nPEy";
-    const JSONBIN_BIN = "6ad315aeac6210605a393343";
+    // BIN ID VISITOR BARU KAMU
+    const JSONBIN_BIN_VISITOR = "6ae88bfaac6210605a65cd73"; 
+    
+    // ⚠️ GANTI DENGAN MASTER KEY KAMU YANG ASLI ⚠️
+    const JSONBIN_MASTER_KEY = "$2a$10$FkCg6NCfX.JLZSP48AmZbue1YB2pmBI4XGffVsl7dIzKXaBz08qHC"; 
 
-    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+    const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_VISITOR}`;
     const CACHE_KEY = "zuriyah-visitor-cache";
     const COUNTED_KEY = "zuriyah-visitor-counted";
 
@@ -1283,9 +1291,9 @@ if ("IntersectionObserver" in window) {
     }
 
     async function fetchCount() {
+        // KARENA PUBLIC, KITA TIDAK PERLU HEADER KEY SAAT MEMBACA
         const res = await fetch(`${API_URL}/latest`, {
             headers: {
-                "X-Master-Key": JSONBIN_KEY,
                 "X-Bin-Meta": "false"
             },
             cache: "no-store"
@@ -1296,11 +1304,12 @@ if ("IntersectionObserver" in window) {
     }
 
     async function saveCount(visitors) {
+        // UNTUK MENYIMPAN, KITA TETAP BUTUH MASTER KEY
         const res = await fetch(API_URL, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-Master-Key": JSONBIN_KEY
+                "X-Master-Key": JSONBIN_MASTER_KEY
             },
             body: JSON.stringify({ visitors })
         });
@@ -1357,7 +1366,9 @@ if ("IntersectionObserver" in window) {
             displayStart = cached;
             renderStatic(cached);
         } else {
-            renderStatic(0);
+            renderStatic(1);
+            current = 1;
+            displayStart = 1;
         }
 
         const alreadyCounted = safeGet(sessionStorage, COUNTED_KEY) === "1";
@@ -1393,8 +1404,8 @@ if ("IntersectionObserver" in window) {
             current = next;
             observeAndAnimate();
         } catch (err) {
-            console.error("Visitor counter gagal:", err);
-            const fallback = getCachedCount() ?? 0;
+            console.error("Visitor counter gagal, menggunakan data cache:", err);
+            const fallback = getCachedCount() ?? 1;
             current = fallback;
             displayStart = fallback;
             animateTo(fallback, fallback);
@@ -1460,30 +1471,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!menuLink || !loadingScreen) return;
 
-    const DURATION = 1000; // 3 detik
-    const INTERVAL = 50;   // update tiap 50ms
+    const DURATION = 1000;
+    const INTERVAL = 50;
 
     menuLink.addEventListener('click', (e) => {
         e.preventDefault();
 
-        // Simpan URL tujuan
         const targetUrl = menuLink.getAttribute('href');
 
-        // Tampilkan loading screen
         loadingScreen.classList.add('is-active');
         loadingScreen.setAttribute('aria-hidden', 'false');
 
-        // Lock scroll
         document.body.style.overflow = 'hidden';
 
-        // Reset progress
         let currentStep = 0;
         const steps = DURATION / INTERVAL;
         if (loadingBarFill) loadingBarFill.style.width = '0%';
         if (loadingPercentage) loadingPercentage.textContent = '0%';
         if (loadingText) loadingText.textContent = 'Menyiapkan menu terbaik untukmu...';
 
-        // Animasi progress
         const interval = setInterval(() => {
             currentStep++;
             const progress = Math.min((currentStep / steps) * 100, 100);
@@ -1491,18 +1497,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (loadingBarFill) loadingBarFill.style.width = progress + '%';
             if (loadingPercentage) loadingPercentage.textContent = Math.floor(progress) + '%';
 
-            // Update text di pertengahan
             if (progress > 50 && progress < 60 && loadingText) {
                 loadingText.textContent = 'Sebentar lagi... ';
             }
 
-            // Selesai
             if (currentStep >= steps) {
                 clearInterval(interval);
 
                 if (loadingText) loadingText.textContent = 'Selamat menikmati! ';
 
-                // Redirect setelah 300ms biar 100% kelihatan
                 setTimeout(() => {
                     window.location.href = targetUrl;
                 }, 300);
@@ -1519,19 +1522,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('musicToggle');
     if (!music || !toggleBtn) return;
 
-    // Volume musik (0.0 - 1.0)
     music.volume = 0.4;
 
-    // Key localStorage biar preferensi user diingat
     const MUSIC_PREF_KEY = 'zuriyah-music-muted';
 
-    // Ambil preferensi user (default: nyala)
     let isMuted = false;
     try {
         isMuted = localStorage.getItem(MUSIC_PREF_KEY) === '1';
     } catch (e) {}
 
-    // Fungsi update tampilan tombol
     function updateButtonState() {
         if (isMuted) {
             toggleBtn.classList.add('is-muted');
@@ -1546,19 +1545,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Simpan preferensi
     function savePreference() {
         try {
             localStorage.setItem(MUSIC_PREF_KEY, isMuted ? '1' : '0');
         } catch (e) {}
     }
 
-    // Fungsi play dengan fallback interaksi pertama
     function tryPlayMusic() {
         if (isMuted) return;
 
         music.play().catch(() => {
-            // Browser blokir autoplay → tunggu interaksi pertama user
             const playOnInteraction = () => {
                 if (!isMuted) {
                     music.play().catch(() => {});
@@ -1576,7 +1572,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle klik
     toggleBtn.addEventListener('click', () => {
         isMuted = !isMuted;
 
@@ -1590,7 +1585,6 @@ document.addEventListener('DOMContentLoaded', () => {
         savePreference();
     });
 
-    // Init
     updateButtonState();
     if (!isMuted) {
         tryPlayMusic();
