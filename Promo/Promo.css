@@ -1,0 +1,664 @@
+/* ====================================================
+   PROMO.CSS — Import style utama + style khusus promo
+   ==================================================== */
+
+/* Load semua style dari landing (variable, reset, navbar, footer, dll) */
+@import url("../style.css");
+
+/* ====================================================
+   PROMO PAGE — HERO
+   ==================================================== */
+.promo-hero {
+    padding: 80px 0 60px;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(199, 154, 62, 0.14), transparent 50%),
+        var(--bg-hero);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease;
+}
+
+.promo-hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.promo-hero h1 {
+    margin: 22px 0 25px;
+}
+
+.promo-hero-desc {
+    max-width: 520px;
+    margin-bottom: 30px;
+    color: var(--text-soft);
+    font-size: 0.96rem;
+    line-height: 1.9;
+}
+
+.promo-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.promo-hero-visual {
+    position: relative;
+    height: 280px;
+    display: grid;
+    place-items: center;
+}
+
+.promo-hero-badge {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    font-family: var(--serif);
+    font-size: 5rem;
+    font-weight: 800;
+    box-shadow: 0 20px 50px rgba(199, 154, 62, 0.4);
+    animation: floatSoft 4s ease-in-out infinite;
+}
+
+.promo-hero-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 240px;
+    height: 240px;
+    border: 2px dashed rgba(199, 154, 62, 0.35);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: promoRingSpin 30s linear infinite;
+}
+
+.promo-hero-ring-2 {
+    width: 320px;
+    height: 320px;
+    border: 1px solid rgba(199, 154, 62, 0.2);
+    animation-direction: reverse;
+    animation-duration: 40s;
+}
+
+@keyframes promoRingSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ====================================================
+   PROMO AKTIF
+   ==================================================== */
+.promo-aktif {
+    background: var(--bg-products);
+    transition: background 0.4s ease;
+}
+
+.promo-update {
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-bottom: 7px;
+}
+
+.promo-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.promo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 2rem;
+    border-radius: 20px;
+    background: var(--bg-form);
+    border: 1px solid var(--border-input);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.promo-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold);
+}
+
+.promo-item-featured {
+    background: linear-gradient(135deg, var(--brown-mid) 0%, #2E1B12 100%);
+    color: #FBF4E4;
+    border-color: transparent;
+}
+
+html[data-theme="dark"] .promo-item-featured {
+    background: linear-gradient(135deg, #4A2E1F 0%, #2A1D14 100%);
+}
+
+.promo-item-tag {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.promo-item h3 {
+    font-size: 2rem;
+    line-height: 1.1;
+    color: var(--text-main);
+}
+
+.promo-item-featured h3 {
+    color: #FBF4E4;
+}
+
+.promo-item h3 em {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.promo-item-featured h3 em {
+    color: var(--gold-light);
+}
+
+.promo-item-desc {
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.promo-item-featured .promo-item-desc {
+    color: rgba(251, 244, 228, 0.75);
+}
+
+.promo-item-terms {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.promo-item-terms li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+}
+
+.promo-item-terms li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.promo-item-featured .promo-item-terms li {
+    color: rgba(251, 244, 228, 0.75);
+}
+
+.promo-item-featured .promo-item-terms li::before {
+    color: var(--gold-light);
+}
+
+.promo-item .btn {
+    margin-top: auto;
+}
+
+.promo-item-featured .btn-primary {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    box-shadow: 0 10px 26px rgba(199, 154, 62, 0.35);
+}
+
+.promo-item-featured .btn-primary:hover {
+    background: linear-gradient(135deg, var(--gold-pale), var(--gold-light));
+}
+
+/* ====================================================
+   BUNDLING
+   ==================================================== */
+.bundling {
+    background:
+        radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.12), transparent 45%),
+        var(--bg-products);
+    transition: background 0.4s ease;
+}
+
+.bundling-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.bundle-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-form);
+    border: 1px solid var(--border-input);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.bundle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold);
+}
+
+.bundle-image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg-card-image);
+}
+
+.bundle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+}
+
+.bundle-card:hover .bundle-image img {
+    transform: scale(1.05);
+}
+
+.bundle-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    box-shadow: var(--shadow-sm);
+}
+
+.bundle-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+    gap: 10px;
+}
+
+.bundle-info h3 {
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.bundle-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+}
+
+.bundle-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bundle-includes li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+}
+
+.bundle-includes li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.bundle-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    margin-top: auto;
+    border-top: 1px solid var(--border-input);
+    flex-wrap: wrap;
+}
+
+.bundle-price {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.bundle-price small {
+    font-size: 0.62rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+.bundle-price strong {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--gold);
+}
+
+.bundle-footer .btn {
+    min-height: 40px;
+    padding: 0 18px;
+    font-size: 0.78rem;
+}
+
+/* Custom Bundle CTA */
+.custom-bundle-cta {
+    margin-top: 2.5rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(199, 154, 62, 0.15), transparent 60%), var(--bg-form);
+    border: 1px dashed var(--gold);
+    border-radius: 20px;
+    transition: background 0.4s ease, border-color 0.3s ease;
+}
+
+.custom-bundle-cta h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.custom-bundle-cta p {
+    color: var(--text-soft);
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ====================================================
+   SYARAT & KETENTUAN
+   ==================================================== */
+.promo-terms {
+    background: var(--bg-contact);
+    transition: background 0.4s ease;
+}
+
+.terms-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 800px;
+    margin: 2.5rem auto 0;
+}
+
+.terms-item {
+    border: 1px solid var(--border-input);
+    border-radius: 14px;
+    background: var(--bg-form);
+    overflow: hidden;
+    transition: border-color 0.3s ease, background 0.4s ease;
+}
+
+.terms-item[open] {
+    border-color: var(--gold);
+    background: var(--bg-input);
+}
+
+.terms-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+    cursor: pointer;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-main);
+    list-style: none;
+    transition: color 0.3s ease;
+}
+
+.terms-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.terms-item summary::after {
+    content: "+";
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--bg-input);
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: transform 0.35s var(--ease), background 0.3s ease, color 0.3s ease;
+}
+
+.terms-item[open] summary::after {
+    content: "−";
+    transform: rotate(180deg);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+}
+
+.terms-item p {
+    padding: 0 22px 20px;
+    color: var(--text-soft);
+    font-size: 0.88rem;
+    line-height: 1.8;
+}
+
+/* ====================================================
+   CTA FINAL
+   ==================================================== */
+.cta-final {
+    background: var(--bg-products);
+    transition: background 0.4s ease;
+}
+
+.cta-box {
+    position: relative;
+    overflow: hidden;
+    padding: 70px 24px;
+    border: 1px solid var(--border-contact-box);
+    border-radius: 20px;
+    background: radial-gradient(circle at 100% 0%, rgba(199, 154, 62, 0.14), transparent 50%), var(--bg-contact-box);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: background 0.4s ease, border-color 0.3s ease;
+}
+
+.cta-box .contact-decoration {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: rgba(199, 154, 62, 0.25);
+    font-size: 5rem;
+}
+
+.cta-box h2 {
+    margin-bottom: 20px;
+}
+
+.cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.cta-actions .btn {
+    min-width: 200px;
+}
+
+/* ====================================================
+   PROMO PAGE — RESPONSIVE
+   ==================================================== */
+@media (max-width: 900px) {
+    .promo-hero {
+        padding: 60px 0 40px;
+    }
+
+    .promo-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .promo-hero-visual {
+        height: 220px;
+    }
+
+    .promo-hero-badge {
+        width: 130px;
+        height: 130px;
+        font-size: 4rem;
+    }
+
+    .promo-hero-ring {
+        width: 200px;
+        height: 200px;
+    }
+
+    .promo-hero-ring-2 {
+        width: 260px;
+        height: 260px;
+    }
+}
+
+@media (max-width: 640px) {
+    .promo-hero {
+        padding: 40px 0 30px;
+    }
+
+    .promo-hero h1 {
+        margin: 16px 0 18px;
+    }
+
+    .promo-hero-desc {
+        font-size: 0.88rem;
+        margin-bottom: 22px;
+    }
+
+    .promo-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .promo-hero-actions .btn {
+        width: 100%;
+    }
+
+    .promo-hero-actions .text-link {
+        justify-content: center;
+        padding: 6px 0;
+    }
+
+    .promo-hero-visual {
+        height: 180px;
+    }
+
+    .promo-hero-badge {
+        width: 110px;
+        height: 110px;
+        font-size: 3.5rem;
+    }
+
+    .promo-hero-ring {
+        width: 170px;
+        height: 170px;
+    }
+
+    .promo-hero-ring-2 {
+        width: 220px;
+        height: 220px;
+    }
+
+    .promo-list-grid,
+    .bundling-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .promo-item {
+        padding: 1.5rem;
+    }
+
+    .promo-item h3 {
+        font-size: 1.75rem;
+    }
+
+    .custom-bundle-cta {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .custom-bundle-cta h3 {
+        font-size: 1.25rem;
+    }
+
+    .terms-item summary {
+        padding: 15px 18px;
+        font-size: 0.95rem;
+    }
+
+    .terms-item p {
+        padding: 0 18px 16px;
+        font-size: 0.82rem;
+    }
+
+    .cta-box {
+        padding: 50px 18px;
+    }
+
+    .cta-box .contact-decoration {
+        font-size: 3rem;
+        right: 10px;
+    }
+
+    .cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cta-actions .btn {
+        width: 100%;
+        min-width: auto;
+    }
+}

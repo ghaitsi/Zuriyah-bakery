@@ -3888,6 +3888,228 @@ html[data-theme="dark"] .music-toggle {
     }
 }
 
+/* ====================================================
+   PROMO HIGHLIGHT SECTION
+   ==================================================== */
+.promo-highlight {
+    background: var(--bg-products);
+    transition: background 0.4s ease;
+}
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+.promo-card {
+    position: relative;
+    display: block;
+    padding: 2rem;
+    border-radius: 20px;
+    background: var(--bg-form);
+    border: 1px solid var(--border-input);
+    text-decoration: none;
+    color: var(--text-main);
+    overflow: hidden;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.promo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold);
+}
+
+.promo-card-lg {
+    background: linear-gradient(135deg, var(--brown-mid) 0%, #2E1B12 100%);
+    color: #FBF4E4;
+    border-color: transparent;
+}
+
+html[data-theme="dark"] .promo-card-lg {
+    background: linear-gradient(135deg, #4A2E1F 0%, #2A1D14 100%);
+}
+
+.promo-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    margin-bottom: 1rem;
+}
+
+.promo-card-content h3 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+}
+
+.promo-card-lg .promo-card-content h3 {
+    font-size: 2.5rem;
+    color: #FBF4E4;
+}
+
+.promo-card-content h3 em {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.promo-card-lg .promo-card-content h3 em {
+    color: var(--gold-light);
+}
+
+.promo-card-content p {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+.promo-card-lg .promo-card-content p {
+    color: rgba(251, 244, 228, 0.75);
+}
+
+.promo-cta {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.promo-card-lg .promo-cta {
+    color: var(--gold-light);
+}
+
+.promo-card-visual {
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-size: 8rem;
+    font-weight: 800;
+    font-family: var(--serif);
+    color: rgba(228, 190, 110, 0.15);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.promo-bottom-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: var(--bg-form);
+    border: 1px solid var(--border-input);
+    border-radius: 16px;
+    transition: background 0.4s ease, border-color 0.3s ease;
+}
+
+.promo-bottom-cta p {
+    margin-bottom: 1rem;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+    .promo-grid { grid-template-columns: 1fr 1fr; }
+    .promo-card-lg { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+    .promo-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .promo-card-lg { grid-column: span 1; }
+    .promo-card { padding: 1.5rem; }
+    .promo-card-lg .promo-card-content h3 { font-size: 2rem; }
+    .promo-card-content h3 { font-size: 1.5rem; }
+    .promo-card-visual { font-size: 6rem; }
+    .promo-bottom-cta { padding: 1.5rem 1rem; }
+    .promo-bottom-cta p { font-size: 0.82rem; }
+}
+
+/* ====================================================
+   TESTIMONIALS SECTION
+   ==================================================== */
+.testimonials {
+    background: var(--bg-products);
+    transition: background 0.4s ease;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.testimonial-card {
+    background: var(--bg-form);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-input);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold);
+}
+
+.testimonial-stars {
+    color: var(--gold);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #1C120B;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-family: var(--serif);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.testimonial-author strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.testimonial-author small {
+    color: var(--text-soft);
+    font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+    .testimonial-card { padding: 1.5rem; }
+    .testimonial-text { font-size: 0.85rem; }
+}
 
 
 /* Responsive Mobile */
